@@ -1,0 +1,16 @@
+<div class="main-nav__container" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@headerAnimation]="isMouseIn ? 'hover':'void'">
+    <div class="brand-logo__container" routerLink="/">
+        <div class="logo__container">
+            <img src="../../../../assets/icons/logo.svg" alt="logo" class="logo__image">
+        </div>
+        <strong>Soccer</strong>
+        <p>App</p>
+    </div>
+
+    <div class="nav-links">
+        <a href="#">My Tournaments</a>
+        <a href="#">My Teams</a>
+        <a href="#">Global Statistics</a>
+        <button>Login</button>
+    </div>
+</div>

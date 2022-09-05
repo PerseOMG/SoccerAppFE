@@ -1,0 +1,53 @@
+<div class="card__container" (click)="selectedCard(team._id)" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'" [@selectAnimation]="selectedCardId === team._id ? 'selected':'void'">
+    <div class="card__action-buttons-container">
+        <img class="card__action-buttons" src="../../../assets/icons/back-arrow.svg" alt="back">
+        <div>
+            <img class="card__action-buttons" src="../../../assets/icons/heart-empty.svg" alt="favorite">
+            <img class="card__action-buttons" src="../../../assets/icons/dots.svg" alt="actions">
+        </div>
+    </div>
+
+    <div class="card__info-container">
+        <img class="card__info-image" [src]="team.logo" [alt]="team.name">
+
+        <strong class="card__info-name">{{team.name}}</strong>
+
+        <hr class="separator">
+
+    </div>
+    <div class="card__championships-container">
+        <ng-container *ngFor="let item of team.totalChampionships">
+            <img class="card__championships-image" src="../../../assets/icons/trophy.svg" alt="*">
+        </ng-container>
+        <ng-container *ngIf="team.totalChampionships.length === 0">
+            <img class="card__championships-image" src="../../../assets/icons/x.svg" alt="NA">
+        </ng-container>
+    </div>
+    <hr class="separator">
+
+    <div class="card__statistics-container">
+
+        <div class="card__statistics-section">
+            <div class="card__statistics-image-container">
+                <img class="card__statistics-image" src="../../../assets/icons/winner-badge.svg" alt="WinRate">
+            </div>
+            <strong class="card__statistics-text" [ngStyle]="{'color': team.wonGamesAverage > 50 ? '#1B4D3E' : '#AA0000'}">{{team.wonGamesAverage}}%</strong>
+        </div>
+
+        <div class="card__statistics-section">
+            <div class="card__statistics-image-container">
+                <img class="card__statistics-image" src="../../../assets/icons/goals.svg" alt="goalsScored">
+            </div>
+            <strong class="card__statistics-text" [ngStyle]="{'color': team.goalsDiff > 1 ? '#1B4D3E' : '#AA0000'}">{{team.goalsAverage}}</strong>
+        </div>
+        <div class="card__statistics-section">
+            <div class="card__statistics-image-container">
+                <img class="card__statistics-image" src="../../../assets/icons/loser.svg" alt="loser">
+            </div>
+            <strong class="card__statistics-text" [ngStyle]="{'color': team.loosedGamesAverage > 50 ? '#1B4D3E' : '#AA0000'}">{{team.loosedGamesAverage}}%</strong>
+
+        </div>
+
+    </div>
+
+</div>
