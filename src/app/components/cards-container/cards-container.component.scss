@@ -1,11 +1,13 @@
 @import "../../../styles.scss";
-.cards-container {
-    &__container {
+.container {
+    &__cards {
         padding-top: 10vh;
         display: grid;
         grid-template-columns: repeat(auto-fill, 250px);
         grid-auto-rows: auto;
         grid-gap: 3rem;
-        justify-content: center;
+    }
+    &__main {
+        padding-top: 10vh;
     }
 }

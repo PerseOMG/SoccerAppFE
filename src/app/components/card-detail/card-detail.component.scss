@@ -1,0 +1,58 @@
+@import "../../../styles.scss";
+.card {
+    &__action-buttons {
+        height: 30px;
+        &-container {
+            width: 100%;
+            height: 35px;
+            display: flex !important;
+            justify-content: space-between !important;
+            padding: 1rem;
+            div {
+                width: 20%;
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+    }
+    &__logo {
+        width: 25%;
+        padding: 0 3rem;
+        border-right: 1px solid $color-text-primary;
+    }
+    &__main-container {
+        border: 1px solid black;
+        background-color: #8297a7;
+        border-radius: 50px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+        width: 75%;
+        padding-bottom: 3rem;
+        overflow: hidden;
+    }
+    &__container {
+        display: flex;
+    }
+    &__name {
+        font-size: 3rem;
+        text-shadow: 4px 4px 2px rgb(109, 109, 109);
+        margin-top: 0;
+    }
+    &__info {
+        width: 75%;
+        justify-content: center;
+        text-align: center;
+        font-family: $regular;
+        color: $color-text-primary;
+    }
+    &__championships {
+        &-container {
+            display: flex;
+            justify-content: center;
+        }
+        &-image {
+            height: 50px;
+            padding: 2px;
+        }
+    }
+}

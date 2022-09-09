@@ -1,3 +1,6 @@
-<div class="cards-container__container" *ngIf="(teams$ |async) as teams">
-    <app-card *ngFor="let team of teams.data.teams" [team]="team"></app-card>
+<div class="container__main" *ngIf="(teams$ |async) as teams">
+    <app-card-detail [team]="teams.data.teams[0]"></app-card-detail>
+    <div class="container__cards">
+        <app-card *ngFor="let team of teams.data.teams" [team]="team"></app-card>
+    </div>
 </div>

@@ -1,0 +1,25 @@
+<div class="card__main-container">
+    <div class="card__action-buttons-container">
+        <img class="card__action-buttons" src="../../../assets/icons/back-arrow.svg" alt="back">
+        <div>
+            <img class="card__action-buttons" src="../../../assets/icons/heart-empty.svg" alt="favorite">
+            <img class="card__action-buttons" src="../../../assets/icons/dots.svg" alt="actions">
+        </div>
+    </div>
+    <div class="card__container">
+
+        <img class="card__logo" [src]="team.logo" alt="team.name">
+        <div class="card__info">
+            <h1 class="card__name">{{team.name}}</h1>
+
+            <div class="card__championships-container">
+                <ng-container *ngFor="let item of team.totalChampionships">
+                    <img class="card__championships-image" src="../../../assets/icons/trophy.svg" alt="*">
+                </ng-container>
+                <ng-container *ngIf="team.totalChampionships.length === 0">
+                    <img class="card__championships-image" src="../../../assets/icons/x.svg" alt="NA">
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
