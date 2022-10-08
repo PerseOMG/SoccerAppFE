@@ -10,9 +10,12 @@ import { teamsSelectors } from './teams.selectors';
 export class TeamsFacade {
   // Selectors
   selectAllTeams = () => this.store.select(teamsSelectors.allTeams);
+  isTeamSelected = () => this.store.select(teamsSelectors.isTeamSelected);
 
   // Actions
   getAllTeams = () => this.store.dispatch(new teamsActions.GetTeams());
+  setIsTeamsSelected = () =>
+    this.store.dispatch(new teamsActions.isTeamSelected());
 
   constructor(private store: Store<AppState>) {}
 }

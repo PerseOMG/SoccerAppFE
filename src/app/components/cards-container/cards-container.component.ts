@@ -10,9 +10,12 @@ import { ITeamsState } from '../../services/teams/teams.reducer';
 })
 export class CardsContainerComponent implements OnInit {
   teams$!: Observable<ITeamsState>;
-  constructor(private teamsFacade: TeamsFacade) {
-    this.teams$ = teamsFacade.selectAllTeams();
-  }
+  isTeamSelected$!: Observable<boolean>;
 
-  ngOnInit(): void {}
+  constructor(private teamsFacade: TeamsFacade) {}
+
+  ngOnInit(): void {
+    this.teams$ = this.teamsFacade.selectAllTeams();
+    this.isTeamSelected$ = this.teamsFacade.isTeamSelected();
+  }
 }

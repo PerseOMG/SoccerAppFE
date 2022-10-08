@@ -1,5 +1,5 @@
 import { Team } from '../../models/team.models';
-import { ETeamsActions, teamsActions } from './teams.actions';
+import { ETeamsActions, teamsActions, isTeamSelected } from './teams.actions';
 import { IAppError } from '../../interfaces/appError.interface';
 
 export interface ITeamsState {
@@ -7,6 +7,7 @@ export interface ITeamsState {
   total: number;
   error: IAppError | null;
   status: 'error' | 'pending' | 'success' | null;
+  isTeamSelected: boolean;
 }
 
 export const initTeamsState: ITeamsState = {
@@ -14,6 +15,7 @@ export const initTeamsState: ITeamsState = {
   total: 0,
   error: null,
   status: null,
+  isTeamSelected: false,
 };
 
 export function teamsReducer(
@@ -33,6 +35,11 @@ export function teamsReducer(
         ...state,
         status: 'error',
         error: action.payload,
+      };
+    case ETeamsActions.IS_TEAM_SELECTED:
+      return {
+        ...state,
+        isTeamSelected: !state.isTeamSelected,
       };
     default:
       return state;

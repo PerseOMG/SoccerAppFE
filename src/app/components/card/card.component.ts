@@ -7,6 +7,7 @@ import {
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.models';
+import { TeamsFacade } from '../../services/teams/teams.facade';
 
 @Component({
   selector: 'app-card',
@@ -50,7 +51,7 @@ export class CardComponent implements OnInit {
   @Input() team!: Team;
   isMouseIn = false;
   selectedCardId = 'NA';
-  constructor() {}
+  constructor(private teamsFacade: TeamsFacade) {}
 
   ngOnInit(): void {}
 
@@ -65,5 +66,9 @@ export class CardComponent implements OnInit {
         this.selectedCardId = 'NA';
       }, 750);
     }
+  }
+
+  handleTeamSelection(id: string) {
+    this.teamsFacade.setIsTeamsSelected();
   }
 }

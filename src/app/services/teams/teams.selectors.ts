@@ -8,6 +8,12 @@ export const allTeams = createSelector(
   (state: AppState) => state.teams
 );
 
+export const isTeamSelected = createSelector(
+  selectStore,
+  (state: AppState) => state.teams.isTeamSelected
+);
+
 export const teamsSelectors = {
   allTeams,
+  isTeamSelected,
 };

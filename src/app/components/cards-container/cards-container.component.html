@@ -1,3 +1,4 @@
+<app-card-detail *ngIf="isTeamSelected$ | async"></app-card-detail>
 <div class="cards-container__container" *ngIf="(teams$ |async) as teams">
     <app-card *ngFor="let team of teams.teams" [team]="team"></app-card>
 </div>
