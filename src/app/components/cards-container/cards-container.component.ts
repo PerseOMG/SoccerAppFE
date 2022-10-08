@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { TeamsFacade } from '../../services/teams/teams.facade';
-import { TeamsResponse } from '../../models/team.models';
+import { Observable } from 'rxjs';
+import { ITeamsState } from '../../services/teams/teams.reducer';
 
 @Component({
   selector: 'app-cards-container',
@@ -9,9 +9,10 @@ import { TeamsResponse } from '../../models/team.models';
   styleUrls: ['./cards-container.component.scss'],
 })
 export class CardsContainerComponent implements OnInit {
-  teams$: Observable<TeamsResponse> = this.teamsFacade.getAllTeams();
-
-  constructor(private teamsFacade: TeamsFacade) {}
+  teams$!: Observable<ITeamsState>;
+  constructor(private teamsFacade: TeamsFacade) {
+    this.teams$ = teamsFacade.selectAllTeams();
+  }
 
   ngOnInit(): void {}
 }
