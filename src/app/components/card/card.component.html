@@ -1,4 +1,4 @@
-<div class="card__container" (click)="handleTeamSelection(team._id)" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'" [@selectAnimation]="selectedCardId === team._id ? 'selected':'void'">
+<div class="card__container" (click)="handleTeamSelection(team)" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'" [@selectAnimation]="selectedCardId === team._id ? 'selected':'void'">
     <div class="card__action-buttons-container">
         <img class="card__action-buttons" src="../../../assets/icons/back-arrow.svg" alt="back">
         <div>

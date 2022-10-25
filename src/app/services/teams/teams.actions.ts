@@ -7,6 +7,7 @@ export enum ETeamsActions {
   GET_TEAMS_SUCCESS = '[APP Soccer] GET_TEAMS_SUCCESS',
   GET_TEAMS_FAILURE = '[APP Soccer] GET_TEAMS_FAILURE',
   IS_TEAM_SELECTED = '[APP Soccer] IS_TEAM_SELECTED',
+  TEAM_SELECTED = '[APP Soccer] TEAM_SELECTED',
 }
 
 export class GetTeams implements Action {
@@ -23,12 +24,18 @@ export class GetTeamsFailure implements Action {
   constructor(public payload: IAppError) {}
 }
 
-export class isTeamSelected implements Action {
+export class IsTeamSelected implements Action {
   public readonly type = ETeamsActions.IS_TEAM_SELECTED;
+}
+
+export class SetTeamSelected implements Action {
+  public readonly type = ETeamsActions.TEAM_SELECTED;
+  constructor(public payload: Team) {}
 }
 
 export type teamsActions =
   | GetTeams
   | GetTeamsFailure
   | GetTeamsSuccess
-  | isTeamSelected;
+  | IsTeamSelected
+  | SetTeamSelected;

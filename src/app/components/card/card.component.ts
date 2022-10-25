@@ -68,7 +68,8 @@ export class CardComponent implements OnInit {
     }
   }
 
-  handleTeamSelection(id: string) {
-    this.teamsFacade.setIsTeamsSelected();
+  handleTeamSelection(team: Team) {
+    this.selectedCard(team._id);
+    this.teamsFacade.setTeamSelected(team);
   }
 }

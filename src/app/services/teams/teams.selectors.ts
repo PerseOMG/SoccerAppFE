@@ -13,7 +13,13 @@ export const isTeamSelected = createSelector(
   (state: AppState) => state.teams.isTeamSelected
 );
 
+export const teamSelected = createSelector(
+  selectStore,
+  (state: AppState) => state.teams.teamSelected
+);
+
 export const teamsSelectors = {
   allTeams,
   isTeamSelected,
+  teamSelected,
 };
