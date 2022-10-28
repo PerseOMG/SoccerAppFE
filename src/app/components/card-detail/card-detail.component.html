@@ -5,7 +5,7 @@
             <img class="card__action-buttons" [src]=" favAux ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite()">
 
 
-            <img class="card__action-buttons" src="../../../assets/icons/close.svg" alt="favorite" (click)="onClose()">
+            <img class="card__action-buttons" src="../../../assets/icons/close.svg" alt="favorite" (click)="onCloseCard()">
 
 
         </div>
@@ -123,7 +123,7 @@
 
 
         <div class="card__footer">
-            <button class="card__footer-button">See More Details</button>
+            <button (click)="onCloseCard()" class="card__footer-button" routerLink="/details">See More Details</button>
         </div>
 
     </div>

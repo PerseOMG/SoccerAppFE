@@ -15,6 +15,7 @@ import { TeamsEffects } from './services/teams/teams.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
+import { CardFullComponent } from './components/card/card-full/card-full.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CardDetailComponent } from './components/card-detail/card-detail.compon
     CardComponent,
     CardsContainerComponent,
     CardDetailComponent,
+    CardFullComponent,
   ],
   imports: [
     BrowserModule,

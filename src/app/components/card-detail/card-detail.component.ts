@@ -48,7 +48,7 @@ export class CardDetailComponent implements OnInit {
     this.favAux = !this.favAux;
   }
 
-  onClose() {
+  onCloseCard() {
     this.teamsFacade.setTeamSelected(null);
   }
 }
