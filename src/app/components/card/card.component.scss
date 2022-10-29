@@ -30,6 +30,10 @@
                 justify-content: space-around;
             }
         }
+        &-menu {
+            display: flex;
+            flex-direction: column;
+        }
     }
     &__info {
         &-container {
@@ -86,6 +90,16 @@
         &-text {
             font-size: 20px;
             font-family: $regular;
+        }
+    }
+    &__menu {
+        &-container {
+            display: flex;
+            flex-direction: column;
+            button {
+                background: none;
+                width: 50%;
+            }
         }
     }
 }
