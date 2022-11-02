@@ -1,1 +1,112 @@
-<p>card-full works!</p>
+<ng-container *ngIf="team$ | async as team">
+    <div class="main-container">
+
+        <div class="inner-container">
+
+            <div class="row">
+
+                <!-- Main info -->
+                <div class="main-info">
+                    <img [src]="team.logo" alt="logo">
+                    <h3>{{team.name}}</h3>
+                </div>
+
+                <!-- Actual Info -->
+
+                <!-- Championships -->
+                <div class="tournaments-info">
+                    <h1>Championships</h1>
+                    <div class="row">
+                        <h3>Tournaments: {{team.tournaments}}</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Total Tournaments: {{team.totalTournaments}}</h3>
+                    </div>
+
+
+                    <div class="row">
+                        <h3>Championships Won:
+                            <ng-container *ngFor="let item of team.totalChampionships">
+                                <img class="championships-image" src="../../../assets/icons/trophy.svg" alt="*">
+                            </ng-container>
+                            <ng-container *ngIf="team.totalChampionships.length === 0">
+                                <img class="championships-image" src="../../../assets/icons/x.svg" alt="NA">
+                            </ng-container>
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <h3>Total Tournaments Played: {{team.totalChampionshipsPlayed}}</h3>
+                    </div>
+                    <div class="row">
+                        <!-- Finals -->
+                        <h3>Total Lose Finals: {{team.totalLoosedFinals}}</h3>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row row-no-center">
+                <div class="section-info">
+                    <!-- Games -->
+                    <h1> Games </h1>
+                    <h3>Total Games Played: {{team.totalGamesPlayed}}</h3>
+                    <h3>Total Games Won: {{team.totalGamesWon}}</h3>
+                    <h3>Best Win Score: {{team.bestWin}}</h3>
+                    <h3>Total Games Lost: {{team.totalGamesLoosed}}</h3>
+                    <h3>Worst Losing Score: {{team.worstLose}}</h3>
+                    <h3>Total Tied Games: {{team.totalTiedGames}}</h3>
+
+                    <h3>Last Win: {{team.lastWin}}</h3>
+                    <h3>Last Defeat: {{team.lastDefeat}}</h3>
+                </div>
+
+                <div class="section-info">
+                    <h1> Goals </h1>
+
+                    <!-- Goals -->
+                    <h3>Total Goals Scored: {{team.totalGoalsScored}}</h3>
+                    <h3>Total Goals Against: {{team.totalGoalsAgainst}}</h3>
+                    <h3>Goals Diff: {{team.goalsDiff}}</h3>
+                </div>
+                <div class="section-info">
+                    <h1> Averages </h1>
+
+                    <!-- Average -->
+                    <h3>Goals Scored Average: {{team.goalsAverage}}</h3>
+                    <h3>Goals Against Average: {{team.goalsAgainstAverage}}</h3>
+                    <h3>Won Games Average: {{team.wonGamesAverage}}</h3>
+                    <h3>Lost Games Average: {{team.loosedGamesAverage}}</h3>
+                    <h3>Win-Lose Ratio: {{team.wonLoosedRatio}}</h3>
+
+                </div>
+                <div class="section-info">
+                    <h1> Streaks </h1>
+
+                    <!-- Streaks -->
+                    <h3>Actual Winning Streak: {{team.actualWinningStreak}}</h3>
+                    <h3>Best Winning Streak: {{team.bestWinningStreak}}</h3>
+                    <h3>Actual Losing Streak: {{team.actualLoosingStreak}}</h3>
+                    <h3>Best Losing Streak: {{team.bestLoosingStreak}}</h3>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <div class="main-container">
+        <div class="inner-container" style="margin-top: 10px;">
+            <h1>Charts</h1>
+
+        </div>
+    </div>
+
+</ng-container>

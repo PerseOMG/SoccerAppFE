@@ -1,0 +1,65 @@
+@import "../../../../styles.scss";
+h1 {
+    text-align: center;
+}
+
+.main-container {
+    background-color: $color-text-primary;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: 5% 0;
+    font-family: $regular;
+}
+
+.inner-container {
+    padding: 5%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    &-no-center {
+        align-items: unset !important;
+    }
+}
+
+.championships-image {
+    height: 25px;
+    width: 25px;
+}
+
+.main-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+        width: 75%;
+        height: 75%;
+    }
+}
+
+.tournaments-info {
+    background-color: white;
+    border-radius: 5%;
+    margin: 1%;
+    padding: 1%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-info {
+    width: 25%;
+    background-color: white;
+    border-radius: 5%;
+    margin: 1%;
+    padding: 1%;
+}
