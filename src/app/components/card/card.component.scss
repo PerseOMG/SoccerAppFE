@@ -30,6 +30,28 @@
                 justify-content: space-around;
             }
         }
+        &-menu {
+            position: relative;
+            list-style: none;
+            font-family: $regular;
+            font-size: small;
+            background-color: #fff;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-radius: 5%;
+        }
+        &-item {
+            padding: 20% 10% 10% 10%;
+            img {
+                height: 10px;
+                width: 10px;
+            }
+        }
+        &-item:hover {
+            background-color: $color-text-secondary;
+            color: #fff;
+        }
     }
     &__info {
         &-container {

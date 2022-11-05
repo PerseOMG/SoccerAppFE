@@ -51,6 +51,8 @@ export class CardComponent implements OnInit {
   @Input() team!: Team;
   isMouseIn = false;
   selectedCardId = 'NA';
+  favAux = false;
+  openMenu = false;
   constructor(private teamsFacade: TeamsFacade) {}
 
   ngOnInit(): void {}
@@ -71,5 +73,9 @@ export class CardComponent implements OnInit {
   handleTeamSelection(team: Team) {
     this.selectedCard(team._id);
     this.teamsFacade.setTeamSelected(team);
+  }
+
+  onFavorite() {
+    this.favAux = !this.favAux;
   }
 }
