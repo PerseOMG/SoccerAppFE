@@ -1,4 +1,4 @@
-<ng-container *ngIf="team$ | async as team">
+<ng-container *ngIf="team$ | async as team; else noTeamSelected">
     <div class="main-container">
 
         <div class="inner-container">
@@ -94,15 +94,15 @@
 
     </div>
 
-    <!--
-    <div class="main-container">
-        <div class="inner-container" style="margin-top: 10px;">
-            <h1>Charts</h1>
-            <div style="height: 250px; width: 250px; background-color: white;">
-                <canvas id="myChart"></canvas>
+</ng-container>
 
+<ng-template #noTeamSelected>
+    <div class="main-container">
+        <div class="inner-container d-flex">
+            <div class="main-info">
+                <img src="../../../../assets/icons/select-team.svg" alt="Select Team">
+                <h1>Please select a team.</h1>
             </div>
         </div>
-    </div> -->
-
-</ng-container>
+    </div>
+</ng-template>

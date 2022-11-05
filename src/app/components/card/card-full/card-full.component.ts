@@ -25,43 +25,45 @@ export class CardFullComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const GAMES = (<HTMLCanvasElement>(
       document.getElementById('totalGamesChart')
-    )).getContext('2d');
+    ))?.getContext('2d');
 
     const GOALS = (<HTMLCanvasElement>(
       document.getElementById('totalGoalsChart')
-    )).getContext('2d');
+    ))?.getContext('2d');
 
     this.team$.subscribe((team) => {
-      this.generateChart(GAMES, {
-        ...GAMES_CHART_CONFIG,
-        data: {
-          labels: [...GAMES_CHART_DATA.labels],
-          datasets: [
-            {
-              ...GAMES_CHART_DATA.datasets,
-              data: [
-                team.totalGamesWon + 10,
-                team.totalGamesLoosed + 1,
-                team.totalTiedGames + 9,
-              ],
-            },
-          ],
-        },
-      });
+      if (team) {
+        this.generateChart(GAMES, {
+          ...GAMES_CHART_CONFIG,
+          data: {
+            labels: [...GAMES_CHART_DATA.labels],
+            datasets: [
+              {
+                ...GAMES_CHART_DATA.datasets,
+                data: [
+                  team.totalGamesWon + 10,
+                  team.totalGamesLoosed + 1,
+                  team.totalTiedGames + 9,
+                ],
+              },
+            ],
+          },
+        });
 
-      this.generateChart(GOALS, {
-        ...GOALS_CHART_CONFIG,
-        data: {
-          labels: [...GOALS_CHART_DATA.labels],
-          datasets: [
-            {
-              ...GOALS_CHART_DATA.datasets,
-              data: [team.totalGoalsScored + 40, team.totalGoalsAgainst + 36],
-            },
-          ],
-        },
-        options: { ...GOALS_CHART_OPTIONS },
-      });
+        this.generateChart(GOALS, {
+          ...GOALS_CHART_CONFIG,
+          data: {
+            labels: [...GOALS_CHART_DATA.labels],
+            datasets: [
+              {
+                ...GOALS_CHART_DATA.datasets,
+                data: [team.totalGoalsScored + 40, team.totalGoalsAgainst + 36],
+              },
+            ],
+          },
+          options: { ...GOALS_CHART_OPTIONS },
+        });
+      }
     });
   }
 
