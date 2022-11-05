@@ -112,6 +112,12 @@
             background-color: $color-primary;
             color: $color-secondary;
             cursor: pointer;
+            font-family: $regular;
+        }
+        &-button:hover {
+            color: $color-text-primary;
+            background-color: $color-text-secondary;
+            border: black 1px solid;
         }
     }
 }

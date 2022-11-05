@@ -48,13 +48,12 @@
                 <div class="section-info">
                     <!-- Games -->
                     <h1> Games </h1>
+                    <div style="height: 250px; width: 250px;">
+                        <canvas id="totalGamesChart"></canvas>
+                    </div>
                     <h3>Total Games Played: {{team.totalGamesPlayed}}</h3>
-                    <h3>Total Games Won: {{team.totalGamesWon}}</h3>
                     <h3>Best Win Score: {{team.bestWin}}</h3>
-                    <h3>Total Games Lost: {{team.totalGamesLoosed}}</h3>
                     <h3>Worst Losing Score: {{team.worstLose}}</h3>
-                    <h3>Total Tied Games: {{team.totalTiedGames}}</h3>
-
                     <h3>Last Win: {{team.lastWin}}</h3>
                     <h3>Last Defeat: {{team.lastDefeat}}</h3>
                 </div>
@@ -63,8 +62,9 @@
                     <h1> Goals </h1>
 
                     <!-- Goals -->
-                    <h3>Total Goals Scored: {{team.totalGoalsScored}}</h3>
-                    <h3>Total Goals Against: {{team.totalGoalsAgainst}}</h3>
+                    <div style="height: 125px; width: 250px;">
+                        <canvas id="totalGoalsChart"></canvas>
+                    </div>
                     <h3>Goals Diff: {{team.goalsDiff}}</h3>
                 </div>
                 <div class="section-info">
@@ -90,23 +90,19 @@
 
             </div>
 
-
-
-
-
-
-
-
         </div>
 
     </div>
 
-
+    <!--
     <div class="main-container">
         <div class="inner-container" style="margin-top: 10px;">
             <h1>Charts</h1>
+            <div style="height: 250px; width: 250px; background-color: white;">
+                <canvas id="myChart"></canvas>
 
+            </div>
         </div>
-    </div>
+    </div> -->
 
 </ng-container>
