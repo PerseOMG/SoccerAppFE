@@ -4,8 +4,8 @@
         <img class="card__action-buttons" [src]=" favAux ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite()" alt="favorite">
 
         <div style="display: initial">
-            <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (mouseenter)="openMenu = !openMenu">
-            <ul class="card__action-buttons-menu" [ngStyle]="{'display': openMenu ? 'block' : 'none' }" (mouseleave)="openMenu=! openMenu ">
+            <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">
+            <ul class="card__action-buttons-menu" [ngStyle]="{'display': openMenu ? 'block' : 'none' }" (mouseleave)="openMenu=! openMenu">
                 <li class="card__action-buttons-item">
                     <span>
 
