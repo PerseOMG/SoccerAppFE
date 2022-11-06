@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../../models/team.models';
-import { TeamsFacade } from '../../services/teams/teams.facade';
+import { Team } from '../../../models/team.models';
+import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Observable } from 'rxjs';
 import {
   animate,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TeamsFacade } from '../../services/teams/teams.facade';
+import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Observable } from 'rxjs';
-import { ITeamsState } from '../../services/teams/teams.reducer';
+import { ITeamsState } from '../../../services/teams/teams.reducer';
 
 @Component({
   selector: 'app-cards-container',
