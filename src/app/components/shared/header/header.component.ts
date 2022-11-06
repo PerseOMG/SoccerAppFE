@@ -6,6 +6,10 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import {
+  HEADER_LINKS,
+  APP_NAME,
+} from '../../../../assets/consts/configs/header-config.const';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +30,8 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class HeaderComponent implements OnInit {
+  navLinks = HEADER_LINKS;
+  appName = APP_NAME;
   isMouseIn = false;
   constructor() {}
 
