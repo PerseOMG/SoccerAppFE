@@ -1,9 +1,6 @@
 <div class="main-container">
-
     <div class="inner-container">
         <h1>Thanks to all of you guys for your amazing designs!</h1>
-
-
         <div class="row">
             <ul class="no-center">
                 <li *ngFor="let thanksLink of thanksLinks">
@@ -11,7 +8,6 @@
                     <a [href]="thanksLink.link_creator" target="_blank">{{thanksLink.label_creator}}</a>
                 </li>
             </ul>
-
             <img src="../../../../assets/icons/clap.svg" alt="Clap">
         </div>
     </div>
