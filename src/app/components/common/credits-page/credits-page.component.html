@@ -6,71 +6,9 @@
 
         <div class="row">
             <ul class="no-center">
-                <li>
-                    <a href="https://iconscout.com/icons/soccer" target="_blank">Soccer Icon</a> by <a href="https://iconscout.com/contributors/christian-mohr" target="_blank">MoM-digital</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/x" target="_blank">X Logo Icon</a> by <a href="https://iconscout.com/contributors/icon-mafia">Icon Mafia</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-                <li>
-
-                    <a href="https://iconscout.com/icons/seo" target="_blank">Trophy Icon</a> by <a href="https://iconscout.com/contributors/ecommdesign">EcommDesign</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/heart" target="_blank">Heart Icon</a> by <a href="https://iconscout.com/contributors/piqodesign" target="_blank">Piqo Design</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/heart" target="_blank">Heart Icon</a> by <a href="https://iconscout.com/contributors/piqodesign" target="_blank">Piqo Design</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/back-arrow" target="_blank">Back arrow Icon</a> by <a href="https://iconscout.com/contributors/google-inc" target="_blank">Google Inc.</a>
-                </li>
-                <li>
-                    <a href="https://www.flaticon.com/free-icons/more" title="more icons">More icons created by Kirill Kazachek - Flaticon</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/soccer" target="_blank">Soccer Icon</a> by <a href="https://iconscout.com/contributors/aomam" target="_blank">AomAm .</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/winner-badge" target="_blank">Winner Badge Icon</a> by <a href="https://iconscout.com/contributors/dinosoftlabs" target="_blank">Dinosoft Lab</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/loser" target="_blank">Loser Icon</a> by <a href="https://iconscout.com/contributors/surang">Surangkana Jomjunyong</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/close" target="_blank">Close Icon</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/tactics-board" target="_blank">Tactics Board Icon</a> by <a href="https://iconscout.com/contributors/icon-lauk" target="_blank">IconLauk</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/business-timeline" target="_blank">Business Timeline Icon</a> by <a href="https://iconscout.com/contributors/kiran-shastry" target="_blank">Kiran Shastry</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/bar-average" target="_blank">Bar Average Icon</a> by <a href="https://iconscout.com/contributors/Redmatric%20Studio">Redma Studio</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/graph" target="_blank">Graph Icon</a> by <a href="https://iconscout.com/contributors/jemismali" target="_blank">Jemis Mali</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/favorite" target="_blank">Favorite Icon</a> by <a href="https://iconscout.com/contributors/promotion-king" target="_blank">Rank Sol</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/employee-selection" target="_blank">Employee Selection Icon</a> by <a href="https://iconscout.com/contributors/friend4331" target="_blank">ginkaewicons</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/delete" target="_blank">Delete Icon</a> by <a href="https://iconscout.com/contributors/google-inc" target="_blank">Google Inc.</a>
-                </li>
-                <li>
-                    <a href="https://iconscout.com/icons/edit" target="_blank">Edit Icon</a> by <a href="https://iconscout.com/contributors/irfansusanto98">Barudak Lier</a> on <a href="https://iconscout.com">IconScout</a>
-                </li>
-
-                <li>
-                    <a href="https://iconscout.com/icons/copyright" target="_blank">Copyright Icon</a> by <a href="https://iconscout.com/contributors/phosphoricons" target="_blank">Phosphor Icons</a>
-                </li>
-
-                <li>
-                    <a href="https://iconscout.com/icons/clap" target="_blank">Clap Icon</a> by <a href="https://iconscout.com/contributors/yellowline" target="_blank">Law Xin Yi</a>
+                <li *ngFor="let thanksLink of thanksLinks">
+                    <a [href]="thanksLink.link_icon" target="_blank">{{thanksLink.label_icon}}</a> by
+                    <a [href]="thanksLink.link_creator" target="_blank">{{thanksLink.label_creator}}</a>
                 </li>
             </ul>
 

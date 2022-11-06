@@ -1,4 +1,4 @@
-interface IHeaderLink {
+export interface INavLink {
   label: string;
   link: string;
 }
@@ -8,7 +8,7 @@ interface IAppName {
   secondary?: string;
 }
 
-export const HEADER_LINKS: IHeaderLink[] = [
+export const HEADER_LINKS: INavLink[] = [
   { label: 'My Tournaments', link: '#' },
   { label: 'My Teams', link: '#' },
   { label: 'Global Statistics', link: '#' },

@@ -3,11 +3,13 @@
         <div class="logo__container">
             <img src="../../../../assets/icons/copyright.svg" alt="copyright" class="logo__image">
         </div>
-        <strong>Daniel Muñoz - </strong>
+        <strong>{{developer}} - </strong>
         <p> {{year}}</p>
     </div>
 
     <div class="nav-links">
-        <a href="/thanksTo">Special Thanks :)</a>
+        <ng-container *ngFor="let navLink of navLinks">
+            <a [href]="navLink.link">{{navLink.label  }}</a>
+        </ng-container>
     </div>
 </div>
