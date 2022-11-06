@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
 import { CardFullComponent } from './components/card/card-full/card-full.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CardFullComponent } from './components/card/card-full/card-full.compone
     CardsContainerComponent,
     CardDetailComponent,
     CardFullComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
