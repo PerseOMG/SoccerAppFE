@@ -1,0 +1,10 @@
+<div class="main-container">
+    <input type="text" class="form-control" id="name" placeholder="Search" (keyup)="onKey()" [(ngModel)]="filter" name="name">
+
+    <div class="options-container">
+        <ng-container *ngFor="let option of itemsPerPageOptions">
+            <button [ngClass]="{'options-button-selected': option === (itemsPerPageSelected | async)}" class="options-button" (click)="changeItemsPerPage(option)">{{option}}</button>
+        </ng-container>
+    </div>
+
+</div>

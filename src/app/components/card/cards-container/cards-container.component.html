@@ -1,4 +1,9 @@
 <app-card-detail *ngIf="isTeamSelected$ | async"></app-card-detail>
-<div class="cards-container__container" *ngIf="(teams$ |async) as teams">
-    <app-card *ngFor="let team of teams.teams" [team]="team"></app-card>
+<div class="text-center">
+    <app-filters></app-filters>
+    <div class="cards-container__container" *ngIf="(teams$ |async) as teams">
+        <app-card *ngFor="let team of teams.teams | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: getItemsPerPage(), currentPage: getCurrentPage()}" [team]="team"></app-card>
+    </div>
+    <pagination-controls *ngIf="(teams$ |async).teams.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive"
+        [previousLabel]="config.previousLabel" [nextLabel]="config.nextLabel" (pageChange)="onPageChange($event)"></pagination-controls>
 </div>

@@ -18,6 +18,10 @@ import { CardDetailComponent } from './components/card/card-detail/card-detail.c
 import { CardFullComponent } from './components/card/card-full/card-full.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FiltersComponent } from './components/shared/filter/filters/filters.component';
+import { FormsModule } from '@angular/forms';
+import { StringFilterPipe } from './pipes/string-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,12 +33,16 @@ import { CreditsPageComponent } from './components/common/credits-page/credits-p
     CardFullComponent,
     FooterComponent,
     CreditsPageComponent,
+    FiltersComponent,
+    StringFilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxPaginationModule,
+    FormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
