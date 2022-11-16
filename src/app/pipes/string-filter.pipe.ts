@@ -10,7 +10,7 @@ export class StringFilterPipe implements PipeTransform {
       return teams;
     }
     return teams.filter((team) =>
-      team.name.toLowerCase().includes(value.toLowerCase())
+      team.name.toLowerCase().startsWith(value.toLowerCase())
     );
   }
 }

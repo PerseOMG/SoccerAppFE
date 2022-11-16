@@ -20,8 +20,9 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltersComponent } from './components/shared/filter/filters/filters.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StringFilterPipe } from './pipes/string-filter.pipe';
+import { LoginComponent } from './components/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { StringFilterPipe } from './pipes/string-filter.pipe';
     CreditsPageComponent,
     FiltersComponent,
     StringFilterPipe,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { StringFilterPipe } from './pipes/string-filter.pipe';
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

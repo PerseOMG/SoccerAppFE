@@ -130,4 +130,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Law Xin Yi',
     link_creator: 'https://iconscout.com/contributors/yellowline',
   },
+  {
+    label_icon: 'Person Icon',
+    link_icon: 'https://iconscout.com/icons/person',
+    label_creator: 'Microsoft',
+    link_creator: 'https://iconscout.com/contributors/fluent',
+  },
 ];
