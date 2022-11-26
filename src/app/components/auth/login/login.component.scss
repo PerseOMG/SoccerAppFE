@@ -60,6 +60,10 @@
                 color: $color-secondary;
                 background-color: $color-primary;
             }
+            &:disabled {
+                background-color: $color-primary;
+                color: $color-secondary;
+            }
         }
     }
 }
