@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   ETeamsActions,
+  GetTeams,
   GetTeamsFailure,
   GetTeamsSuccess,
 } from './teams.actions';
@@ -15,8 +16,8 @@ export class TeamsEffects {
 
   getTeams$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ETeamsActions.GET_TEAMS),
-      switchMap((action) =>
+      ofType<GetTeams>(ETeamsActions.GET_TEAMS),
+      switchMap(() =>
         this.teamsService.getAllTeams().pipe(
           map((response) => {
             return new GetTeamsSuccess(response.data.teams);

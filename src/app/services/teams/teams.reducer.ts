@@ -31,6 +31,7 @@ export function teamsReducer(
         teams: action.payload,
         total: action.payload.length,
         status: 'success',
+        error: undefined,
       };
     case ETeamsActions.GET_TEAMS_FAILURE:
       return {

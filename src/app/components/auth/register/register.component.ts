@@ -7,13 +7,19 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthFacade } from '../../../services/auth/auth.facade';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   animations: [
     trigger('invalidFormAnimation', [
       state(
@@ -86,14 +92,15 @@ import { AuthFacade } from '../../../services/auth/auth.facade';
     ]),
   ],
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
   states: any = {};
   constructor(
     private formBuilder: FormBuilder,
     private authFacade: AuthFacade
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(6)]],
       email: [
         '',
         [
@@ -102,6 +109,14 @@ export class LoginComponent implements OnInit {
         ],
       ],
       password: ['', [Validators.required, Validators.minLength(8)]],
+      passwordConfirm: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          this.passwordConfirming.bind(this),
+        ]),
+      ],
     });
   }
 
@@ -109,16 +124,29 @@ export class LoginComponent implements OnInit {
 
   setControlInvalidStyle(controlName: string) {
     return (
-      this.loginForm.get(controlName).touched &&
-      this.loginForm.get(controlName).invalid
+      this.registerForm.get(controlName).touched &&
+      this.registerForm.get(controlName).invalid
     );
   }
 
-  onLogin() {
-    if (this.loginForm.valid) {
-      console.log('Trying to login...');
-      this.authFacade.login(this.loginForm.value);
+  passwordConfirming(c: FormControl) {
+    if (this.registerForm) {
+      return c.value === this.registerForm.get('password').value
+        ? null
+        : {
+            NotEqual: true,
+          };
+    }
+    return null;
+  }
+
+  onRegister() {
+    if (this.registerForm.valid) {
+      console.log('Trying to register...');
+      this.authFacade.signup(this.registerForm.value);
     } else {
+      console.log(this.registerForm.value);
+
       this.states['invalidAnimationStart'] =
         this.states['invalidAnimationStart'] === 'invalidAnimationStart'
           ? 'invalidAnimationEnd'

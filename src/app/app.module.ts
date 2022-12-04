@@ -23,6 +23,8 @@ import { FiltersComponent } from './components/shared/filter/filters/filters.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StringFilterPipe } from './pipes/string-filter.pipe';
 import { LoginComponent } from './components/auth/login/login.component';
+import { AuthEffects } from './services/auth/auth.effects';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { LoginComponent } from './components/auth/login/login.component';
     FiltersComponent,
     StringFilterPipe,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import { LoginComponent } from './components/auth/login/login.component';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([TeamsEffects]),
+    EffectsModule.forRoot([TeamsEffects, AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

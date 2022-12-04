@@ -1,0 +1,18 @@
+<div class="main-container">
+    <div class="card-container" [@invalidFormAnimation]="this.states['invalidAnimationStart']" (@invalidFormAnimation.done)="this.states['invalidAnimationStart'] = 'invalidAnimationEnd'">
+        <h1>Register</h1>
+        <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form" action="">
+            <input formControlName="name" [ngStyle]="{'border-color': setControlInvalidStyle('name') ? 'red' : '' }" class="register-form-input" type="text" placeholder="User Name">
+            <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="register-form-input" type="text" placeholder="Email">
+
+            <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" register-form-input " type="password " placeholder="Password ">
+            <input formControlName="passwordConfirm" [ngStyle]="{'border-color': setControlInvalidStyle('passwordConfirm') ? 'red' : '' }" class=" register-form-input " type="password " placeholder="Confirm Password ">
+
+            <button class="register-form-button " [disabled]="registerForm.invalid">register</button>
+        </form>
+
+        <small>Already have an account? <a href="/login ">login</a></small>
+    </div>
+</div>
