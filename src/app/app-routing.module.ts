@@ -5,12 +5,22 @@ import { CardFullComponent } from './components/card/card-full/card-full.compone
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NotLoggedGuard } from './guards/not-logged.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: RegisterComponent },
-  { path: 'teams', component: CardsContainerComponent },
-  { path: 'details', component: CardFullComponent },
+  { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
+  {
+    path: 'signup',
+    component: RegisterComponent,
+    canActivate: [NotLoggedGuard],
+  },
+  {
+    path: 'teams',
+    component: CardsContainerComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
   { path: 'thanksTo', component: CreditsPageComponent },
   { path: '', pathMatch: 'full', redirectTo: '/login' },
 ];

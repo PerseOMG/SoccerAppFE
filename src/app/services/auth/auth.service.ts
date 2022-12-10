@@ -15,12 +15,12 @@ export class AuthService {
   login(body: ILogin): Observable<UserModel> {
     return this.http
       .post<IAuthResponse>(`${APP_SOCCER_SERVER_URL}/users/login`, body)
-      .pipe(map((data: IAuthResponse) => data.data.user));
+      .pipe(map((data: IAuthResponse) => data.data));
   }
 
   signup(body: ISignUp): Observable<UserModel> {
     return this.http
       .post<IAuthResponse>(`${APP_SOCCER_SERVER_URL}/users/signup`, body)
-      .pipe(map((data: IAuthResponse) => data.data.user));
+      .pipe(map((data: IAuthResponse) => data.data));
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ITeamsState } from '../../../services/teams/teams.reducer';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
 import { PaginationFacade } from '../../../services/pagination/pagination.facade';

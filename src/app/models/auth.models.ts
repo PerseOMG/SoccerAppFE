@@ -13,8 +13,5 @@ export interface ISignUp {
 
 export interface IAuthResponse {
   status: string;
-  token: string;
-  data: {
-    user: UserModel;
-  };
+  data: UserModel;
 }

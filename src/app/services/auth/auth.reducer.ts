@@ -28,10 +28,10 @@ export function authReducer(
     case EAuthActions.LOGIN_SUCCESS || EAuthActions.SIGNUP_SUCCESS:
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
-        photo: action.payload.photo,
-        role: action.payload.role,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        photo: action.payload.user.photo,
+        role: action.payload.user.role,
         status: 'success',
         error: undefined,
       };

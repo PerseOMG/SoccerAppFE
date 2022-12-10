@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
 
 @Injectable()
 export class AuthEffects {
@@ -28,6 +29,7 @@ export class AuthEffects {
       switchMap((action) =>
         this.authService.login(action.payload).pipe(
           map((response) => {
+            localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
             this.router.navigate(['teams']);
             return new LoginSuccess(response);
           }),
@@ -52,6 +54,7 @@ export class AuthEffects {
       switchMap((action) =>
         this.authService.signup(action.payload).pipe(
           map((response) => {
+            localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
             this.router.navigate(['teams']);
             return new SignUpSuccess(response);
           }),
