@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
   ],
 })
 export class CreateButtonComponent implements OnInit {
+  @Input() redirectTo: string;
   isMouseIn = false;
 
   constructor(private router: Router) {}
@@ -36,6 +37,6 @@ export class CreateButtonComponent implements OnInit {
   }
 
   onClick() {
-    this.router.navigate(['/create', 'team']);
+    this.router.navigate(['/create', this.redirectTo]);
   }
 }

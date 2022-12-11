@@ -16,7 +16,7 @@ import {
 })
 export class CreateFormComponent implements OnInit {
   dynamicForm: FormGroup;
-  model: 'team';
+  model: 'team' | 'tournament';
 
   filterFields: IFormFields[];
 
@@ -27,6 +27,8 @@ export class CreateFormComponent implements OnInit {
       this.model = params['model'];
       this.filterFields = FORMS_CONFIG[this.model] as IFormFields[];
       if (this.filterFields) {
+        console.log(this.filterFields);
+
         this.dynamicForm = this.generateDynamicForm();
       }
     });
