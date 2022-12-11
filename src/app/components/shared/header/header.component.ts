@@ -54,18 +54,22 @@ export class HeaderComponent implements OnInit {
   onClick() {
     if (this.isLoggedIn) {
       localStorage.removeItem(APP_SOCCER_JWT_KEY);
-      this.location.go('/login');
     }
   }
 
   getButtonObjValue() {
-    if (this.location.path().toLowerCase().includes('login')) {
+    if (
+      this.location.path().toLowerCase().includes('login') ||
+      this.location.path().toLowerCase().includes('notfound')
+    ) {
       this.isLoggedIn = false;
       return HEADER_BUTTONS_OPTIONS['LOGIN'];
     }
-    if (this.location.path().toLowerCase().includes('signup')) {
+    if (
+      this.location.path().toLowerCase().includes('signup') ||
+      this.location.path().toLowerCase().includes('notfound')
+    ) {
       this.isLoggedIn = false;
-
       return HEADER_BUTTONS_OPTIONS['SIGNUP'];
     }
     this.isLoggedIn = true;

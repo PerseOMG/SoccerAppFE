@@ -7,6 +7,10 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotLoggedGuard } from './guards/not-logged.guard';
+import { NotfoundComponent } from './components/shared/notfound/notfound.component';
+import { TournamentsComponent } from './components/tournaments/tournaments.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
@@ -22,7 +26,12 @@ const routes: Routes = [
   },
   { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
   { path: 'thanksTo', component: CreditsPageComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: 'tournaments', component: TournamentsComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'statistics', component: StatisticsComponent },
+  { path: 'notFound', component: NotfoundComponent },
+  { path: 'logout', redirectTo: '/login' },
+  { path: '**', pathMatch: 'full', redirectTo: '/notFound' },
 ];
 
 @NgModule({

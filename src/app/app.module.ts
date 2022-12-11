@@ -25,6 +25,10 @@ import { StringFilterPipe } from './pipes/string-filter.pipe';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthEffects } from './services/auth/auth.effects';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { NotfoundComponent } from './components/shared/notfound/notfound.component';
+import { TournamentsComponent } from './components/tournaments/tournaments.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { RegisterComponent } from './components/auth/register/register.component
     StringFilterPipe,
     LoginComponent,
     RegisterComponent,
+    NotfoundComponent,
+    TournamentsComponent,
+    ProfileComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,

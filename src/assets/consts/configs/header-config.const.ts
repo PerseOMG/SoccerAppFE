@@ -18,7 +18,7 @@ export const HEADER_LINKS: INavLink[] = [
 export const HEADER_BUTTONS_OPTIONS = {
   LOGIN: { label: 'Signup', link: '/signup' },
   SIGNUP: { label: 'Login', link: '/login' },
-  LOGOUT: { label: 'Logout', link: '' },
+  LOGOUT: { label: 'Logout', link: '/logout' },
 };
 
 export const APP_NAME: IAppName = {

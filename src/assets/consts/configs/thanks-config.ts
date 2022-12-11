@@ -136,4 +136,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Microsoft',
     link_creator: 'https://iconscout.com/contributors/fluent',
   },
+  {
+    label_icon: 'Error Icon',
+    link_icon: 'https://iconscout.com/icons/error',
+    label_creator: 'Jemis Mali',
+    link_creator: 'https://iconscout.com/contributors/jemismali',
+  },
 ];

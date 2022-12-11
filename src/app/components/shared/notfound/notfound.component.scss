@@ -1,0 +1,15 @@
+@import "../../../../styles.scss";
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+        height: 75vh;
+    }
+    h1 {
+        font-family: $regular;
+        font-size: 2rem;
+        color: $color-text-primary;
+    }
+}
