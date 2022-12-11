@@ -11,6 +11,7 @@ import { NotfoundComponent } from './components/shared/notfound/notfound.compone
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
@@ -25,6 +26,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
+  {
+    path: 'create/:model',
+    component: CreateFormComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'thanksTo', component: CreditsPageComponent },
   { path: 'tournaments', component: TournamentsComponent },
   { path: 'profile', component: ProfileComponent },

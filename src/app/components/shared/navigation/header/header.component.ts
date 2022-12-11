@@ -11,8 +11,8 @@ import {
   HEADER_BUTTONS_OPTIONS,
   HEADER_LINKS,
   APP_NAME,
-} from '../../../../assets/consts/configs/header-config.const';
-import { APP_SOCCER_JWT_KEY } from '../../../../app.constants';
+} from '../../../../../assets/consts/configs/header-config.const';
+import { APP_SOCCER_JWT_KEY } from '../../../../../app.constants';
 
 @Component({
   selector: 'app-header',

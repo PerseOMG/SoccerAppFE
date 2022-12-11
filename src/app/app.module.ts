@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/shared/header/header.component';
+import { HeaderComponent } from './components/shared/navigation/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './components/card/card.component';
 import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
@@ -16,7 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CardDetailComponent } from './components/card/card-detail/card-detail.component';
 import { CardFullComponent } from './components/card/card-full/card-full.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
+import { FooterComponent } from './components/shared/navigation/footer/footer.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltersComponent } from './components/shared/filter/filters/filters.component';
@@ -29,6 +29,9 @@ import { NotfoundComponent } from './components/shared/notfound/notfound.compone
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { CreateButtonComponent } from './components/shared/create/create-button/create-button.component';
+import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -48,8 +51,11 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
     TournamentsComponent,
     ProfileComponent,
     StatisticsComponent,
+    CreateButtonComponent,
+    CreateFormComponent,
   ],
   imports: [
+    NgSelectModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

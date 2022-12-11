@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FOOTER_LINKS } from 'src/assets/consts/configs/footer-config.consts';
-import { DEVELOPER } from '../../../../assets/consts/configs/footer-config.consts';
+import { DEVELOPER } from '../../../../../assets/consts/configs/footer-config.consts';
 
 @Component({
   selector: 'app-footer',

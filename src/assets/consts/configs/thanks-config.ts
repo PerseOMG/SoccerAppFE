@@ -142,4 +142,16 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Jemis Mali',
     link_creator: 'https://iconscout.com/contributors/jemismali',
   },
+  {
+    label_icon: 'Plus Icon',
+    link_icon: 'https://iconscout.com/icons/plus',
+    label_creator: 'Akveo',
+    link_creator: 'https://iconscout.com/contributors/eva-icons',
+  },
+  {
+    label_icon: 'Circle Loader Animated Icon',
+    link_icon: 'https://iconscout.com/lotties/circle-loader',
+    label_creator: 'Sheikh Sohel',
+    link_creator: 'https://iconscout.com/contributors/sheikhsohel',
+  },
 ];
