@@ -78,6 +78,12 @@ export class CreateFormComponent implements OnInit {
     return validatorsArr;
   }
 
+  getFormDefaultImage(): string {
+    return this.model === 'tournament'
+      ? '../../../../../assets/icons/default-tournament-logo.svg'
+      : '../../../../../assets/icons/person.svg';
+  }
+
   setControlInvalidStyle(controlName: string) {
     return (
       this.dynamicForm.get(controlName).touched &&

@@ -154,4 +154,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Sheikh Sohel',
     link_creator: 'https://iconscout.com/contributors/sheikhsohel',
   },
+  {
+    label_icon: 'Trophy Icon',
+    link_icon: 'https://iconscout.com/icons/trophy',
+    label_creator: 'Elegant Themes',
+    link_creator: 'https://iconscout.com/contributors/elegant-themes',
+  },
 ];

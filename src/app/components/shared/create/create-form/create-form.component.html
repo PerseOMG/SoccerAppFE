@@ -7,7 +7,7 @@
         <div class="card-container">
             <h1>Create {{model | titlecase}}</h1>
             <form *ngIf="dynamicForm" [formGroup]="dynamicForm" class="dynamic-form" (ngSubmit)="onSubmit()">
-                <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : '../../../../assets/icons/person.svg'" alt="user-img">
+                <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : getFormDefaultImage()" alt="default-img">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields,formGroup:dynamicForm }">
                 </ng-container>
                 <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">Create</button>
