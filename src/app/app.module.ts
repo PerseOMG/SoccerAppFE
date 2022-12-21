@@ -32,6 +32,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { CreateButtonComponent } from './components/shared/create/create-button/create-button.component';
 import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     StatisticsComponent,
     CreateButtonComponent,
     CreateFormComponent,
+    DragAndDropComponent,
   ],
   imports: [
     NgSelectModule,

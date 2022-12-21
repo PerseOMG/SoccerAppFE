@@ -17,8 +17,8 @@ import {
 export class CreateFormComponent implements OnInit {
   dynamicForm: FormGroup;
   model: 'team' | 'tournament';
-
   filterFields: IFormFields[];
+  step = 1;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
 
@@ -27,16 +27,16 @@ export class CreateFormComponent implements OnInit {
       this.model = params['model'];
       this.filterFields = FORMS_CONFIG[this.model] as IFormFields[];
       if (this.filterFields) {
-        console.log(this.filterFields);
-
         this.dynamicForm = this.generateDynamicForm();
       }
     });
   }
 
   onSubmit() {
-    console.log('hey');
-    console.log(this.dynamicForm);
+    console.log(this.step);
+    this.step === 1 && this.model === 'tournament'
+      ? this.step++
+      : console.log(this.dynamicForm);
   }
 
   onClose(key: string, message: string, max: number) {
@@ -95,5 +95,12 @@ export class CreateFormComponent implements OnInit {
     return this.dynamicForm.get(item.key).value.length === 0
       ? item.title
       : null;
+  }
+
+  getButtonLabel() {
+    if (this.model === 'tournament') {
+      return 'Next';
+    }
+    return 'Create';
   }
 }

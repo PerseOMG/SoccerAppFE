@@ -10,9 +10,10 @@
                 <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : getFormDefaultImage()" alt="default-img">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields,formGroup:dynamicForm }">
                 </ng-container>
-                <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">Create</button>
+                <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">{{ getButtonLabel() }}</button>
             </form>
             <ng-template #recursiveList let-filterFields let-formGroup="formGroup">
+
                 <ng-container *ngFor="let item of filterFields">
                     <ng-container *ngIf="item.type !== 'select'; else selectTemplate">
                         <input [type]="item.type" [ngStyle]="{'border-color': setControlInvalidStyle(item.key) ? 'red' : '' }" [formControl]="formGroup.get(item.key)" [placeholder]="item.title" [name]="item.key" class="dynamic-form-input">
@@ -27,7 +28,13 @@
                         </div>
                         <small *ngIf="item.errorMessage" style="color: red;">{{onClose(item.key, item.errorMessage, item.maxSelected )}}</small>
                     </ng-template>
+
+
                 </ng-container>
+
+            </ng-template>
+            <ng-template #step2>
+                <app-drag-and-drop></app-drag-and-drop>
             </ng-template>
         </div>
     </div>
