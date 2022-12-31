@@ -49,6 +49,16 @@ import { TeamsFacade } from '../../services/teams/teams.facade';
 })
 export class CardComponent implements OnInit {
   @Input() team!: Team;
+  @Input() options: {
+    allowAnimations: boolean;
+    isSelectable: boolean;
+    showDetails: boolean;
+  } = {
+    allowAnimations: false,
+    isSelectable: false,
+    showDetails: false,
+  };
+
   isMouseIn = false;
   selectedCardId = 'NA';
   favAux = false;
@@ -58,7 +68,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {}
 
   onMouseEvent() {
-    this.isMouseIn = !this.isMouseIn;
+    if (this.options.allowAnimations) this.isMouseIn = !this.isMouseIn;
   }
 
   selectedCard(id: string) {

@@ -28,6 +28,8 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     color: $color-text-primary;
     width: 75%;
+    overflow-y: auto;
+    max-height: 75%;
 }
 
 .dynamic {
@@ -80,6 +82,11 @@
         width: 10px;
         border-radius: 25px;
         background-color: $color-primary;
+        max-height: 20%;
+    }
+     ::-webkit-scrollbar-thumb {
+        background-color: $color-secondary;
+        border-radius: 25px;
     }
     .ng-option {
         padding: 0.5rem;

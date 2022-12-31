@@ -1,6 +1,8 @@
-<div class="container">
-    <div *ngFor="let team of (teams | async).teams">
-        <h1>NASIDFABSIFDSAIDF</h1>
+<div class="wrapper" *ngIf="dragObjTemplate">
+    <div class="drag-containers" dragula="D&DITEMS" [(dragulaModel)]="dragObjTemplate">
+        <app-card style="height: fit-content;" *ngFor="let item of dragObjTemplate " [team]="item"></app-card>
     </div>
-
+    <div class="drag-containers" dragula="D&DITEMS" [(dragulaModel)]="dragObjSelectedArray">
+        <app-card style="height: fit-content;" *ngFor="let item of dragObjSelectedArray " [team]="item"></app-card>
+    </div>
 </div>

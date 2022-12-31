@@ -1,6 +1,16 @@
-.container {
+.wrapper {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr;
     gap: 5vw;
-    height: 50vh;
+    .drag-containers {
+        border: black dashed 1px;
+        padding: 1rem;
+        border-radius: 25px;
+    }
+}
+
+::ng-deep {
+    app-card {
+        margin: 1rem !important;
+    }
 }

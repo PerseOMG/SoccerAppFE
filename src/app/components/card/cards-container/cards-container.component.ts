@@ -16,6 +16,11 @@ export class CardsContainerComponent implements OnInit {
   itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
   filter = this.paginationFacade.getFilter();
   config = CARDS_PAGINATION_CONTROLS;
+  cardOptions = {
+    allowAnimations: true,
+    isSelectable: true,
+    showDetails: true,
+  };
   constructor(
     private teamsFacade: TeamsFacade,
     private paginationFacade: PaginationFacade

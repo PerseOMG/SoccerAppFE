@@ -41,5 +41,14 @@ export const FORMS_CONFIG = {
       errorMessage:
         'This field is required and must contain between 20 and 4 characters',
     },
+    {
+      key: 'teams',
+      title: 'Select Teams',
+      type: 'dragAndDrop',
+      validators: [''],
+      errorMessage:
+        '*The teams must be multiply of 2 and Tournament only could have up to 20 teams',
+      maxSelected: 20,
+    },
   ],
 };

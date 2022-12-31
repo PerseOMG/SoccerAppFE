@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IFormFields } from '../../../../models/form-fields.model';
 import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
+import { Observable } from 'rxjs';
+import { TeamsFacade } from '../../../../services/teams/teams.facade';
+
 import {
   FormGroup,
   FormBuilder,
@@ -16,11 +19,15 @@ import {
 })
 export class CreateFormComponent implements OnInit {
   dynamicForm: FormGroup;
+  dragAndDropItems: Observable<any>;
   model: 'team' | 'tournament';
   filterFields: IFormFields[];
   step = 1;
-
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private teamFacade: TeamsFacade
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -29,14 +36,29 @@ export class CreateFormComponent implements OnInit {
       if (this.filterFields) {
         this.dynamicForm = this.generateDynamicForm();
       }
+      if (this.model === 'tournament') {
+        this.dragAndDropItems = this.teamFacade.selectAllTeams();
+      }
     });
   }
 
   onSubmit() {
-    console.log(this.step);
     this.step === 1 && this.model === 'tournament'
       ? this.step++
-      : console.log(this.dynamicForm);
+      : this.handleOnSubmit();
+  }
+
+  handleOnSubmit() {
+    console.log(this.dynamicForm.value);
+
+    switch (this.model) {
+      case 'team':
+        // this.teamFacade.createTeam(this.dynamicForm.value);
+        break;
+      case 'tournament':
+        // this.tournamentFacade.createTournament(this.dynamicForm.value)
+        break;
+    }
   }
 
   onClose(key: string, message: string, max: number) {
@@ -102,5 +124,10 @@ export class CreateFormComponent implements OnInit {
       return 'Next';
     }
     return 'Create';
+  }
+
+  onDragAndDropEvent(e: any) {
+    if (this.dynamicForm.controls['teams'])
+      this.dynamicForm.controls['teams'].setValue(e);
   }
 }

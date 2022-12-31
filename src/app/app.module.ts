@@ -33,6 +33,7 @@ import { CreateButtonComponent } from './components/shared/create/create-button/
 import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
+import { DragulaService, DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { DragAndDropComponent } from './components/shared/create/drag-and-drop/d
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
+    DragulaModule.forRoot(),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -72,7 +74,7 @@ import { DragAndDropComponent } from './components/shared/create/drag-and-drop/d
     }),
     EffectsModule.forRoot([TeamsEffects, AuthEffects]),
   ],
-  providers: [],
+  providers: [DragulaService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
