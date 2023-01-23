@@ -18,18 +18,18 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   public constructor(private dragulaService: DragulaService) {
     this.subs.add(
       this.dragulaService.dropModel('D&DITEMS').subscribe(({ item }) => {
-        if (this.dragObjSelected.value.includes(item.id)) {
+        if (this.dragObjSelected.value.includes(item._id)) {
           this.dragObjSelectedArray = this.dragObjSelected.value.filter(
-            (selected: any) => selected !== item.id
+            (selected: any) => selected !== item._id
           );
           this.dragObjSelected.next(
             this.dragObjSelected.value.filter(
-              (selected: any) => selected !== item.id
+              (selected: any) => selected !== item._id
             )
           );
         } else {
-          this.dragObjSelectedArray.push(item.id);
-          this.dragObjSelected.next([...this.dragObjSelected.value, item.id]);
+          this.dragObjSelectedArray.push(item._id);
+          this.dragObjSelected.next([...this.dragObjSelected.value, item._id]);
         }
       })
     );

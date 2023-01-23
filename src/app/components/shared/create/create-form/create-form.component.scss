@@ -102,3 +102,15 @@
         text-align: center;
     }
 }
+
+.title-container {
+    display: grid;
+    h1 {
+        margin-top: 0;
+    }
+    .back-arrow {
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+    }
+}

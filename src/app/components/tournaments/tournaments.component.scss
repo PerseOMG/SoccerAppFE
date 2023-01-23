@@ -7,5 +7,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, 250px);
         grid-auto-rows: auto;
+        gap: 1rem;
+        flex-grow: 1;
     }
 }

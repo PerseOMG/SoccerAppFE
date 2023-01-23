@@ -5,6 +5,7 @@ import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.
 import { Observable } from 'rxjs';
 import { TeamsFacade } from '../../../../services/teams/teams.facade';
 import { TournamentsFacade } from '../../../../services/tournaments/tournaments.facade';
+import { createTournamentCalendar } from '../../../../utils/createTournamentCalendar';
 
 import {
   FormGroup,
@@ -58,7 +59,13 @@ export class CreateFormComponent implements OnInit {
         // this.teamFacade.createTeam(this.dynamicForm.value);
         break;
       case 'tournament':
-        this.tournamentsFacade.createTournament(this.dynamicForm.value);
+        const calendar = createTournamentCalendar(
+          this.dynamicForm.controls['teams'].value
+        );
+        this.tournamentsFacade.createTournament({
+          ...this.dynamicForm.value,
+          calendar,
+        });
         break;
     }
   }

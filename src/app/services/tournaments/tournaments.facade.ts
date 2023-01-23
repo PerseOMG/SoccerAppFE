@@ -28,7 +28,7 @@ export class TournamentsFacade {
       new tournamentsActions.SetTournamentSelected(tournament)
     );
 
-  createTournament = (tournament: any) =>
+  createTournament = (tournament: ITournament) =>
     this.store.dispatch(new tournamentsActions.CreateTournament(tournament));
 
   constructor(private store: Store<AppState>) {}

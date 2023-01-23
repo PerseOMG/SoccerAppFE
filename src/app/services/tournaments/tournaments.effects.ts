@@ -10,6 +10,7 @@ import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CreateTournament } from './tournaments.actions';
+import { ITournament } from '../../models/tournament.model';
 
 @Injectable()
 export class TournamentsEffects {
@@ -21,8 +22,8 @@ export class TournamentsEffects {
   createTournament$ = createEffect(() =>
     this.actions$.pipe(
       ofType<CreateTournament>(ETournamentsActions.CREATE_TOURNAMENT),
-      switchMap(() =>
-        this.tournamentsService.getAll().pipe(
+      switchMap((action) =>
+        this.tournamentsService.createTournament(action.payload).pipe(
           map((response) => {
             return new GetTournamentsSuccess(response.data.tournaments);
           }),

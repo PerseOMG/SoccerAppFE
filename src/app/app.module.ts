@@ -37,6 +37,7 @@ import { DragulaService, DragulaModule } from 'ng2-dragula';
 import { TournamentsEffects } from './services/tournaments/tournaments.effects';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

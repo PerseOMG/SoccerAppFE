@@ -5,7 +5,10 @@
 <ng-template #formTemplate>
     <div class="main-container">
         <div class="card-container">
-            <h1>Create {{model | titlecase}}</h1>
+            <div class="title-container">
+                <img *ngIf="step === 2" (click)="step = step-1 " src="../../../../../assets/icons/back-arrow.svg" alt="back" class="back-arrow">
+                <h1>Create {{model | titlecase}}</h1>
+            </div>
             <form *ngIf="dynamicForm" [formGroup]="dynamicForm" class="dynamic-form" (ngSubmit)="onSubmit()">
                 <div>
                     <ng-container *ngIf="step === 1; else stepTwoTemplate">
