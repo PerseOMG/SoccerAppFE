@@ -37,7 +37,7 @@
                 <ng-container *ngFor="let item of team.totalChampionships ">
                     <img class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
                 </ng-container>
-                <ng-container *ngIf="team.totalChampionships.length===0 ">
+                <ng-container *ngIf="team.totalChampionships=== null ">
                     <img class="card__championships-image " src="../../../assets/icons/x.svg " alt="NA ">
                 </ng-container>
             </div>

@@ -9,7 +9,11 @@ import { APP_SOCCER_SERVER_URL } from 'src/app.constants';
 })
 export class TeamsService {
   getAllTeams(): Observable<TeamsResponse> {
-    return this.http.get<TeamsResponse>(`${APP_SOCCER_SERVER_URL}/teams`);
+    return this.http.get<TeamsResponse>(`${APP_SOCCER_SERVER_URL}/teams`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+      },
+    });
   }
 
   constructor(private http: HttpClient) {}

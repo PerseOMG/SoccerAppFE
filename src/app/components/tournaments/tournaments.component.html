@@ -1,2 +1,10 @@
-<p>tournaments works!</p>
+<div class="card-container">
+    <h1>My Tournaments</h1>
+    <div class="card">
+        <ng-container *ngFor="let tournament of (tournaments$ | async).tournaments">
+            <app-tournaments-card [tournament]="tournament"></app-tournaments-card>
+        </ng-container>
+    </div>
+</div>
+
 <app-create-button [redirectTo]="'tournament'"></app-create-button>

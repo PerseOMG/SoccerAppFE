@@ -1,0 +1,29 @@
+@import "../../../../styles.scss";
+.card {
+    &__container {
+        border: 1px solid black;
+        background-color: #8297a7;
+        border-radius: 5px;
+        padding: 0.5rem;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+        display: flex;
+    }
+    &__info {
+        &-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            height: fit-content;
+        }
+        &-image {
+            margin: 20px;
+            width: 50%;
+            height: 50%;
+        }
+        &-name {
+            font-size: 2rem;
+        }
+    }
+}

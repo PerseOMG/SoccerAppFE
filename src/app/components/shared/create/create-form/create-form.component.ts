@@ -4,6 +4,7 @@ import { IFormFields } from '../../../../models/form-fields.model';
 import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
 import { Observable } from 'rxjs';
 import { TeamsFacade } from '../../../../services/teams/teams.facade';
+import { TournamentsFacade } from '../../../../services/tournaments/tournaments.facade';
 
 import {
   FormGroup,
@@ -26,7 +27,8 @@ export class CreateFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private teamFacade: TeamsFacade
+    private teamFacade: TeamsFacade,
+    private tournamentsFacade: TournamentsFacade
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class CreateFormComponent implements OnInit {
         // this.teamFacade.createTeam(this.dynamicForm.value);
         break;
       case 'tournament':
-        // this.tournamentFacade.createTournament(this.dynamicForm.value)
+        this.tournamentsFacade.createTournament(this.dynamicForm.value);
         break;
     }
   }

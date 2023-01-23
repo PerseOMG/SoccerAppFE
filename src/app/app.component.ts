@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TeamsFacade } from './services/teams/teams.facade';
+import { TournamentsFacade } from './services/tournaments/tournaments.facade';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import { TeamsFacade } from './services/teams/teams.facade';
 export class AppComponent {
   title = 'Soccer_App_FE';
 
-  constructor(private teamsFacade: TeamsFacade) {
+  constructor(
+    private teamsFacade: TeamsFacade,
+    private tournamentsFacade: TournamentsFacade
+  ) {
     this.teamsFacade.getAllTeams();
+    this.tournamentsFacade.getAllTournaments();
   }
 }

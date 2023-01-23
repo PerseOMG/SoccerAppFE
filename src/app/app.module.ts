@@ -34,6 +34,8 @@ import { CreateFormComponent } from './components/shared/create/create-form/crea
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
+import { TournamentsEffects } from './services/tournaments/tournaments.effects';
+import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { DragulaService, DragulaModule } from 'ng2-dragula';
     CreateButtonComponent,
     CreateFormComponent,
     DragAndDropComponent,
+    TournamentsCardComponent,
   ],
   imports: [
     NgSelectModule,
@@ -72,7 +75,7 @@ import { DragulaService, DragulaModule } from 'ng2-dragula';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([TeamsEffects, AuthEffects]),
+    EffectsModule.forRoot([TeamsEffects, AuthEffects, TournamentsEffects]),
   ],
   providers: [DragulaService],
   bootstrap: [AppComponent],
