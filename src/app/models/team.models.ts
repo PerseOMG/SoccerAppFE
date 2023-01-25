@@ -38,7 +38,8 @@ export interface Team {
 }
 
 export interface Data {
-  teams: Team[];
+  teams?: Team[];
+  team?: Team;
 }
 
 export interface TeamsResponse {

@@ -5,18 +5,23 @@ import {
   GetTournaments,
   GetTournamentsFailure,
   GetTournamentsSuccess,
+  CreateTournament,
 } from './tournaments.actions';
 import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { CreateTournament } from './tournaments.actions';
-import { ITournament } from '../../models/tournament.model';
+import { SweetAlertsService } from '../alerts/sweet-alerts.service';
+import { Data } from '../../models/team.models';
+import { TOURNAMENT_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TournamentsEffects {
   constructor(
     private actions$: Actions,
-    private tournamentsService: TournamentsService
+    private tournamentsService: TournamentsService,
+    private alertService: SweetAlertsService,
+    private router: Router
   ) {}
 
   createTournament$ = createEffect(() =>
@@ -25,10 +30,16 @@ export class TournamentsEffects {
       switchMap((action) =>
         this.tournamentsService.createTournament(action.payload).pipe(
           map((response) => {
-            return new GetTournamentsSuccess(response.data.tournaments);
+            this.alertService.fireAlert(TOURNAMENT_ALERTS['success']);
+            this.router.navigate(['/tournaments']);
+            return new GetTournaments();
           }),
           catchError((error: any) => {
             console.log(error);
+            this.alertService.fireAlert({
+              ...TOURNAMENT_ALERTS['error'],
+              text: error.error.message,
+            });
 
             return of(
               new GetTournamentsFailure({

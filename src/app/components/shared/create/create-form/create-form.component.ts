@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IFormFields } from '../../../../models/form-fields.model';
 import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
-import { Observable } from 'rxjs';
+import { Observable, take, BehaviorSubject } from 'rxjs';
 import { TeamsFacade } from '../../../../services/teams/teams.facade';
 import { TournamentsFacade } from '../../../../services/tournaments/tournaments.facade';
 import { createTournamentCalendar } from '../../../../utils/createTournamentCalendar';
@@ -25,6 +25,9 @@ export class CreateFormComponent implements OnInit {
   model: 'team' | 'tournament';
   filterFields: IFormFields[];
   step = 1;
+  tournaments$ = this.tournamentsFacade.selectAllTournaments();
+  selectOptions: BehaviorSubject<{ label: string; value: string }[]> =
+    new BehaviorSubject([]);
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -39,6 +42,19 @@ export class CreateFormComponent implements OnInit {
       if (this.filterFields) {
         this.dynamicForm = this.generateDynamicForm();
       }
+      if (this.model === 'team') {
+        this.tournaments$.subscribe((tournaments) => {
+          tournaments.tournaments.forEach((tournament) => {
+            this.selectOptions.next([
+              ...this.selectOptions.value,
+              {
+                label: tournament.name,
+                value: tournament._id,
+              },
+            ]);
+          });
+        });
+      }
       if (this.model === 'tournament') {
         this.dragAndDropItems = this.teamFacade.selectAllTeams();
       }
@@ -51,21 +67,15 @@ export class CreateFormComponent implements OnInit {
       : this.handleOnSubmit();
   }
 
-  handleOnSubmit() {
-    console.log(this.dynamicForm.value);
+  getSelectOptions() {}
 
+  handleOnSubmit() {
     switch (this.model) {
       case 'team':
-        // this.teamFacade.createTeam(this.dynamicForm.value);
+        this.teamFacade.createTeam(this.dynamicForm.value);
         break;
       case 'tournament':
-        const calendar = createTournamentCalendar(
-          this.dynamicForm.controls['teams'].value
-        );
-        this.tournamentsFacade.createTournament({
-          ...this.dynamicForm.value,
-          calendar,
-        });
+        this.tournamentsFacade.createTournament(this.dynamicForm.value);
         break;
     }
   }

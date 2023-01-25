@@ -21,7 +21,7 @@
                     <ng-container *ngFor="let item of team.totalChampionships">
                         <img class="card__info-championships-image" src="../../../assets/icons/trophy.svg" alt="*">
                     </ng-container>
-                    <ng-container *ngIf="team.totalChampionships.length === 0">
+                    <ng-container *ngIf="team.totalChampionships?.length === 0">
                         <img class="card__info-championships-image" src="../../../assets/icons/x.svg" alt="NA">
                     </ng-container>
                 </div>
@@ -31,7 +31,7 @@
                             <span class="tooltiptext">Tournaments</span>
                             <img class="card__extended-details-card-image" src="../../../assets/icons/tactics-board.svg" alt="*">
                         </div>
-                        <h5 class="card__extended-details-card-info" *ngFor="let tournament of team.tournaments"> {{tournament}}</h5>
+                        <h5 class="card__extended-details-card-info" *ngFor="let tournament of team.tournaments"> {{tournament }}</h5>
                     </div>
                     <div class="card__extended-details-card">
                         <div class="tooltip">

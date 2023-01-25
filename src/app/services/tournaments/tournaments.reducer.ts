@@ -29,7 +29,7 @@ export function tournamentsReducer(
       return {
         ...state,
         tournaments: action.payload,
-        total: action.payload.length,
+        total: action.payload?.length,
         status: 'success',
         error: undefined,
       };

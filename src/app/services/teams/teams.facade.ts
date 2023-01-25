@@ -16,11 +16,17 @@ export class TeamsFacade {
 
   // Actions
   getAllTeams = () => this.store.dispatch(new teamsActions.GetTeams());
+  createTeam = (team: Team) =>
+    this.store.dispatch(new teamsActions.CreateTeam(team));
+
   setIsTeamsSelected = () =>
     this.store.dispatch(new teamsActions.IsTeamSelected());
 
   setTeamSelected = (team: Team) =>
     this.store.dispatch(new teamsActions.SetTeamSelected(team));
+
+  deleteTeam = (id: string) =>
+    this.store.dispatch(new teamsActions.DeleteTeam(id));
 
   constructor(private store: Store<AppState>) {}
 }

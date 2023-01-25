@@ -34,7 +34,7 @@
                         </ng-container>
                         <ng-template #selectTemplate>
                             <div class="dynamic-form-input">
-                                <ng-select class="custom" [formControl]="formGroup.get(item.key)" [multiple]="true" bindLabel="label" bindValue="value" [items]="item.options" [placeholder]="getMultiSelectPlaceholder(item)" dropdownPosition="top" [maxSelectedItems]="item.maxSelected"
+                                <ng-select class="custom" [formControl]="formGroup.get(item.key)" [multiple]="true" bindLabel="label" bindValue="value" [items]="selectOptions | async" [placeholder]="getMultiSelectPlaceholder(item)" dropdownPosition="top" [maxSelectedItems]="item.maxSelected"
                                     [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true" appendTo="ng-select"></ng-select>
                             </div>
                             <small *ngIf="item.errorMessage" style="color: red;">{{onClose(item.key, item.errorMessage, item.maxSelected )}}</small>

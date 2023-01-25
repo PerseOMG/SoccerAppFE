@@ -6,13 +6,12 @@
         <div style="display: initial">
             <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">
             <ul class="card__action-buttons-menu" [ngStyle]="{'display': openMenu ? 'block' : 'none' }" (mouseleave)="openMenu=! openMenu">
-                <li class="card__action-buttons-item">
+                <li class="card__action-buttons-item" (click)="onEdit(team._id)">
                     <span>
-
                     <img src="../../../assets/icons/edit.svg" alt="edit"> Edit
                   </span>
                 </li>
-                <li class="card__action-buttons-item ">
+                <li class="card__action-buttons-item " (click)="onDelete(team._id)">
                     <span>
                     <img src="../../../assets/icons/delete.svg" alt="delete"> Delete
                   </span>

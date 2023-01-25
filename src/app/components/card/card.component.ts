@@ -88,4 +88,10 @@ export class CardComponent implements OnInit {
   onFavorite() {
     this.favAux = !this.favAux;
   }
+
+  onDelete(id: string) {
+    this.teamsFacade.deleteTeam(id);
+  }
+
+  onEdit(id: string) {}
 }

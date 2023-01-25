@@ -7,7 +7,7 @@ export interface ITournament {
   editionStatistics?: IStatistics;
   historicalStatistics?: IStatistics;
   positionTable?: IPositionTableData[];
-  calendar: ICalendar[];
+  calendar?: ICalendar[];
 }
 
 export interface ICalendar {

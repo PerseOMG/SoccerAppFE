@@ -3,11 +3,12 @@
     margin: 5rem 0;
     text-align: center;
     font-family: $regular;
+    grid-auto-rows: 1fr;
     .card {
         display: grid;
         grid-template-columns: repeat(auto-fill, 250px);
-        grid-auto-rows: auto;
+        grid-auto-rows: 1fr;
         gap: 1rem;
-        flex-grow: 1;
+        grid-row-gap: 2rem;
     }
 }

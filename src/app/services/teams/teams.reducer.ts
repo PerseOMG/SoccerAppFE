@@ -12,7 +12,7 @@ export interface ITeamsState {
 }
 
 export const initTeamsState: ITeamsState = {
-  teams: null,
+  teams: [],
   total: 0,
   error: null,
   status: null,
@@ -29,7 +29,7 @@ export function teamsReducer(
       return {
         ...state,
         teams: action.payload,
-        total: action.payload.length,
+        total: state.teams.length + action.payload.length,
         status: 'success',
         error: undefined,
       };
@@ -37,7 +37,7 @@ export function teamsReducer(
       return {
         ...state,
         status: 'error',
-        error: action.payload,
+        error: { ...action.payload, message: 'Error while getting the teams.' },
       };
     case ETeamsActions.IS_TEAM_SELECTED:
       return {
@@ -49,6 +49,12 @@ export function teamsReducer(
         ...state,
         isTeamSelected: true,
         teamSelected: action.payload,
+      };
+    case ETeamsActions.CREATE_TEAM_FAILURE:
+      return {
+        ...state,
+        status: 'error',
+        error: { ...action.payload, message: 'Error while create the team.' },
       };
     default:
       return state;
