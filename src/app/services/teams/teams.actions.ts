@@ -13,6 +13,7 @@ export enum ETeamsActions {
   CREATE_TEAM_FAILURE = '[APP Soccer] CREATE_TEAM_FAILURE',
   DELETE_TEAM = '[APP Soccer] DELETE_TEAM',
   DELETE_TEAM_SUCCESS = '[APP Soccer] DELETE_TEAM_SUCCESS',
+  SET_FAVORITE_TEAM = '[APP Soccer] SET_FAVORITE_TEAM',
   NO_ACTION = '[APP Soccer] NO_ACTION',
 }
 
@@ -54,6 +55,11 @@ export class DeleteTeam implements Action {
   constructor(public payload: string) {}
 }
 
+export class SetFavoriteTeam implements Action {
+  public readonly type = ETeamsActions.SET_FAVORITE_TEAM;
+  constructor(public payload: Team) {}
+}
+
 export class NoAction implements Action {
   public readonly type = ETeamsActions.NO_ACTION;
 }
@@ -67,4 +73,5 @@ export type teamsActions =
   | CreateTeam
   | CreateTeamFailure
   | DeleteTeam
+  | SetFavoriteTeam
   | NoAction;

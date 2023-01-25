@@ -9,7 +9,7 @@
 
     <div class="nav-links">
         <ng-container *ngFor="let navLink of navLinks">
-            <a [href]="navLink.link">{{navLink.label  }}</a>
+            <a [routerLink]="navLink.link">{{navLink.label  }}</a>
         </ng-container>
     </div>
 </div>

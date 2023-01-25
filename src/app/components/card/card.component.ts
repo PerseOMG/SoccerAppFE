@@ -8,6 +8,7 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.models';
 import { TeamsFacade } from '../../services/teams/teams.facade';
+import { ITournament } from '../../models/tournament.model';
 
 @Component({
   selector: 'app-card',
@@ -61,7 +62,6 @@ export class CardComponent implements OnInit {
 
   isMouseIn = false;
   selectedCardId = 'NA';
-  favAux = false;
   openMenu = false;
   constructor(private teamsFacade: TeamsFacade) {}
 
@@ -85,8 +85,8 @@ export class CardComponent implements OnInit {
     this.teamsFacade.setTeamSelected(team);
   }
 
-  onFavorite() {
-    this.favAux = !this.favAux;
+  onFavorite(team: Team) {
+    this.teamsFacade.setFavoriteTeam(team);
   }
 
   onDelete(id: string) {

@@ -8,7 +8,13 @@ import { ITournament } from '../../../models/tournament.model';
 })
 export class TournamentsCardComponent implements OnInit {
   @Input() tournament!: ITournament;
+  openMenu = false;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleTournamentSelection(tournament) {}
+  onEdit(id: string) {}
+  onDelete(id: string) {}
 }

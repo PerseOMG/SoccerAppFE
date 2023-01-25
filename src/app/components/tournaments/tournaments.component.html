@@ -1,10 +1,13 @@
-<div class="card-container">
+<div class="text-center">
     <h1>My Tournaments</h1>
-    <div class="card">
-        <ng-container *ngFor="let tournament of (tournaments$ | async).tournaments">
-            <app-tournaments-card [tournament]="tournament"></app-tournaments-card>
-        </ng-container>
+    <app-filters></app-filters>
+    <div class="cards-container__container" *ngIf="(tournaments$ |async) as tournaments">
+        <app-tournaments-card *ngFor="let tournament of tournaments.tournaments | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: getItemsPerPage(), currentPage: getCurrentPage()}" [tournament]="tournament"></app-tournaments-card>
     </div>
+    <ng-container *ngIf="(tournaments$ |async).tournaments as tournaments">
+        <pagination-controls *ngIf="tournaments.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"
+            [nextLabel]="config.nextLabel" (pageChange)="onPageChange($event)"></pagination-controls>
+    </ng-container>
 </div>
 
 <app-create-button [redirectTo]="'tournament'"></app-create-button>

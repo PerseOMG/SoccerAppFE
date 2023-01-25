@@ -10,7 +10,12 @@ import {
 import { TeamsService } from './teams.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { CreateTeamFailure, DeleteTeam, NoAction } from './teams.actions';
+import {
+  CreateTeamFailure,
+  DeleteTeam,
+  NoAction,
+  SetFavoriteTeam,
+} from './teams.actions';
 import { Router } from '@angular/router';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
@@ -55,6 +60,31 @@ export class TeamsEffects {
         this.teamsService.createTeam(action.payload).pipe(
           map((response) => {
             this.alertService.fireAlert(TEAMS_ALERTS['success']);
+            this.router.navigate(['/teams']);
+            return new GetTeams();
+          }),
+          catchError((error: any) => {
+            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            return of(
+              new CreateTeamFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  setFavoriteTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<SetFavoriteTeam>(ETeamsActions.SET_FAVORITE_TEAM),
+      switchMap((action) =>
+        this.teamsService.setTeamAsFavorite(action.payload).pipe(
+          map((response) => {
+            this.alertService.fireAlert(TEAMS_ALERTS['favorite']);
             this.router.navigate(['/teams']);
             return new GetTeams();
           }),

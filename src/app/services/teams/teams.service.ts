@@ -37,5 +37,17 @@ export class TeamsService {
     });
   }
 
+  setTeamAsFavorite(team: Team) {
+    const isFavorite = !team.isFavorite;
+    return this.http.patch(
+      `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
+      { isFavorite },
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
+    );
+  }
   constructor(private http: HttpClient) {}
 }

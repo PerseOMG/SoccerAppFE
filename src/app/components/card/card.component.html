@@ -1,7 +1,7 @@
 <div class="card__container" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'" [@selectAnimation]="selectedCardId === team._id ? 'selected':'void'">
     <div *ngIf="options.showDetails" class="card__action-buttons-container">
 
-        <img class="card__action-buttons" [src]=" favAux ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite()" alt="favorite">
+        <img class="card__action-buttons" [src]=" team.isFavorite ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite(team)" alt="favorite">
 
         <div style="display: initial">
             <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">

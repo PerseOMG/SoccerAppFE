@@ -1,16 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Team } from '../models/team.models';
+import { ITournament } from '../models/tournament.model';
 
 @Pipe({
   name: 'stringFilter',
 })
 export class StringFilterPipe implements PipeTransform {
-  transform(teams: Team[], value: string): Team[] {
+  transform(filterArray: any[], value: string): any[] {
     if (value === '') {
-      return teams;
+      return filterArray;
     }
-    return teams.filter((team) =>
-      team.name.toLowerCase().startsWith(value.toLowerCase())
+    return filterArray.filter((item) =>
+      item.name.toLowerCase().startsWith(value.toLowerCase())
     );
   }
 }

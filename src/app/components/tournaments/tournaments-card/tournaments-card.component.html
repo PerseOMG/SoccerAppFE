@@ -1,7 +1,50 @@
 <div class="card__container">
+    <div class="card__action-buttons-container">
+
+        <!-- <img class="card__action-buttons" [src]=" team.isFavorite ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite(team)" alt="favorite"> -->
+
+        <div style="display: initial">
+            <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">
+            <ul class="card__action-buttons-menu" [ngStyle]="{'display': openMenu ? 'block' : 'none' }" (mouseleave)="openMenu=! openMenu">
+                <li class="card__action-buttons-item" (click)="onEdit(tournament._id)">
+                    <span>
+                  <img src="../../../assets/icons/edit.svg" alt="edit"> Edit
+                </span>
+                </li>
+                <li class="card__action-buttons-item " (click)="onDelete(tournament._id)">
+                    <span>
+                  <img src="../../../assets/icons/delete.svg" alt="delete"> Delete
+                </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
     <div class="card__info-container ">
-        <img class="card__info-image " [src]="tournament.photo ?? '../../../../assets/icons/default-tournament-logo.svg'" [alt]="tournament.name ">
+        <img class="card__info-image " [src]="tournament.logo ?? '../../../../assets/icons/default-tournament-logo.svg' " [alt]="tournament.name ">
 
         <strong class="card__info-name ">{{tournament.name}}</strong>
+
+
     </div>
-</div>
+    <hr class="separator ">
+    <div class="card__championships-container ">
+        <ng-container *ngFor="let team of tournament.teams ">
+            <img class="card__championships-image " [src]="team.logo" alt="* ">
+        </ng-container>
+        <ng-container *ngIf="tournament.teams.length === 0">
+            <img class="card__championships-image " src="../../../assets/icons/x.svg " alt="NA ">
+        </ng-container>
+    </div>
+    <hr class="separator ">
+
+    <div class="card__statistics-container ">
+
+        <div class="card__statistics-section ">
+            <strong class="card__statistics-text ">Total Participants: {{ tournament.teams.length }}</strong>
+        </div>
+
+    </div>

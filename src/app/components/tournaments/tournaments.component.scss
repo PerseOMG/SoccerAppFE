@@ -1,14 +1,38 @@
 @import "../../../styles.scss";
-.card-container {
-    margin: 5rem 0;
-    text-align: center;
-    font-family: $regular;
-    grid-auto-rows: 1fr;
-    .card {
+.cards-container {
+    &__container {
+        padding-top: 2vh;
         display: grid;
         grid-template-columns: repeat(auto-fill, 250px);
-        grid-auto-rows: 1fr;
-        gap: 1rem;
-        grid-row-gap: 2rem;
+        grid-auto-rows: auto;
+        grid-gap: 3rem;
+        justify-content: center;
+    }
+}
+
+.text-center {
+    padding-top: 10vh;
+    text-align: center;
+    h1 {
+        font-family: $regular;
+        color: $color-text-primary;
+    }
+}
+
+.pagination::ng-deep {
+    .ngx-pagination {
+        font-family: $regular;
+        font-weight: bolder;
+        font-size: larger;
+    }
+    .current,
+    a:hover {
+        color: $color-text-secondary;
+        background-color: $color-secondary;
+        border: 0;
+        border-radius: 10px;
+    }
+    a {
+        color: $color-text-secondary !important;
     }
 }

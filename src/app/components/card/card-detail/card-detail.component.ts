@@ -36,7 +36,6 @@ import {
 })
 export class CardDetailComponent implements OnInit {
   team$!: Observable<Team>;
-  favAux = false;
 
   constructor(private teamsFacade: TeamsFacade) {}
 
@@ -44,8 +43,8 @@ export class CardDetailComponent implements OnInit {
     this.team$ = this.teamsFacade.getTeamSelected();
   }
 
-  onFavorite() {
-    this.favAux = !this.favAux;
+  onFavorite(team: Team) {
+    this.teamsFacade.setFavoriteTeam(team);
   }
 
   onCloseCard() {

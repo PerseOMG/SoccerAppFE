@@ -1,8 +1,8 @@
 export interface ITournament {
   _id?: string;
   name: string;
-  teams: string[] | ITeamStatistics[];
-  photo?: string;
+  teams: ITeamStatistics[];
+  logo?: string;
   isEditionComplete?: Boolean;
   editionStatistics?: IStatistics;
   historicalStatistics?: IStatistics;

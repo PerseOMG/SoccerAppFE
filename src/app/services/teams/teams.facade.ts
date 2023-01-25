@@ -28,5 +28,8 @@ export class TeamsFacade {
   deleteTeam = (id: string) =>
     this.store.dispatch(new teamsActions.DeleteTeam(id));
 
+  setFavoriteTeam = (team: Team) =>
+    this.store.dispatch(new teamsActions.SetFavoriteTeam(team));
+
   constructor(private store: Store<AppState>) {}
 }

@@ -1,9 +1,10 @@
 export interface IAlert {
-  title: string;
+  title?: string;
   text?: string;
   icon: 'error' | 'success' | 'warning' | 'info' | 'question';
   confirmButtonText?: string;
   iconColor?: string;
+  timer?: number;
   input?:
     | 'text'
     | 'email'

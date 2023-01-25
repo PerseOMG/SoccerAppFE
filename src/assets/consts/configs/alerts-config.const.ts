@@ -36,4 +36,11 @@ export const TEAMS_ALERTS: { [key: string]: IAlert } = {
     title: 'Team deleted successfully.',
     ...ALERT_STYLES,
   },
+  favorite: {
+    icon: 'success',
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    ...ALERT_STYLES,
+  },
 };

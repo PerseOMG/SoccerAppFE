@@ -25,6 +25,11 @@ const routes: Routes = [
     component: CardsContainerComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'tournaments',
+    component: TournamentsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
   {
     path: 'create/:model',
@@ -32,7 +37,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'thanksTo', component: CreditsPageComponent },
-  { path: 'tournaments', component: TournamentsComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: 'notFound', component: NotfoundComponent },

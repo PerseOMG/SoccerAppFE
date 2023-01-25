@@ -2,7 +2,7 @@
 
     <div class="card__container" [@appearAnimation]="team ? 'selected':'void'">
         <div class="card__action-buttons-container">
-            <img class="card__action-buttons" [src]=" favAux ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite()">
+            <img class="card__action-buttons" [src]=" team.isFavorite ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite(team)">
 
 
             <img class="card__action-buttons" src="../../../assets/icons/close.svg" alt="favorite" (click)="onCloseCard()">
