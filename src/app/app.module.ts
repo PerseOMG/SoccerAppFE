@@ -29,14 +29,15 @@ import { NotfoundComponent } from './components/shared/notfound/notfound.compone
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-import { CreateButtonComponent } from './components/shared/create/create-button/create-button.component';
+import { CreateButtonComponent } from './components/shared/action-button/action-button.component';
 import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
 import { TournamentsEffects } from './services/tournaments/tournaments.effects';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
-
+import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
+import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,8 @@ import { TournamentsCardComponent } from './components/tournaments/tournaments-c
     CreateFormComponent,
     DragAndDropComponent,
     TournamentsCardComponent,
+    TournamentDetailsComponent,
+    PlayTournamentDashboardComponent,
   ],
   imports: [
     NgSelectModule,

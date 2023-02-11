@@ -42,31 +42,6 @@
             </div>
             <hr class="separator ">
 
-            <div class="card__statistics-container ">
-
-                <div class="card__statistics-section ">
-                    <div class="card__statistics-image-container ">
-                        <img class="card__statistics-image " src="../../../assets/icons/winner-badge.svg " alt="WinRate ">
-                    </div>
-                    <strong class="card__statistics-text " [ngStyle]="{ 'color': team.wonGamesAverage> 50 ? '#1B4D3E' : '#AA0000'}">{{team.wonGamesAverage}}%</strong>
-                </div>
-
-                <div class="card__statistics-section">
-                    <div class="card__statistics-image-container">
-                        <img class="card__statistics-image" src="../../../assets/icons/goals.svg" alt="goalsScored">
-                    </div>
-                    <strong class="card__statistics-text" [ngStyle]="{'color': team.goalsDiff > 1 ? '#1B4D3E' : '#AA0000'}">{{team.goalsAverage}}</strong>
-                </div>
-                <div class="card__statistics-section">
-                    <div class="card__statistics-image-container">
-                        <img class="card__statistics-image" src="../../../assets/icons/loser.svg" alt="loser">
-                    </div>
-                    <strong class="card__statistics-text" [ngStyle]="{'color': team.loosedGamesAverage > 50 ? '#1B4D3E' : '#AA0000'}">{{team.loosedGamesAverage}}%</strong>
-
-                </div>
-
-            </div>
-
         </ng-container>
 
 

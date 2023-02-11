@@ -9,9 +9,6 @@ import { ILogin, ISignUp } from '../../models/auth.models';
   providedIn: 'root',
 })
 export class AuthFacade {
-  // Selectors
-  // selectAllTeams = () => this.store.select(teamsSelectors.allTeams);
-
   // Actions
   login = (body: ILogin) => this.store.dispatch(new authActions.Login(body));
   signup = (body: ISignUp) => this.store.dispatch(new authActions.SignUp(body));

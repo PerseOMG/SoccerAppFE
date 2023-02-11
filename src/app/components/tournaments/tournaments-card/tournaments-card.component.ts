@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ITournament } from '../../../models/tournament.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournaments-card',
@@ -10,11 +11,15 @@ export class TournamentsCardComponent implements OnInit {
   @Input() tournament!: ITournament;
   openMenu = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   handleTournamentSelection(tournament) {}
   onEdit(id: string) {}
   onDelete(id: string) {}
+
+  onSelect(id: string) {
+    this.router.navigate(['/tournamentDetails', id]);
+  }
 }

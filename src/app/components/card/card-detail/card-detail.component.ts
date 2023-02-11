@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../../models/team.models';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import {
   animate,
   state,
@@ -34,20 +35,21 @@ import {
     ]),
   ],
 })
-export class CardDetailComponent implements OnInit {
-  team$!: Observable<Team>;
-
-  constructor(private teamsFacade: TeamsFacade) {}
-
-  ngOnInit(): void {
-    this.team$ = this.teamsFacade.getTeamSelected();
-  }
-
-  onFavorite(team: Team) {
-    this.teamsFacade.setFavoriteTeam(team);
-  }
-
-  onCloseCard() {
-    this.teamsFacade.setTeamSelected(null);
-  }
+export class CardDetailComponent {
+  // team$!: Observable<Team>;
+  // constructor(
+  //   private teamsFacade: TeamsFacade,
+  //   private route: ActivatedRoute
+  // ) {}
+  // ngOnInit(): void {
+  //   this.team$ = this.teamsFacade.getTeamSelected(
+  //     this.route.snapshot.paramMap.get('id')
+  //   )[0];
+  // }
+  // onFavorite(team: Team) {
+  //   this.teamsFacade.setFavoriteTeam(team);
+  // }
+  // onCloseCard() {
+  //   this.teamsFacade.setTeamSelected(null);
+  // }
 }

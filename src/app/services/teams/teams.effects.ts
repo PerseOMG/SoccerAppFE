@@ -13,12 +13,16 @@ import { of } from 'rxjs';
 import {
   CreateTeamFailure,
   DeleteTeam,
-  NoAction,
   SetFavoriteTeam,
 } from './teams.actions';
 import { Router } from '@angular/router';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
+import {
+  GetTeamsStatistics,
+  GetTeamsStatisticsSuccess,
+  GetTeamsStatisticsFailure,
+} from './teams.actions';
 
 @Injectable()
 export class TeamsEffects {
@@ -42,6 +46,30 @@ export class TeamsEffects {
 
             return of(
               new GetTeamsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  getTeamsStatistics$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<GetTeamsStatistics>(ETeamsActions.GET_TEAMS_STATISTICS),
+      switchMap((action) =>
+        this.teamsService.getTeamStatistics(action.payload).pipe(
+          map((response) => {
+            return new GetTeamsStatisticsSuccess(response.data.teamsStatistics);
+          }),
+          catchError((error: any) => {
+            console.log(error);
+
+            return of(
+              new GetTeamsStatisticsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,

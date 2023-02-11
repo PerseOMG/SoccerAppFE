@@ -25,8 +25,6 @@ export class TournamentsService {
   }
 
   createTournament(tournament: ITournament) {
-    console.log(tournament);
-
     return this.http.post<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournaments`,
       tournament,

@@ -4,9 +4,13 @@ export interface IFormFields {
   type: inputTypes;
   errorMessage?: string;
   span?: string;
-  options?: IFormOptions[];
+  options?: IFormOptions[] | string[];
   validators: string[];
   maxSelected?: number;
+  changes?: string;
+  isDependable?: boolean;
+  dependsOn?: string;
+  dependsOnValue?: string;
 }
 
 export interface IFormOptions {

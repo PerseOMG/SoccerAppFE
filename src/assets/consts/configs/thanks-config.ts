@@ -160,4 +160,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Elegant Themes',
     link_creator: 'https://iconscout.com/contributors/elegant-themes',
   },
+  {
+    label_icon: 'Play Icon',
+    link_icon: 'https://iconscout.com/icons/play',
+    label_creator: 'Google Inc.',
+    link_creator: 'https://iconscout.com/contributors/google-inc',
+  },
 ];

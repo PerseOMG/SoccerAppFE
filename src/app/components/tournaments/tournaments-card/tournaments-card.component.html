@@ -23,7 +23,7 @@
 
 
 
-    <div class="card__info-container ">
+    <div class="card__info-container " (click)="onSelect(tournament._id)">
         <img class="card__info-image " [src]="tournament.logo ?? '../../../../assets/icons/default-tournament-logo.svg' " [alt]="tournament.name ">
 
         <strong class="card__info-name ">{{tournament.name}}</strong>

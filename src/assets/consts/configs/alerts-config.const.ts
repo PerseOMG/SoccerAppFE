@@ -44,3 +44,13 @@ export const TEAMS_ALERTS: { [key: string]: IAlert } = {
     ...ALERT_STYLES,
   },
 };
+
+export const FORM_ALERTS: { [key: string]: IAlert } = {
+  teamsAmountError: {
+    icon: 'error',
+    position: 'center',
+    title: 'Please select a proper amount of teams.',
+    showConfirmButton: false,
+    ...ALERT_STYLES,
+  },
+};

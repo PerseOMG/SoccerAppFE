@@ -1,115 +1,116 @@
 @import "../../../../styles.scss";
 .separator {
-    width: 100%;
-    border-top: 1px solid #fff;
-    border-radius: 1px;
+  width: 100%;
+  border-top: 1px solid #fff;
+  border-radius: 1px;
 }
 
 .card {
-    &__container {
-        border: 1px solid black;
-        background-color: #8297a7;
-        border-radius: 5px;
-        padding: 0.5rem;
+  &__container {
+    border: 1px solid black;
+    background-color: #8297a7;
+    border-radius: 5px;
+    padding: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
+    max-width: 250px;
+    font-family: $regular;
+  }
+  &__action-buttons {
+    height: 20px;
+    cursor: pointer;
+    &-container {
+      width: 100%;
+      height: 25px;
+      display: flex !important;
+      justify-content: end !important;
+      div {
+        width: 30%;
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+    &-menu {
+      position: relative;
+      list-style: none;
+      font-family: $regular;
+      font-size: small;
+      background-color: #fff;
+      display: block;
+      margin: 0;
+      padding: 0;
+      border-radius: 5%;
+    }
+    &-item {
+      padding: 20% 10% 10% 10%;
+      img {
+        height: 10px;
+        width: 10px;
+      }
+    }
+    &-item:hover {
+      background-color: $color-text-secondary;
+      color: #fff;
+    }
+  }
+  &__info {
+    &-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+    &-image {
+      height: 100px;
+      width: 100px;
+      border-radius: 60%;
+      margin-bottom: 1rem;
+    }
+    &-name {
+      font-family: $regular;
+      color: $color-text-primary;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+  }
+  &__championships {
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    &-image {
+      height: 20px;
+      padding: 2px;
+      mix-blend-mode: multiply;
+      border-radius: 50%;
+    }
+  }
+  &__statistics {
+    &-container {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    &-image {
+      height: 45px;
+      width: 45px;
+      &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $color-text-primary;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        cursor: pointer;
-        max-width: 250px;
-        font-family: $regular;
+        border-radius: 50%;
+        height: 65px;
+        width: 65px;
+        margin-bottom: 1rem;
+      }
     }
-    &__action-buttons {
-        height: 20px;
-        cursor: pointer;
-        &-container {
-            width: 100%;
-            height: 25px;
-            display: flex !important;
-            justify-content: end !important;
-            div {
-                width: 30%;
-                display: flex;
-                justify-content: space-around;
-            }
-        }
-        &-menu {
-            position: relative;
-            list-style: none;
-            font-family: $regular;
-            font-size: small;
-            background-color: #fff;
-            display: block;
-            margin: 0;
-            padding: 0;
-            border-radius: 5%;
-        }
-        &-item {
-            padding: 20% 10% 10% 10%;
-            img {
-                height: 10px;
-                width: 10px;
-            }
-        }
-        &-item:hover {
-            background-color: $color-text-secondary;
-            color: #fff;
-        }
+    &-text {
+      font-size: 20px;
+      font-family: $regular;
+      color: $color-text-primary;
+      text-align: center;
     }
-    &__info {
-        &-container {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-        }
-        &-image {
-            height: 100px;
-            width: 100px;
-            border-radius: 60%;
-            margin-bottom: 1rem;
-        }
-        &-name {
-            font-family: $regular;
-            color: $color-text-primary;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-    }
-    &__championships {
-        &-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        &-image {
-            height: 20px;
-            padding: 2px;
-            mix-blend-mode: multiply;
-        }
-    }
-    &__statistics {
-        &-container {
-            text-align: center;
-            margin: 1rem 0;
-        }
-        &-image {
-            height: 45px;
-            width: 45px;
-            &-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: $color-text-primary;
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                border-radius: 50%;
-                height: 65px;
-                width: 65px;
-                margin-bottom: 1rem;
-            }
-        }
-        &-text {
-            font-size: 20px;
-            font-family: $regular;
-            color: $color-text-primary;
-            text-align: center;
-        }
-    }
+  }
 }

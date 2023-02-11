@@ -1,6 +1,14 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Chart, registerables } from 'chart.js';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import {
   GAMES_CHART_CONFIG,
   GAMES_CHART_DATA,
@@ -17,21 +25,32 @@ import {
   styleUrls: ['./card-full.component.scss'],
 })
 export class CardFullComponent implements OnInit, AfterViewInit {
-  team$ = this.teamsFacade.getTeamSelected();
-  constructor(private teamsFacade: TeamsFacade) {
+  @ViewChildren('totalGamesChart') gamesChart: QueryList<any>;
+  @ViewChildren('totalGoalsChart') goalsChart: QueryList<any>;
+  team$ = this.teamsFacade.getTeamSelected(
+    this.route.snapshot.paramMap.get('id')
+  );
+  teamStatistics$ = this.teamsFacade.selectTeamStatistics();
+
+  constructor(private teamsFacade: TeamsFacade, private route: ActivatedRoute) {
     Chart.register(...registerables);
+    this.teamsFacade.getTeamStatistics(this.route.snapshot.paramMap.get('id'));
   }
 
   ngAfterViewInit() {
-    const GAMES = (<HTMLCanvasElement>(
-      document.getElementById('totalGamesChart')
-    ))?.getContext('2d');
+    combineLatest([
+      this.gamesChart.changes,
+      this.goalsChart.changes,
+      this.teamStatistics$,
+    ]).subscribe(([games, goals, team]) => {
+      const GAMES = (<HTMLCanvasElement>(
+        document.getElementById('totalGamesChart')
+      ))?.getContext('2d');
 
-    const GOALS = (<HTMLCanvasElement>(
-      document.getElementById('totalGoalsChart')
-    ))?.getContext('2d');
+      const GOALS = (<HTMLCanvasElement>(
+        document.getElementById('totalGoalsChart')
+      ))?.getContext('2d');
 
-    this.team$.subscribe((team) => {
       if (team) {
         this.generateChart(GAMES, {
           ...GAMES_CHART_CONFIG,
@@ -41,9 +60,9 @@ export class CardFullComponent implements OnInit, AfterViewInit {
               {
                 ...GAMES_CHART_DATA.datasets,
                 data: [
-                  team.totalGamesWon + 10,
-                  team.totalGamesLoosed + 1,
-                  team.totalTiedGames + 9,
+                  team.teamHistoricalData?.totalGamesWon + 10,
+                  team.teamHistoricalData?.totalgamesLost + 1,
+                  team.teamHistoricalData?.totalTiedGames + 9,
                 ],
               },
             ],
@@ -57,7 +76,10 @@ export class CardFullComponent implements OnInit, AfterViewInit {
             datasets: [
               {
                 ...GOALS_CHART_DATA.datasets,
-                data: [team.totalGoalsScored + 40, team.totalGoalsAgainst + 36],
+                data: [
+                  team.teamHistoricalData?.totalGoalsScored + 40,
+                  team.teamHistoricalData?.totalGoalsAgainst + 36,
+                ],
               },
             ],
           },

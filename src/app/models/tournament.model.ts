@@ -1,31 +1,40 @@
 export interface ITournament {
   _id?: string;
   name: string;
-  teams: ITeamStatistics[];
+  teams: ITeamStatisticsReference[];
   logo?: string;
-  isEditionComplete?: Boolean;
-  editionStatistics?: IStatistics;
-  historicalStatistics?: IStatistics;
+  isEditionComplete?: boolean;
   positionTable?: IPositionTableData[];
   calendar?: ICalendar[];
+  options?: {
+    winnerDefinition: 'points' | 'playoffs';
+    playoffsQuantity?: 2 | 4 | 6 | 8 | 10;
+  };
+  bonus?: {
+    champion?: string;
+    lastPosition?: string;
+    subChamp?: string;
+    winRates: string[];
+    looseRates: string[];
+  };
 }
 
 export interface ICalendar {
   edition: number;
   matches: {
-    visit: string | ITeamStatistics[];
-    local: string | ITeamStatistics[];
+    visit: ITeamStatisticsReference;
+    local: ITeamStatisticsReference;
     score: string;
     hasBeenPlayed: boolean;
   }[];
 }
 
 export interface IPositionTableData {
-  team: ITeamStatistics;
+  team: ITeamStatisticsReference;
   gamesPlayed: number;
   gamesWon: number;
   gamesTied: number;
-  gamesLoosed: number;
+  gamesLost: number;
   goalsScored: number;
   goalsAgainst: number;
   goalsDiff: number;
@@ -34,18 +43,19 @@ export interface IPositionTableData {
 }
 
 export interface ITeamsStatistics {
-  team: ITeamStatistics;
+  team: ITeamStatisticsReference;
   value: number;
 }
 
-export interface IStatistics {
+export interface ITournamentStatistics {
+  tournamentId: string;
   currentEdition?: number;
   totalGoalsScored: number;
   maxGoalsScorer: ITeamsStatistics;
   lessGoalsScorer: ITeamsStatistics;
   moreGoalsAgainst: ITeamsStatistics;
   lessGoalsAgainst: ITeamsStatistics;
-  moreGamesLoosed: ITeamsStatistics;
+  moregamesLost: ITeamsStatistics;
   moreGamesWon: ITeamsStatistics;
   moreGamesTied: ITeamsStatistics;
   moreChampionshipsWon: ITeamsStatistics;
@@ -54,11 +64,11 @@ export interface IStatistics {
   worstLoose: ITeamsStatistics;
 }
 export interface IHistoricalStatistics {
-  moreChampionshipsWon: ITeamStatistics;
-  moreMatchesPlayed: ITeamStatistics;
+  moreChampionshipsWon: ITeamStatisticsReference;
+  moreMatchesPlayed: ITeamStatisticsReference;
 }
 
-export interface ITeamStatistics {
+export interface ITeamStatisticsReference {
   logo: string;
   name: string;
   value: number;

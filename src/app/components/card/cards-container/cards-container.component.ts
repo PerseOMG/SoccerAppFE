@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Observable } from 'rxjs';
-import { ITeamsState } from '../../../services/teams/teams.reducer';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
 import { PaginationFacade } from '../../../services/pagination/pagination.facade';
+import { Team } from '../../../models/team.models';
 
 @Component({
   selector: 'app-cards-container',
@@ -11,8 +11,7 @@ import { PaginationFacade } from '../../../services/pagination/pagination.facade
   styleUrls: ['./cards-container.component.scss'],
 })
 export class CardsContainerComponent implements OnInit {
-  teams$: Observable<ITeamsState> = this.teamsFacade.selectAllTeams();
-  isTeamSelected$: Observable<boolean> = this.teamsFacade.isTeamSelected();
+  teams$: Observable<Team[]> = this.teamsFacade.selectAllTeams();
   itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
   filter = this.paginationFacade.getFilter();
   config = CARDS_PAGINATION_CONTROLS;

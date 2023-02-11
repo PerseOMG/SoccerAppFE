@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IFormFields } from '../../../../models/form-fields.model';
 import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
-import { Observable, take, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { TeamsFacade } from '../../../../services/teams/teams.facade';
 import { TournamentsFacade } from '../../../../services/tournaments/tournaments.facade';
-import { createTournamentCalendar } from '../../../../utils/createTournamentCalendar';
-
+import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
 import {
   FormGroup,
   FormBuilder,
   FormControl,
   Validators,
 } from '@angular/forms';
+import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
+import { ITournament } from '../../../../models/tournament.model';
 
 @Component({
   selector: 'app-create-form',
@@ -32,7 +33,8 @@ export class CreateFormComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private teamFacade: TeamsFacade,
-    private tournamentsFacade: TournamentsFacade
+    private tournamentsFacade: TournamentsFacade,
+    private sweetAlertService: SweetAlertsService
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +69,36 @@ export class CreateFormComponent implements OnInit {
       : this.handleOnSubmit();
   }
 
-  getSelectOptions() {}
+  onSelectChange(item: IFormFields) {
+    if (item.changes) {
+      const childInputConfig = (
+        FORMS_CONFIG[this.model] as IFormFields[]
+      ).filter((input) => input.key === item.changes);
+      if (
+        !this.dynamicForm
+          .get(item.key)
+          .value.includes(childInputConfig[0].dependsOnValue)
+      ) {
+        this.dynamicForm
+          .get(childInputConfig[0].key)
+          .removeValidators(Validators.required);
+        this.dynamicForm.get(childInputConfig[0].key).setValue('');
+        this.dynamicForm.get(childInputConfig[0].key).updateValueAndValidity();
+      }
+      // Winner Definition by playoffs
+      if (
+        this.dynamicForm
+          .get(item.key)
+          .value.includes(childInputConfig[0].dependsOnValue)
+      ) {
+        this.dynamicForm
+          .get(childInputConfig[0].key)
+          .addValidators(Validators.required);
+        this.dynamicForm.get(childInputConfig[0].key).setValue('');
+        this.dynamicForm.get(childInputConfig[0].key).updateValueAndValidity();
+      }
+    }
+  }
 
   handleOnSubmit() {
     switch (this.model) {
@@ -75,13 +106,38 @@ export class CreateFormComponent implements OnInit {
         this.teamFacade.createTeam(this.dynamicForm.value);
         break;
       case 'tournament':
-        this.tournamentsFacade.createTournament(this.dynamicForm.value);
+        if (
+          this.dynamicForm.get('teams').value.length >
+            this.dynamicForm.get('playoffsQuantity').value ||
+          this.dynamicForm.get('winnerDefinition').value === 'points'
+        ) {
+          const tournament: ITournament = {
+            options: {
+              winnerDefinition:
+                this.dynamicForm.get('winnerDefinition').value[0],
+              playoffsQuantity:
+                this.dynamicForm.get('playoffsQuantity')?.value[0],
+            },
+            name: this.dynamicForm.get('name').value,
+            teams: this.dynamicForm.get('teams').value,
+            logo: this.dynamicForm.get('logo').value,
+          };
+          this.tournamentsFacade.createTournament(tournament);
+        } else {
+          this.sweetAlertService.fireAlert(FORM_ALERTS['teamsAmountError']);
+        }
         break;
     }
   }
 
   onClose(key: string, message: string, max: number) {
-    return this.dynamicForm.get(key).value.length === max ? message : null;
+    return this.dynamicForm.get(key).value.length > max ? message : null;
+  }
+
+  getDependableVisibility(item: any) {
+    return this.dynamicForm
+      .get(item.dependsOn)
+      .value.includes(item.dependsOnValue);
   }
 
   generateDynamicForm(): FormGroup {

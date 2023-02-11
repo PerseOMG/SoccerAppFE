@@ -1,14 +1,14 @@
 import { Team } from '../../models/team.models';
 import { ETeamsActions, teamsActions } from './teams.actions';
 import { IAppError } from '../../interfaces/appError.interface';
+import { ITeamStatistics } from '../../models/teamStatistics.model';
 
 export interface ITeamsState {
   teams: Team[];
   total: number;
   error: IAppError;
   status: 'error' | 'pending' | 'success';
-  isTeamSelected: boolean;
-  teamSelected: Team;
+  teamSelectedStatistics: ITeamStatistics;
 }
 
 export const initTeamsState: ITeamsState = {
@@ -16,8 +16,7 @@ export const initTeamsState: ITeamsState = {
   total: 0,
   error: null,
   status: null,
-  isTeamSelected: false,
-  teamSelected: null,
+  teamSelectedStatistics: null,
 };
 
 export function teamsReducer(
@@ -39,22 +38,25 @@ export function teamsReducer(
         status: 'error',
         error: { ...action.payload, message: 'Error while getting the teams.' },
       };
-    case ETeamsActions.IS_TEAM_SELECTED:
-      return {
-        ...state,
-        isTeamSelected: false,
-      };
-    case ETeamsActions.TEAM_SELECTED:
-      return {
-        ...state,
-        isTeamSelected: true,
-        teamSelected: action.payload,
-      };
     case ETeamsActions.CREATE_TEAM_FAILURE:
       return {
         ...state,
         status: 'error',
         error: { ...action.payload, message: 'Error while create the team.' },
+      };
+    case ETeamsActions.GET_TEAMS_STATISTICS_SUCCESS:
+      return {
+        ...state,
+        teamSelectedStatistics: action.payload,
+      };
+    case ETeamsActions.GET_TEAMS_STATISTICS_FAILURE:
+      return {
+        ...state,
+        status: 'error',
+        error: {
+          ...action.payload,
+          message: 'Error while getting team´s statistics.',
+        },
       };
     default:
       return state;

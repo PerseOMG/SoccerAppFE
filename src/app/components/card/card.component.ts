@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.models';
 import { TeamsFacade } from '../../services/teams/teams.facade';
 import { ITournament } from '../../models/tournament.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -63,7 +64,7 @@ export class CardComponent implements OnInit {
   isMouseIn = false;
   selectedCardId = 'NA';
   openMenu = false;
-  constructor(private teamsFacade: TeamsFacade) {}
+  constructor(private teamsFacade: TeamsFacade, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -82,7 +83,7 @@ export class CardComponent implements OnInit {
 
   handleTeamSelection(team: Team) {
     this.selectedCard(team._id);
-    this.teamsFacade.setTeamSelected(team);
+    this.router.navigate(['teams', team._id]);
   }
 
   onFavorite(team: Team) {

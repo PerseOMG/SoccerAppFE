@@ -1,3 +1,3 @@
 <div class="container" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'" (click)="onClick()">
-    <img src="../../../../assets/icons/plus.svg" alt="create">
+    <img [src]="action==='create' ? '../../../../assets/icons/plus.svg' : '../../../../assets/icons/play.svg'" [alt]="action">
 </div>

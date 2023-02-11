@@ -4,6 +4,7 @@ import { TeamsResponse } from 'src/app/models/team.models';
 import { Observable } from 'rxjs';
 import { APP_SOCCER_SERVER_URL } from 'src/app.constants';
 import { Team } from '../../models/team.models';
+import { ITeamStatisticsResponse } from '../../models/teamStatistics.model';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,17 @@ export class TeamsService {
     return this.http.patch(
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       { isFavorite },
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
+    );
+  }
+
+  getTeamStatistics(id: string): Observable<ITeamStatisticsResponse> {
+    return this.http.get<ITeamStatisticsResponse>(
+      `${APP_SOCCER_SERVER_URL}/team/statistics/${id}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,

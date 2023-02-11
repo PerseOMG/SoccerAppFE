@@ -18,7 +18,8 @@
                     </ng-container>
                 </div>
                 <ng-template #stepTwoTemplate>
-                    <app-drag-and-drop [dragObjTemplate]="(dragAndDropItems | async).teams" (dragObjSelected)="onDragAndDropEvent($event)"></app-drag-and-drop>
+                    <h3 *ngIf="dynamicForm.get('winnerDefinition').value.includes('playoffs')">Please choose at least {{dynamicForm.get('playoffsQuantity').value[0] + 1}} players</h3>
+                    <app-drag-and-drop [dragObjTemplate]="(dragAndDropItems | async)" (dragObjSelected)="onDragAndDropEvent($event)"></app-drag-and-drop>
                 </ng-template>
                 <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">{{ getButtonLabel() }}</button>
             </form>
@@ -33,9 +34,9 @@
 
                         </ng-container>
                         <ng-template #selectTemplate>
-                            <div class="dynamic-form-input">
-                                <ng-select class="custom" [formControl]="formGroup.get(item.key)" [multiple]="true" bindLabel="label" bindValue="value" [items]="selectOptions | async" [placeholder]="getMultiSelectPlaceholder(item)" dropdownPosition="top" [maxSelectedItems]="item.maxSelected"
-                                    [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true" appendTo="ng-select"></ng-select>
+                            <div class="dynamic-form-input" *ngIf="!item.isDependable || getDependableVisibility(item)">
+                                <ng-select (change)="onSelectChange(item)" class="custom" [formControl]="formGroup.get(item.key)" [multiple]="true" bindLabel="label" bindValue="value" [items]=" item.options ?? (selectOptions | async)" [placeholder]="getMultiSelectPlaceholder(item)"
+                                    dropdownPosition="top" [maxSelectedItems]="item.maxSelected" [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true" appendTo="ng-select"></ng-select>
                             </div>
                             <small *ngIf="item.errorMessage" style="color: red;">{{onClose(item.key, item.errorMessage, item.maxSelected )}}</small>
                         </ng-template>
@@ -48,3 +49,5 @@
         </div>
     </div>
 </ng-template>
+
+{{ dynamicForm.value | json }}

@@ -9,9 +9,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-button',
-  templateUrl: './create-button.component.html',
-  styleUrls: ['./create-button.component.scss'],
+  selector: 'app-action-button',
+  templateUrl: './action-button.component.html',
+  styleUrls: ['./action-button.component.scss'],
+
   animations: [
     trigger('hoverAnimation', [
       state(
@@ -26,6 +27,7 @@ import { Router } from '@angular/router';
 })
 export class CreateButtonComponent implements OnInit {
   @Input() redirectTo: string;
+  @Input() action: 'create' | 'start';
   isMouseIn = false;
 
   constructor(private router: Router) {}
@@ -37,6 +39,10 @@ export class CreateButtonComponent implements OnInit {
   }
 
   onClick() {
-    this.router.navigate(['/create', this.redirectTo]);
+    if (this.action === 'create') {
+      this.router.navigate(['/create', this.redirectTo]);
+    } else {
+      this.router.navigate(['/playTournament', this.redirectTo]);
+    }
   }
 }

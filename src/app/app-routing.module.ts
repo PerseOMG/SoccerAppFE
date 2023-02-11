@@ -12,6 +12,8 @@ import { TournamentsComponent } from './components/tournaments/tournaments.compo
 import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
+import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
+import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
@@ -26,8 +28,23 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'teams/:id',
+    component: CardFullComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'tournaments',
     component: TournamentsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tournamentDetails/:id',
+    component: TournamentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'playTournament/:id',
+    component: PlayTournamentDashboardComponent,
     canActivate: [AuthGuard],
   },
   { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
