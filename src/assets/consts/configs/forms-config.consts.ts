@@ -67,7 +67,7 @@ export const FORMS_CONFIG = {
       validators: ['required'],
       errorMessage: 'This field is required.',
       maxSelected: 1,
-      options: [2, 4, 6, 8],
+      options: [2, 4, 8],
       isDependable: true,
       dependsOn: 'winnerDefinition',
       dependsOnValue: 'playoffs',
