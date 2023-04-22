@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Observable } from 'rxjs';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
@@ -10,7 +10,7 @@ import { Team } from '../../../models/team.models';
   templateUrl: './cards-container.component.html',
   styleUrls: ['./cards-container.component.scss'],
 })
-export class CardsContainerComponent implements OnInit {
+export class CardsContainerComponent implements OnInit, OnDestroy {
   teams$: Observable<Team[]> = this.teamsFacade.selectAllTeams();
   itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
   filter = this.paginationFacade.getFilter();
@@ -46,5 +46,9 @@ export class CardsContainerComponent implements OnInit {
 
   onPageChange(page: number) {
     this.paginationFacade.setCurrentPage(page);
+  }
+
+  ngOnDestroy(): void {
+    this.paginationFacade.setFilter('');
   }
 }
