@@ -5,7 +5,7 @@
 
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form" action="">
             <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="login-form-input" type="text" placeholder="Email">
-            <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" login-form-input " type="password " placeholder="Password ">
+            <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" login-form-input" type="password" placeholder="Password ">
             <button class="login-form-button " [disabled]="loginForm.invalid">Login</button>
         </form>
 
