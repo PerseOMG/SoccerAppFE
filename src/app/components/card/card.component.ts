@@ -90,6 +90,10 @@ export class CardComponent implements OnInit {
     this.teamsFacade.setFavoriteTeam(team);
   }
 
+  getStarsArray(stars: number): any[] {
+    return Array.from({ length: stars });
+  }
+
   onDelete(id: string) {
     this.teamsFacade.deleteTeam(id);
   }

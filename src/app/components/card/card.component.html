@@ -33,10 +33,12 @@
         <ng-container *ngIf="options.showDetails">
             <hr class="separator ">
             <div class="card__championships-container ">
-                <ng-container *ngFor="let item of team.totalChampionships ">
-                    <img class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
+                <ng-container *ngFor="let championship of team.totalChampionships ">
+                    <span>{{championship.tournament}}</span>
+                    <!-- TO DO: MANAGE TO SHOW TROPHY -->
+                    <img *ngFor="let star of getStarsArray(championship.value)" class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
                 </ng-container>
-                <ng-container *ngIf="team.totalChampionships=== null ">
+                <ng-container *ngIf="team.totalChampionships.length === 0 ">
                     <img class="card__championships-image " src="../../../assets/icons/x.svg " alt="NA ">
                 </ng-container>
             </div>
