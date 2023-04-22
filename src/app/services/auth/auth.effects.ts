@@ -30,7 +30,7 @@ export class AuthEffects {
         this.authService.login(action.payload).pipe(
           map((response) => {
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.router.navigate(['teams']);
+            this.router.navigate(['/']);
             return new LoginSuccess(response);
           }),
           catchError((error: any) => {
@@ -55,7 +55,7 @@ export class AuthEffects {
         this.authService.signup(action.payload).pipe(
           map((response) => {
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.router.navigate(['teams']);
+            this.router.navigate(['/']);
             return new SignUpSuccess(response);
           }),
           catchError((error: any) => {

@@ -14,7 +14,7 @@ export class NotLoggedGuard implements CanActivate {
     if (!JWT) {
       return true;
     }
-    this.router.navigate(['/teams']);
+    this.router.navigate(['/']);
     return false;
   }
 }
