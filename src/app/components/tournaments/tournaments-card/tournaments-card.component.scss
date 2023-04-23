@@ -62,8 +62,10 @@
     &-image {
       height: 100px;
       width: 100px;
-      border-radius: 60%;
+      border-radius: 50%;
       margin-bottom: 1rem;
+      object-fit: cover;
+      object-position: 50% 50%;
     }
     &-name {
       font-family: $regular;

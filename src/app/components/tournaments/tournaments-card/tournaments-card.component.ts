@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ITournament } from '../../../models/tournament.model';
+import { ITournamentCardData } from '../../../models/tournament.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./tournaments-card.component.scss'],
 })
 export class TournamentsCardComponent implements OnInit {
-  @Input() tournament!: ITournament;
+  @Input() tournament!: ITournamentCardData;
+  @Input() options!: { showActionButtons: boolean };
   openMenu = false;
 
   constructor(private router: Router) {}

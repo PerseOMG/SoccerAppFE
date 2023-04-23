@@ -83,3 +83,10 @@ export interface ITournamentResponse {
   results: number;
   data: IData;
 }
+
+export interface ITournamentCardData {
+  _id?: string;
+  name: string;
+  teams?: ITeamStatisticsReference[];
+  logo?: string;
+}

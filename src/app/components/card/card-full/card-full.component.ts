@@ -94,4 +94,8 @@ export class CardFullComponent implements OnInit, AfterViewInit {
   generateChart(chartElement: CanvasRenderingContext2D, config: any) {
     new Chart(chartElement, config);
   }
+
+  getStarsArray(stars: number): any[] {
+    return Array.from({ length: stars });
+  }
 }

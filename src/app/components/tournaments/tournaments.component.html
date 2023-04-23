@@ -2,7 +2,7 @@
     <h1>My Tournaments</h1>
     <app-filters></app-filters>
     <div class="cards-container__container" *ngIf="(tournaments$ |async) as tournaments">
-        <app-tournaments-card *ngFor="let tournament of tournaments.tournaments | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: getItemsPerPage(), currentPage: getCurrentPage()}" [tournament]="tournament"></app-tournaments-card>
+        <app-tournaments-card [options]="{showActionButtons: true}" *ngFor="let tournament of tournaments.tournaments | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: getItemsPerPage(), currentPage: getCurrentPage()}" [tournament]="tournament"></app-tournaments-card>
     </div>
     <ng-container *ngIf="(tournaments$ |async).tournaments as tournaments">
         <pagination-controls *ngIf="tournaments.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"

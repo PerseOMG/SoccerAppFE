@@ -2,6 +2,7 @@
     <div class="main-container">
 
         <div class="inner-container">
+            <h1>{{team.name}}</h1>
 
             <ng-container *ngIf=" teamStatistics$ | async as statistics">
                 <div class="grid">
@@ -9,19 +10,12 @@
                     <!-- Main info -->
                     <div class="main-info">
                         <img [src]="team.logo" alt="logo">
-                        <h3>{{team.name}}</h3>
                     </div>
-
                     <!-- Championships -->
                     <div class="tournaments-info">
-                        <h1>Championships</h1>
-
-                        <h3>Tournaments:
-
-                            <ul>
-                                <li *ngFor="let tournament of team.tournaments"> <strong>{{tournament.name}}</strong> </li>
-                            </ul>
-                        </h3>
+                        <h2>Championships</h2>
+                        <h3>Tournaments:</h3>
+                        <app-tournaments-card *ngFor="let tournament of team.tournaments" [options]="{showActionButtons: false}" [tournament]="tournament"></app-tournaments-card>
 
 
                         <div class="row">
@@ -30,30 +24,40 @@
 
 
                         <div class="row">
-                            <h3>Championships Won:
-                                <ng-container *ngFor="let item of team.totalChampionships">
-                                    <img class="championships-image" src="../../../assets/icons/trophy.svg" alt="*">
-                                </ng-container>
-                                <ng-container *ngIf="team.totalChampionships?.length === 0">
-                                    <img class="championships-image" src="../../../assets/icons/x.svg" alt="NA">
-                                </ng-container>
-                            </h3>
-                        </div>
-                        <div class="row">
                             <h3>Total Tournaments Played: {{statistics?.teamHistoricalData?.totalChampionshipsPlayed}}</h3>
                         </div>
                         <div class="row">
                             <!-- Finals -->
-                            <h3>Total Lose Finals: {{statistics.finalsData?.totalLoosedFinals}}</h3>
+                            <h3>Total Finals Lost: {{statistics.finalsData?.totalLoosedFinals}}</h3>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                    <h2>Championships Won: </h2>
+
+                    <table>
+                        <tr *ngFor="let item of team.totalChampionships">
+                            <th>
+                                <h5>{{item.tournament}}</h5>
+                            </th>
+                            <th>
+                                <img class="championships-image" *ngFor="let star of getStarsArray(item.value)" src="../../../assets/icons/trophy.svg" alt="*">
+                                <ng-container *ngIf="team.totalChampionships?.length === 0">
+                                    <img class="championships-image" src="../../../assets/icons/x.svg" alt="NA">
+                                </ng-container>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+
 
                 <!-- Actual Info -->
                 <div class="grid">
                     <div class="section-info">
                         <!-- Games -->
-                        <h1> Games </h1>
+                        <h2> Games </h2>
                         <div style="width: 100%;">
                             <canvas #totalGamesChart id="totalGamesChart"></canvas>
                         </div>
@@ -65,7 +69,7 @@
                     </div>
 
                     <div class="section-info">
-                        <h1> Goals </h1>
+                        <h2> Goals </h2>
 
                         <!-- Goals -->
                         <div style="width: 100%">
@@ -74,7 +78,7 @@
                         <h3>Goals Diff: {{statistics?.teamHistoricalData?.goalsDiff}}</h3>
                     </div>
                     <div class="section-info">
-                        <h1> Averages </h1>
+                        <h2> Averages </h2>
 
                         <!-- Average -->
                         <h3>Goals Scored Average: {{statistics?.teamHistoricalData?.goalsAverage}}</h3>
@@ -85,7 +89,7 @@
 
                     </div>
                     <div class="section-info">
-                        <h1> Streaks </h1>
+                        <h2> Streaks </h2>
 
                         <!-- Streaks -->
                         <h3>Actual Winning Streak: {{statistics?.teamHistoricalData?.actualWinningStreak}}</h3>

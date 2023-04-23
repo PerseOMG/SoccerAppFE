@@ -8,7 +8,6 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.models';
 import { TeamsFacade } from '../../services/teams/teams.facade';
-import { ITournament } from '../../models/tournament.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,27 +24,6 @@ import { Router } from '@angular/router';
         })
       ),
       transition('void => hover, hover => void', [animate('0.75s ease')]),
-    ]),
-
-    trigger('selectAnimation', [
-      state(
-        'selected',
-        style({
-          position: 'absolute',
-          top: '10%',
-          right: '50%',
-          borderRadius: '100%',
-          height: '0',
-          width: '0',
-        })
-      ),
-      state(
-        'void',
-        style({
-          position: 'unset',
-        })
-      ),
-      transition('void => selected ,selected => void', [animate('1s ease')]),
     ]),
   ],
 })
