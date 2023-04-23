@@ -8,6 +8,8 @@ import {
 } from '../../models/tournament.model';
 import { combineLatest, skip } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
+import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
+import { TeamsFacade } from '../../services/teams/teams.facade';
 
 @Component({
   selector: 'app-play-tournament-dashboard',
@@ -23,9 +25,11 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   matchesShuffle = [];
   positionTable: IPositionTableData[] = [];
   playoffsPhaseCalendar = [];
+  teamStatistics: ITeamStatistics[] = [];
   constructor(
+    private teamsFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
   ngAfterViewInit(): void {
     combineLatest([
@@ -223,6 +227,15 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     }
     if (nextPhaseCalendar.length > 0) {
       this.playoffsPhaseCalendar = nextPhaseCalendar;
+    }
+  }
+
+  updateTeamsStatistics(
+    data: IPositionTableData,
+    isFinal: boolean,
+    finalRival?: any
+  ) {
+    if (isFinal) {
     }
   }
 }

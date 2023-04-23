@@ -5,7 +5,6 @@ import * as teamsActions from './teams.actions';
 import { teamsSelectors } from './teams.selectors';
 import { Team } from '../../models/team.models';
 import { map } from 'rxjs/operators';
-import { filter } from '../pagination/pagination.selectors';
 
 @Injectable({
   providedIn: 'root',
