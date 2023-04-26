@@ -10,7 +10,7 @@ export const allTeams = createSelector(
 
 export const selectTeamStatistics = createSelector(
   selectStore,
-  (state: AppState) => state.teams.teamSelectedStatistics
+  (state: AppState) => state.teams.teamsStatistics
 );
 
 export const teamsSelectors = {

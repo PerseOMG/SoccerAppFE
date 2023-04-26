@@ -8,7 +8,6 @@ export interface ITeamsState {
   total: number;
   error: IAppError;
   status: 'error' | 'pending' | 'success';
-  teamSelectedStatistics: ITeamStatistics;
   teamsStatistics: ITeamStatistics[];
 }
 
@@ -17,8 +16,7 @@ export const initTeamsState: ITeamsState = {
   total: 0,
   error: null,
   status: null,
-  teamSelectedStatistics: null,
-  teamsStatistics: [],
+  teamsStatistics: null,
 };
 
 export function teamsReducer(
@@ -49,7 +47,7 @@ export function teamsReducer(
     case ETeamsActions.GET_TEAMS_STATISTICS_SUCCESS:
       return {
         ...state,
-        teamSelectedStatistics: action.payload,
+        teamsStatistics: action.payload,
       };
     case ETeamsActions.GET_TEAMS_STATISTICS_FAILURE:
       return {

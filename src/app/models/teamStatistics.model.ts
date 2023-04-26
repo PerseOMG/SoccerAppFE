@@ -2,7 +2,7 @@ import { ITeamStatisticsReference } from './tournament.model';
 export interface ITeamStatisticsResponse {
   status: string;
   data: {
-    teamsStatistics: ITeamStatistics;
+    teamsStatistics: ITeamStatistics[];
   };
 }
 
@@ -28,7 +28,7 @@ export interface ITeamStatistics {
     totalGoalsAgainst?: number;
     totalGamesPlayed?: number;
     totalGamesWon?: number;
-    totalgamesLost?: number;
+    totalGamesLost?: number;
     bestWin?: matchStatistics;
     worstLose?: matchStatistics;
     lastDefeat?: matchStatistics;

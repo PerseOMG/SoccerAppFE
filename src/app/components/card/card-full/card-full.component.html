@@ -2,7 +2,7 @@
     <div class="main-container">
 
         <div class="inner-container">
-            <h1>{{team.name}}</h1>
+            <h1>{{team.name ?? 'NA' }}</h1>
 
             <ng-container *ngIf=" teamStatistics$ | async as statistics">
                 <div class="grid">
@@ -19,16 +19,16 @@
 
 
                         <div class="row">
-                            <h3>Total Tournaments: {{team.tournaments.length}}</h3>
+                            <h3>Total Tournaments: {{team.tournaments.length ?? 'NA' }}</h3>
                         </div>
 
 
                         <div class="row">
-                            <h3>Total Tournaments Played: {{statistics?.teamHistoricalData?.totalChampionshipsPlayed}}</h3>
+                            <h3>Total Tournaments Played: {{statistics[0]?.teamHistoricalData?.totalChampionshipsPlayed ?? 'NA' }}</h3>
                         </div>
                         <div class="row">
                             <!-- Finals -->
-                            <h3>Total Finals Lost: {{statistics.finalsData?.totalLoosedFinals}}</h3>
+                            <h3>Total Finals Lost: {{statistics[0].finalsData?.totalLoosedFinals ?? 'NA' }}</h3>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <table>
                         <tr *ngFor="let item of team.totalChampionships">
                             <th>
-                                <h5>{{item.tournament}}</h5>
+                                <h5>{{item.tournament ?? 'NA' }}</h5>
                             </th>
                             <th>
                                 <img class="championships-image" *ngFor="let star of getStarsArray(item.value)" src="../../../assets/icons/trophy.svg" alt="*">
@@ -61,11 +61,11 @@
                         <div style="width: 100%;">
                             <canvas #totalGamesChart id="totalGamesChart"></canvas>
                         </div>
-                        <h3>Total Games Played: {{statistics?.teamHistoricalData?.totalGamesPlayed}}</h3>
-                        <h3>Best Win Score: {{statistics?.teamHistoricalData?.bestWin}}</h3>
-                        <h3>Worst Losing Score: {{statistics?.teamHistoricalData?.worstLose}}</h3>
-                        <h3>Last Win: {{statistics?.teamHistoricalData?.lastWin}}</h3>
-                        <h3>Last Defeat: {{statistics?.teamHistoricalData?.lastDefeat}}</h3>
+                        <h3>Total Games Played: {{statistics[0]?.teamHistoricalData?.totalGamesPlayed ?? 'NA' }}</h3>
+                        <h3>Best Win Score: {{statistics[0]?.teamHistoricalData?.bestWin ?? 'NA' ?? 'NA' }}</h3>
+                        <h3>Worst Losing Score: {{statistics[0]?.teamHistoricalData?.worstLose ?? 'NA' }}</h3>
+                        <h3>Last Win: {{statistics[0]?.teamHistoricalData?.lastWin ?? 'NA' }}</h3>
+                        <h3>Last Defeat: {{statistics[0]?.teamHistoricalData?.lastDefeat ?? 'NA' }}</h3>
                     </div>
 
                     <div class="section-info">
@@ -75,27 +75,27 @@
                         <div style="width: 100%">
                             <canvas #totalGoalsChart id="totalGoalsChart"></canvas>
                         </div>
-                        <h3>Goals Diff: {{statistics?.teamHistoricalData?.goalsDiff}}</h3>
+                        <h3>Goals Diff: {{statistics[0]?.teamHistoricalData?.goalsDiff ?? 'NA' }}</h3>
                     </div>
                     <div class="section-info">
                         <h2> Averages </h2>
 
                         <!-- Average -->
-                        <h3>Goals Scored Average: {{statistics?.teamHistoricalData?.goalsAverage}}</h3>
-                        <h3>Goals Against Average: {{statistics?.teamHistoricalData?.goalsAgainstAverage}}</h3>
-                        <h3>Won Games Average: {{statistics?.teamHistoricalData?.wonGamesAverage}}</h3>
-                        <h3>Lost Games Average: {{statistics?.teamHistoricalData?.loosedGamesAverage}}</h3>
-                        <h3>Win-Lose Ratio: {{statistics?.teamHistoricalData?.wonLoosedRatio}}</h3>
+                        <h3>Goals Scored Average: {{statistics[0]?.teamHistoricalData?.goalsAverage ?? 'NA' }}</h3>
+                        <h3>Goals Against Average: {{statistics[0]?.teamHistoricalData?.goalsAgainstAverage ?? 'NA' }}</h3>
+                        <h3>Won Games Average: {{statistics[0]?.teamHistoricalData?.wonGamesAverage ?? 'NA' }}</h3>
+                        <h3>Lost Games Average: {{statistics[0]?.teamHistoricalData?.loosedGamesAverage ?? 'NA' }}</h3>
+                        <h3>Win-Lose Ratio: {{statistics[0]?.teamHistoricalData?.wonLoosedRatio ?? 'NA' }}</h3>
 
                     </div>
                     <div class="section-info">
                         <h2> Streaks </h2>
 
                         <!-- Streaks -->
-                        <h3>Actual Winning Streak: {{statistics?.teamHistoricalData?.actualWinningStreak}}</h3>
-                        <h3>Best Winning Streak: {{statistics?.teamHistoricalData?.bestWinningStreak}}</h3>
-                        <h3>Actual Losing Streak: {{statistics?.teamHistoricalData?.actualLoosingStreak}}</h3>
-                        <h3>Best Losing Streak: {{statistics?.teamHistoricalData?.bestLoosingStreak}}</h3>
+                        <h3>Actual Winning Streak: {{statistics[0]?.teamHistoricalData?.actualWinningStreak ?? 'NA' }}</h3>
+                        <h3>Best Winning Streak: {{statistics[0]?.teamHistoricalData?.bestWinningStreak ?? 'NA' }}</h3>
+                        <h3>Actual Losing Streak: {{statistics[0]?.teamHistoricalData?.actualLoosingStreak ?? 'NA' }}</h3>
+                        <h3>Best Losing Streak: {{statistics[0]?.teamHistoricalData?.bestLoosingStreak ?? 'NA' }}</h3>
                     </div>
 
                 </div>
