@@ -1,7 +1,7 @@
 export interface ITournament {
   _id?: string;
   name: string;
-  teams: ITeamStatisticsReference[];
+  teams: ITeamTournamentReference[];
   logo?: string;
   isEditionComplete?: boolean;
   positionTable?: IPositionTableData[];
@@ -17,6 +17,13 @@ export interface ITournament {
     winRates: string[];
     looseRates: string[];
   };
+}
+
+export interface ITeamTournamentReference {
+  name: string;
+  logo: string;
+  totalChampionships: any[];
+  _id: string;
 }
 
 export interface ICalendar {

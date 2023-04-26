@@ -9,6 +9,7 @@ export interface ITeamsState {
   error: IAppError;
   status: 'error' | 'pending' | 'success';
   teamSelectedStatistics: ITeamStatistics;
+  teamsStatistics: ITeamStatistics[];
 }
 
 export const initTeamsState: ITeamsState = {
@@ -17,6 +18,7 @@ export const initTeamsState: ITeamsState = {
   error: null,
   status: null,
   teamSelectedStatistics: null,
+  teamsStatistics: [],
 };
 
 export function teamsReducer(

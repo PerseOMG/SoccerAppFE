@@ -17,6 +17,7 @@ import { TeamsFacade } from '../../services/teams/teams.facade';
   styleUrls: ['./play-tournament-dashboard.component.scss'],
 })
 export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
+  teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
   tournament: ITournament;
   totalMatches = 0;
   totalTeams = 0;
@@ -44,6 +45,16 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
 
         if (aux.length > 0) {
           this.tournament = aux[0];
+          console.log(this.tournament.teams);
+          let teamsIds = '';
+          this.tournament.teams.forEach(
+            (team) =>
+              (teamsIds =
+                teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
+          );
+          this.teamsFacade.getTeamStatistics(teamsIds);
+          console.log(teamsIds);
+
           this.startTournament();
         }
       });
