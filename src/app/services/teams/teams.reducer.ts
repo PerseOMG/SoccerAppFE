@@ -8,7 +8,7 @@ export interface ITeamsState {
   total: number;
   error: IAppError;
   status: 'error' | 'pending' | 'success';
-  teamSelectedStatistics: ITeamStatistics;
+  teamSelectedStatistics: ITeamStatistics[];
 }
 
 export const initTeamsState: ITeamsState = {

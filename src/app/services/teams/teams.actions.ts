@@ -60,7 +60,7 @@ export class GetTeamsStatistics implements Action {
 
 export class GetTeamsStatisticsSuccess implements Action {
   public readonly type = ETeamsActions.GET_TEAMS_STATISTICS_SUCCESS;
-  constructor(public payload: ITeamStatistics) {}
+  constructor(public payload: ITeamStatistics[]) {}
 }
 
 export class GetTeamsStatisticsFailure implements Action {
