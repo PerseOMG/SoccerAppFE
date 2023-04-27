@@ -6,7 +6,7 @@ import {
   IPositionTableData,
   ICalendar,
 } from '../../models/tournament.model';
-import { combineLatest, skip } from 'rxjs';
+import { combineLatest, map, skip } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
@@ -105,6 +105,15 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       this.matchesShuffle[this.currentMatchIndex].visit.name
     );
 
+    this.updateTeamsStatistics(
+      {
+        local: this.matchesShuffle[this.currentMatchIndex].local._id,
+        localScore: scoreLocal,
+        visit: this.matchesShuffle[this.currentMatchIndex].visit._id,
+        visitScore: scoreVisit,
+      },
+      false
+    );
     // order position table
     this.positionTable = this.positionTable.sort((a, b) =>
       a.points !== b.points
@@ -242,11 +251,111 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   }
 
   updateTeamsStatistics(
-    data: IPositionTableData,
+    data: {
+      local: string;
+      localScore: number;
+      visit: string;
+      visitScore: number;
+    },
     isFinal: boolean,
-    finalRival?: any
+    finalRival?: string
   ) {
-    if (isFinal) {
-    }
+    this.teamsStatisticsData$
+      .pipe(
+        map((teamsData) =>
+          teamsData.filter(
+            (team) => team.team === data.local || team.team === data.visit
+          )
+        )
+      )
+      .subscribe((teamStatisticsReadOnly) => {
+        const teamStatistics = [...teamStatisticsReadOnly];
+        console.log(teamStatistics);
+        console.log(data.local);
+        // local
+        teamStatistics[0].teamHistoricalData.totalGoalsScored = data.localScore;
+        teamStatistics[0].teamHistoricalData.totalGoalsAgainst =
+          data.visitScore;
+
+        teamStatistics[0].teamHistoricalData.totalGamesPlayed =
+          teamStatistics[0].teamHistoricalData.totalGamesPlayed++;
+
+        teamStatistics[0].teamHistoricalData.totalGamesWon =
+          data.localScore > data.visitScore
+            ? teamStatistics[0].teamHistoricalData.totalGamesWon++
+            : teamStatistics[0].teamHistoricalData.totalGamesWon;
+
+        teamStatistics[0].teamHistoricalData.actualWinningStreak =
+          data.localScore > data.visitScore
+            ? teamStatistics[0].teamHistoricalData.actualWinningStreak++
+            : 0;
+
+        teamStatistics[0].teamHistoricalData.bestWinningStreak =
+          data.localScore > data.visitScore &&
+          teamStatistics[0].teamHistoricalData.actualWinningStreak >
+            teamStatistics[0].teamHistoricalData.bestWinningStreak
+            ? teamStatistics[0].teamHistoricalData.actualWinningStreak
+            : teamStatistics[0].teamHistoricalData.bestWinningStreak;
+
+        teamStatistics[0].teamHistoricalData.actualLostStreak =
+          data.localScore < data.visitScore
+            ? teamStatistics[0].teamHistoricalData.actualLostStreak++
+            : 0;
+
+        teamStatistics[0].teamHistoricalData.bestLostStreak =
+          data.localScore < data.visitScore &&
+          teamStatistics[0].teamHistoricalData.actualLostStreak >
+            teamStatistics[0].teamHistoricalData.bestLostStreak
+            ? teamStatistics[0].teamHistoricalData.actualLostStreak
+            : teamStatistics[0].teamHistoricalData.bestLostStreak;
+
+        teamStatistics[0].teamHistoricalData.totalGamesLost =
+          data.localScore < data.visitScore
+            ? teamStatistics[0].teamHistoricalData.totalGamesLost++
+            : teamStatistics[0].teamHistoricalData.totalGamesLost;
+
+        // visit
+
+        teamStatistics[1].teamHistoricalData.totalGoalsScored = data.localScore;
+        teamStatistics[1].teamHistoricalData.totalGoalsAgainst =
+          data.visitScore;
+
+        teamStatistics[1].teamHistoricalData.totalGamesPlayed =
+          teamStatistics[1].teamHistoricalData.totalGamesPlayed++;
+
+        teamStatistics[1].teamHistoricalData.totalGamesWon =
+          data.localScore < data.visitScore
+            ? teamStatistics[1].teamHistoricalData.totalGamesWon++
+            : teamStatistics[1].teamHistoricalData.totalGamesWon;
+
+        teamStatistics[1].teamHistoricalData.actualWinningStreak =
+          data.localScore < data.visitScore
+            ? teamStatistics[1].teamHistoricalData.actualWinningStreak++
+            : 1;
+
+        teamStatistics[1].teamHistoricalData.bestWinningStreak =
+          data.localScore < data.visitScore &&
+          teamStatistics[1].teamHistoricalData.actualWinningStreak >
+            teamStatistics[1].teamHistoricalData.bestWinningStreak
+            ? teamStatistics[1].teamHistoricalData.actualWinningStreak
+            : teamStatistics[1].teamHistoricalData.bestWinningStreak;
+
+        teamStatistics[1].teamHistoricalData.actualLostStreak =
+          data.localScore > data.visitScore
+            ? teamStatistics[1].teamHistoricalData.actualLostStreak++
+            : 1;
+
+        teamStatistics[1].teamHistoricalData.bestLostStreak =
+          data.localScore > data.visitScore &&
+          teamStatistics[1].teamHistoricalData.actualLostStreak >
+            teamStatistics[1].teamHistoricalData.bestLostStreak
+            ? teamStatistics[1].teamHistoricalData.actualLostStreak
+            : teamStatistics[1].teamHistoricalData.bestLostStreak;
+
+        teamStatistics[1].teamHistoricalData.totalGamesLost =
+          data.localScore > data.visitScore
+            ? teamStatistics[1].teamHistoricalData.totalGamesLost++
+            : teamStatistics[1].teamHistoricalData.totalGamesLost;
+      });
   }
 }

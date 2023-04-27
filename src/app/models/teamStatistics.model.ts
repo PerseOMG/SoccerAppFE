@@ -18,10 +18,10 @@ export interface ITeamStatistics {
   }[];
   finalsData: {
     finalsWon: number;
-    finalsLoosed: number;
-    totalLoosedFinals: number;
+    finalsLost: number;
+    totalLostFinals: number;
     finalsWonAgainst: ITeamStatisticsReference;
-    finalsLoosedAgainst: ITeamStatisticsReference;
+    finalsLostAgainst: ITeamStatisticsReference;
   };
   teamHistoricalData: {
     totalGoalsScored?: number;
@@ -34,9 +34,9 @@ export interface ITeamStatistics {
     lastDefeat?: matchStatistics;
     lastWin?: matchStatistics;
     bestWinningStreak?: number;
-    bestLoosingStreak?: number;
+    bestLostStreak?: number;
     actualWinningStreak?: number;
-    actualLoosingStreak?: number;
+    actualLostStreak?: number;
     goalsDiff?: number;
     totalTiedGames?: number;
     totalChampionshipsPlayed?: number;
@@ -44,8 +44,8 @@ export interface ITeamStatistics {
     goalsAverage?: number;
     goalsAgainstAverage?: number;
     wonGamesAverage?: number;
-    loosedGamesAverage?: number;
-    wonLoosedRatio?: number;
+    LostGamesAverage?: number;
+    wonLostRatio?: number;
   };
 }
 
