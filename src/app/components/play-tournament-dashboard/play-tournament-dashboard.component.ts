@@ -257,8 +257,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       visit: string;
       visitScore: number;
     },
-    isFinal: boolean,
-    finalRival?: string
+    isFinal: boolean
   ) {
     this.teamsStatisticsData$
       .pipe(
@@ -268,94 +267,82 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           )
         )
       )
-      .subscribe((teamStatisticsReadOnly) => {
-        const teamStatistics = [...teamStatisticsReadOnly];
-        console.log(teamStatistics);
-        console.log(data.local);
+      .subscribe((teamStatistics) => {
         // local
-        teamStatistics[0].teamHistoricalData.totalGoalsScored = data.localScore;
-        teamStatistics[0].teamHistoricalData.totalGoalsAgainst =
-          data.visitScore;
+        const actualHistoricalData = {
+          ...teamStatistics[0].teamHistoricalData,
+        };
+        const localTeamStatistics: ITeamStatistics =
+          this.createTeamStatisticsObj(
+            teamStatistics[0],
+            actualHistoricalData,
+            { goalsAgainst: data.visitScore, goalsScored: data.localScore }
+          );
 
-        teamStatistics[0].teamHistoricalData.totalGamesPlayed =
-          teamStatistics[0].teamHistoricalData.totalGamesPlayed++;
-
-        teamStatistics[0].teamHistoricalData.totalGamesWon =
-          data.localScore > data.visitScore
-            ? teamStatistics[0].teamHistoricalData.totalGamesWon++
-            : teamStatistics[0].teamHistoricalData.totalGamesWon;
-
-        teamStatistics[0].teamHistoricalData.actualWinningStreak =
-          data.localScore > data.visitScore
-            ? teamStatistics[0].teamHistoricalData.actualWinningStreak++
-            : 0;
-
-        teamStatistics[0].teamHistoricalData.bestWinningStreak =
-          data.localScore > data.visitScore &&
-          teamStatistics[0].teamHistoricalData.actualWinningStreak >
-            teamStatistics[0].teamHistoricalData.bestWinningStreak
-            ? teamStatistics[0].teamHistoricalData.actualWinningStreak
-            : teamStatistics[0].teamHistoricalData.bestWinningStreak;
-
-        teamStatistics[0].teamHistoricalData.actualLostStreak =
-          data.localScore < data.visitScore
-            ? teamStatistics[0].teamHistoricalData.actualLostStreak++
-            : 0;
-
-        teamStatistics[0].teamHistoricalData.bestLostStreak =
-          data.localScore < data.visitScore &&
-          teamStatistics[0].teamHistoricalData.actualLostStreak >
-            teamStatistics[0].teamHistoricalData.bestLostStreak
-            ? teamStatistics[0].teamHistoricalData.actualLostStreak
-            : teamStatistics[0].teamHistoricalData.bestLostStreak;
-
-        teamStatistics[0].teamHistoricalData.totalGamesLost =
-          data.localScore < data.visitScore
-            ? teamStatistics[0].teamHistoricalData.totalGamesLost++
-            : teamStatistics[0].teamHistoricalData.totalGamesLost;
-
-        // visit
-
-        teamStatistics[1].teamHistoricalData.totalGoalsScored = data.localScore;
-        teamStatistics[1].teamHistoricalData.totalGoalsAgainst =
-          data.visitScore;
-
-        teamStatistics[1].teamHistoricalData.totalGamesPlayed =
-          teamStatistics[1].teamHistoricalData.totalGamesPlayed++;
-
-        teamStatistics[1].teamHistoricalData.totalGamesWon =
-          data.localScore < data.visitScore
-            ? teamStatistics[1].teamHistoricalData.totalGamesWon++
-            : teamStatistics[1].teamHistoricalData.totalGamesWon;
-
-        teamStatistics[1].teamHistoricalData.actualWinningStreak =
-          data.localScore < data.visitScore
-            ? teamStatistics[1].teamHistoricalData.actualWinningStreak++
-            : 1;
-
-        teamStatistics[1].teamHistoricalData.bestWinningStreak =
-          data.localScore < data.visitScore &&
-          teamStatistics[1].teamHistoricalData.actualWinningStreak >
-            teamStatistics[1].teamHistoricalData.bestWinningStreak
-            ? teamStatistics[1].teamHistoricalData.actualWinningStreak
-            : teamStatistics[1].teamHistoricalData.bestWinningStreak;
-
-        teamStatistics[1].teamHistoricalData.actualLostStreak =
-          data.localScore > data.visitScore
-            ? teamStatistics[1].teamHistoricalData.actualLostStreak++
-            : 1;
-
-        teamStatistics[1].teamHistoricalData.bestLostStreak =
-          data.localScore > data.visitScore &&
-          teamStatistics[1].teamHistoricalData.actualLostStreak >
-            teamStatistics[1].teamHistoricalData.bestLostStreak
-            ? teamStatistics[1].teamHistoricalData.actualLostStreak
-            : teamStatistics[1].teamHistoricalData.bestLostStreak;
-
-        teamStatistics[1].teamHistoricalData.totalGamesLost =
-          data.localScore > data.visitScore
-            ? teamStatistics[1].teamHistoricalData.totalGamesLost++
-            : teamStatistics[1].teamHistoricalData.totalGamesLost;
+        //visit
+        const actualVisitHistoricalData = {
+          ...teamStatistics[1].teamHistoricalData,
+        };
+        const visitTeamStatistics: ITeamStatistics =
+          this.createTeamStatisticsObj(
+            teamStatistics[1],
+            actualVisitHistoricalData,
+            {
+              goalsScored: data.visitScore,
+              goalsAgainst: data.localScore,
+            }
+          );
+        console.log(localTeamStatistics);
+        console.log(visitTeamStatistics);
       });
+  }
+
+  createTeamStatisticsObj(
+    actualTeamStatistics: ITeamStatistics,
+    actualHistoricalData,
+    data: {
+      goalsScored: number;
+      goalsAgainst: number;
+    }
+  ): ITeamStatistics {
+    return {
+      ...actualTeamStatistics[0],
+      teamHistoricalData: {
+        totalGoalsScored:
+          actualHistoricalData.totalGoalsScored + data.goalsScored,
+        totalGoalsAgainst:
+          actualHistoricalData.totalGoalsAgainst + data.goalsAgainst,
+        totalGamesPlayed: actualHistoricalData.totalGamesPlayed++,
+        totalGamesWon:
+          data.goalsScored > data.goalsAgainst
+            ? actualHistoricalData.totalGamesWon++
+            : actualHistoricalData.totalGamesWon,
+        actualWinningStreak:
+          data.goalsScored > data.goalsAgainst
+            ? actualHistoricalData.actualWinningStreak++
+            : 0,
+        bestWinningStreak:
+          data.goalsScored > data.goalsAgainst &&
+          actualHistoricalData.actualWinningStreak >
+            actualHistoricalData.bestWinningStreak
+            ? actualHistoricalData.actualWinningStreak
+            : actualHistoricalData.bestWinningStreak,
+        actualLostStreak:
+          data.goalsScored < data.goalsAgainst
+            ? actualHistoricalData.actualLostStreak++
+            : 0,
+        bestLostStreak:
+          data.goalsScored < data.goalsAgainst &&
+          actualHistoricalData.actualLostStreak >
+            actualHistoricalData.bestLostStreak
+            ? actualHistoricalData.actualLostStreak
+            : actualHistoricalData.bestLostStreak,
+
+        totalGamesLost:
+          data.goalsScored < data.goalsAgainst
+            ? actualHistoricalData.totalGamesLost++
+            : actualHistoricalData.totalGamesLost,
+      },
+    };
   }
 }
