@@ -5,6 +5,7 @@ import * as teamsActions from './teams.actions';
 import { teamsSelectors } from './teams.selectors';
 import { Team } from '../../models/team.models';
 import { map } from 'rxjs/operators';
+import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,10 @@ export class TeamsFacade {
 
   getTeamStatistics = (id: string) =>
     this.store.dispatch(new teamsActions.GetTeamsStatistics(id));
+
+  updateTeamsStatistics = (teamStatistics: ITeamStatistics) => {
+    this.store.dispatch(new teamsActions.UpdateTeamsStatistics(teamStatistics));
+  };
 
   constructor(private store: Store<AppState>) {}
 }

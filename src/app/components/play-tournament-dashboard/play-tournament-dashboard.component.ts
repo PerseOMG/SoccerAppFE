@@ -6,7 +6,7 @@ import {
   IPositionTableData,
   ICalendar,
 } from '../../models/tournament.model';
-import { combineLatest, map, skip } from 'rxjs';
+import { combineLatest, map, skip, take } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
@@ -36,28 +36,24 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     combineLatest([
       this.route.params,
       this.tournamentsFacade.selectAllTournaments(),
-    ])
-      .pipe(skip(1))
-      .subscribe(([params, tournaments]) => {
-        const aux = tournaments?.tournaments.filter(
-          (tournament) => tournament._id === params['id']
+    ]).subscribe(([params, tournaments]) => {
+      const aux = tournaments?.tournaments.filter(
+        (tournament) => tournament._id === params['id']
+      );
+
+      if (aux.length > 0) {
+        this.tournament = aux[0];
+        console.log(this.tournament.teams);
+        let teamsIds = '';
+        this.tournament.teams.forEach(
+          (team) =>
+            (teamsIds = teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
         );
+        this.teamsFacade.getTeamStatistics(teamsIds);
 
-        if (aux.length > 0) {
-          this.tournament = aux[0];
-          console.log(this.tournament.teams);
-          let teamsIds = '';
-          this.tournament.teams.forEach(
-            (team) =>
-              (teamsIds =
-                teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
-          );
-          this.teamsFacade.getTeamStatistics(teamsIds);
-          console.log(teamsIds);
-
-          this.startTournament();
-        }
-      });
+        this.startTournament();
+      }
+    });
   }
 
   ngOnInit(): void {}
@@ -261,6 +257,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   ) {
     this.teamsStatisticsData$
       .pipe(
+        take(1),
         map((teamsData) =>
           teamsData.filter(
             (team) => team.team === data.local || team.team === data.visit
@@ -272,28 +269,31 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
         const actualHistoricalData = {
           ...teamStatistics[0].teamHistoricalData,
         };
-        const localTeamStatistics: ITeamStatistics =
-          this.createTeamStatisticsObj(
+        const localTeamStatistics: ITeamStatistics = {
+          ...this.createTeamStatisticsObj(
             teamStatistics[0],
             actualHistoricalData,
             { goalsAgainst: data.visitScore, goalsScored: data.localScore }
-          );
+          ),
+        };
 
         //visit
         const actualVisitHistoricalData = {
           ...teamStatistics[1].teamHistoricalData,
         };
-        const visitTeamStatistics: ITeamStatistics =
-          this.createTeamStatisticsObj(
+        const visitTeamStatistics: ITeamStatistics = {
+          ...this.createTeamStatisticsObj(
             teamStatistics[1],
             actualVisitHistoricalData,
             {
               goalsScored: data.visitScore,
               goalsAgainst: data.localScore,
             }
-          );
-        console.log(localTeamStatistics);
-        console.log(visitTeamStatistics);
+          ),
+        };
+
+        this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
+        this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
       });
   }
 
@@ -304,9 +304,9 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       goalsScored: number;
       goalsAgainst: number;
     }
-  ): ITeamStatistics {
+  ) {
     return {
-      ...actualTeamStatistics[0],
+      ...actualTeamStatistics,
       teamHistoricalData: {
         totalGoalsScored:
           actualHistoricalData.totalGoalsScored + data.goalsScored,

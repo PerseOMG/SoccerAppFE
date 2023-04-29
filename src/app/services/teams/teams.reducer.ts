@@ -49,6 +49,18 @@ export function teamsReducer(
         ...state,
         teamsStatistics: action.payload,
       };
+    case ETeamsActions.UPDATE_TEAMS_STATISTICS: {
+      const newTeamsStatistics = state.teamsStatistics.map((teamStatistics) => {
+        if (action.payload.team === teamStatistics.team) {
+          return action.payload;
+        }
+        return teamStatistics;
+      });
+      return {
+        ...state,
+        teamsStatistics: newTeamsStatistics,
+      };
+    }
     case ETeamsActions.GET_TEAMS_STATISTICS_FAILURE:
       return {
         ...state,
