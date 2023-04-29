@@ -1,12 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import {
-  ITournament,
-  IPositionTableData,
-  ICalendar,
-} from '../../models/tournament.model';
-import { combineLatest, map, skip, take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { IPositionTableData } from '../../models/tournament.model';
+import { BehaviorSubject, combineLatest, map, skip, take } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
@@ -18,110 +14,130 @@ import { TeamsFacade } from '../../services/teams/teams.facade';
 })
 export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
-  tournament: ITournament;
-  totalMatches = 0;
-  totalTeams = 0;
-  totalEditions = 0;
-  currentMatchIndex = 0;
-  matchesShuffle = [];
-  positionTable: IPositionTableData[] = [];
+  tournament$ = this.tournamentsFacade.selectTournamentById(
+    this.route.params['_value']['id']
+  );
+  totalTeams$ = combineLatest([this.tournament$]).pipe(
+    skip(1),
+    map(([tournamentData]) => {
+      return tournamentData.teams.length;
+    })
+  );
+  totalMatches$ = combineLatest([this.totalTeams$]).pipe(
+    map(([totalTeams]) => {
+      let matchesCount = 0;
+      for (let i = 0; i < totalTeams; i++) {
+        matchesCount = matchesCount + i;
+      }
+      return matchesCount;
+    })
+  );
+  totalEditions$ = combineLatest([this.tournament$]).pipe(
+    map(([tournamentData]) => {
+      return tournamentData.calendar.length;
+    })
+  );
+  currentMatchIndex$ = new BehaviorSubject(0);
+  calendarMatchesShuffle$ = combineLatest([
+    this.tournament$,
+    this.totalEditions$,
+  ]).pipe(
+    map(([tournamentData, totalEditions]) => {
+      const allMatches = [];
+      for (let i = 0; i < totalEditions; i++) {
+        for (const match of tournamentData.calendar[i].matches) {
+          allMatches.push({ ...match, hasBeenPlayed: false });
+        }
+      }
+
+      return allMatches.sort((a, b) => 0.5 - Math.random());
+    })
+  );
+  positionTable$ = combineLatest([this.tournament$]).pipe(
+    map(([tournamentData]) => {
+      return tournamentData.positionTable;
+    })
+  );
   playoffsPhaseCalendar = [];
-  teamStatistics: ITeamStatistics[] = [];
+
   constructor(
     private teamsFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute
   ) {}
-  ngAfterViewInit(): void {
-    combineLatest([
-      this.route.params,
-      this.tournamentsFacade.selectAllTournaments(),
-    ]).subscribe(([params, tournaments]) => {
-      const aux = tournaments?.tournaments.filter(
-        (tournament) => tournament._id === params['id']
-      );
-
-      if (aux.length > 0) {
-        this.tournament = aux[0];
-        console.log(this.tournament.teams);
-        let teamsIds = '';
-        this.tournament.teams.forEach(
-          (team) =>
-            (teamsIds = teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
-        );
-        this.teamsFacade.getTeamStatistics(teamsIds);
-
-        this.startTournament();
-      }
-    });
-  }
 
   ngOnInit(): void {}
 
-  startTournament() {
-    this.totalTeams = this.tournament.teams.length;
-    this.totalEditions = this.tournament.calendar.length;
-    this.positionTable = this.tournament.positionTable.map((team) => {
-      return {
-        ...team,
-      };
+  ngAfterViewInit(): void {
+    this.tournament$.pipe(skip(1)).subscribe((tournament) => {
+      let teamsIds = '';
+      tournament.teams.forEach(
+        (team) =>
+          (teamsIds = teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
+      );
+      this.teamsFacade.getTeamStatistics(teamsIds);
     });
-    for (let i = 0; i < this.totalTeams; i++) {
-      this.totalMatches = this.totalMatches + i;
-    }
-    for (let i = 0; i < this.totalEditions; i++) {
-      for (const match of this.tournament.calendar[i].matches) {
-        this.matchesShuffle.push({ ...match, hasBeenPlayed: false });
-      }
-    }
-    this.matchesShuffle = this.matchesShuffle.sort(
-      (a, b) => 0.5 - Math.random()
-    );
   }
 
   playMatch() {
     const { scoreLocal, scoreVisit } = this.getScore();
 
-    //Assign score result and update hasbeenplayed
-    this.matchesShuffle[
-      this.currentMatchIndex
-    ].score = `${scoreLocal} - ${scoreVisit}`;
-    this.matchesShuffle[this.currentMatchIndex].hasBeenPlayed = true;
-    console.log(this.matchesShuffle[this.currentMatchIndex]);
+    combineLatest([
+      this.calendarMatchesShuffle$,
+      this.currentMatchIndex$,
+      this.positionTable$,
+    ])
+      .pipe(take(1))
+      .subscribe(([matchesShuffle, currentMatchIndex, positionTable]) => {
+        // ---------------------------------------------
+        //Assign score result and update hasBeenPlayed property
+        matchesShuffle[
+          currentMatchIndex
+        ].score = `${scoreLocal} - ${scoreVisit}`;
+        matchesShuffle[currentMatchIndex].hasBeenPlayed = true;
+        console.log(matchesShuffle[currentMatchIndex]);
 
-    //update position table
-    this.updatePositionTable(
-      scoreLocal,
-      scoreVisit,
-      this.matchesShuffle[this.currentMatchIndex].local.name
-    );
-    this.updatePositionTable(
-      scoreVisit,
-      scoreLocal,
-      this.matchesShuffle[this.currentMatchIndex].visit.name
-    );
+        // ---------------------------------------------
+        positionTable = this.updatePositionTable(
+          positionTable,
+          scoreLocal,
+          scoreVisit,
+          matchesShuffle[currentMatchIndex].local.name
+        );
+        positionTable = this.updatePositionTable(
+          positionTable,
+          scoreVisit,
+          scoreLocal,
+          matchesShuffle[currentMatchIndex].visit.name
+        );
 
-    this.updateTeamsStatistics(
-      {
-        local: this.matchesShuffle[this.currentMatchIndex].local._id,
-        localScore: scoreLocal,
-        visit: this.matchesShuffle[this.currentMatchIndex].visit._id,
-        visitScore: scoreVisit,
-      },
-      false
-    );
-    // order position table
-    this.positionTable = this.positionTable.sort((a, b) =>
-      a.points !== b.points
-        ? b.points - a.points
-        : a.goalsDiff !== b.goalsDiff
-        ? b.goalsDiff - a.goalsDiff
-        : a.goalsAgainst - b.goalsAgainst
-    );
-    console.log(this.positionTable);
+        // ---------------------------------------------
+        this.updateTeamsStatistics(
+          {
+            local: matchesShuffle[currentMatchIndex].local._id,
+            localScore: scoreLocal,
+            visit: matchesShuffle[currentMatchIndex].visit._id,
+            visitScore: scoreVisit,
+          },
+          false
+        );
+        // ---------------------------------------------
+        // order position table
+        positionTable = positionTable.sort((a, b) =>
+          a.points !== b.points
+            ? b.points - a.points
+            : a.goalsDiff !== b.goalsDiff
+            ? b.goalsDiff - a.goalsDiff
+            : a.goalsAgainst - b.goalsAgainst
+        );
+      });
+    this.positionTable$.subscribe((p) => {
+      console.log('a');
+      console.log(p);
+    });
 
     // increment index for the next match
-    this.currentMatchIndex++;
+    this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
   }
 
   getScore() {
@@ -141,11 +157,14 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   }
 
   updatePositionTable(
+    currentPositionTable: IPositionTableData[],
     goalsScored: number,
     goalsAgainst: number,
     teamName: string
   ) {
-    this.positionTable = this.positionTable.map((teamOnPosition) => {
+    const currentPositionTableCopy = [...currentPositionTable];
+
+    return currentPositionTableCopy.map((teamOnPosition) => {
       if (teamOnPosition.team.name === teamName) {
         teamOnPosition.goalsScored = goalsScored;
         teamOnPosition.goalsAgainst = goalsAgainst;
@@ -203,9 +222,10 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       this.playoffsPhaseCalendar.length > 2 ||
       this.playoffsPhaseCalendar.length === 0
     ) {
-      this.createPlayoffsCalendar(
-        this.positionTable.slice(0, this.tournament.options.playoffsQuantity)
-      );
+      // this;
+      // .createPlayoffsCalendar
+      // // this.positionTable.slice(0, this.tournament.options.playoffsQuantity)
+      // ();
       this.playoffsPhaseMatches();
       console.log(nextPhaseCalendar);
       this.playPLayoffsPhase();

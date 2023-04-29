@@ -1,5 +1,9 @@
 <p>play-tournament-dashboard works!</p>
-<button *ngIf="totalMatches > currentMatchIndex" (click)="playMatch()">Next Match</button>
-<button *ngIf="totalMatches === currentMatchIndex && tournament?.options?.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+<ng-container *ngIf="(totalMatches$ | async) as totalMatches">
+    <ng-container *ngIf="(tournament$  |async) as tournament">
+        <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch()">Next Match</button>
+        <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+    </ng-container>
+</ng-container>
 
 <span>{{teamsStatisticsData$ | async | json}}</span>
