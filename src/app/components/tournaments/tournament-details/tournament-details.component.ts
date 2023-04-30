@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { combineLatest, filter, tap } from 'rxjs';
 import { TournamentsFacade } from '../../../services/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ITournament } from '../../../models/tournament.model';
+import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
+import { NO_TOURNAMENT_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
 
 @Component({
   selector: 'app-tournament-details',
@@ -10,28 +12,25 @@ import { ITournament } from '../../../models/tournament.model';
   styleUrls: ['./tournament-details.component.scss'],
 })
 export class TournamentDetailsComponent implements OnInit {
-  tournament: ITournament;
+  tournament$ = this.tournamentsFacade
+    .selectTournamentById(this.route.params['_value']['id'])
+    .pipe(
+      tap((tournament) => {
+        if (!tournament) {
+          setTimeout(() => {
+            this.alertService.fireAlert(NO_TOURNAMENT_ALERT['error']);
+            this.router.navigate(['/tournaments']);
+          }, 1000);
+        }
+      })
+    );
 
   constructor(
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: SweetAlertsService
   ) {}
 
-  ngOnInit(): void {
-    combineLatest([
-      this.route.params,
-      this.tournamentsFacade.selectAllTournaments(),
-    ]).subscribe(([params, tournaments]) => {
-      const aux = tournaments.tournaments.filter(
-        (tournament) => tournament._id === params['id']
-      );
-
-      if (aux) {
-        this.tournament = aux[0];
-      } else {
-        this.router.navigate(['/tournaments']);
-      }
-    });
-  }
+  ngOnInit(): void {}
 }

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
-import { BehaviorSubject, combineLatest, map, skip, take } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, skip, take } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
@@ -18,9 +18,9 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     this.route.params['_value']['id']
   );
   totalTeams$ = combineLatest([this.tournament$]).pipe(
-    skip(1),
+    filter((data) => !!data),
     map(([tournamentData]) => {
-      return tournamentData.teams.length;
+      return tournamentData?.teams?.length;
     })
   );
   totalMatches$ = combineLatest([this.totalTeams$]).pipe(
@@ -58,6 +58,10 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       return tournamentData.positionTable;
     })
   );
+  currentMatch$ = combineLatest([
+    this.calendarMatchesShuffle$,
+    this.currentMatchIndex$,
+  ]).pipe(map(([matches, index]) => matches[index]));
   playoffsPhaseCalendar = [];
 
   constructor(
@@ -69,7 +73,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.tournament$.pipe(skip(1)).subscribe((tournament) => {
+    this.tournament$.pipe(skip(1), take(1)).subscribe((tournament) => {
       let teamsIds = '';
       tournament.teams.forEach(
         (team) =>
@@ -104,6 +108,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           scoreVisit,
           matchesShuffle[currentMatchIndex].local.name
         );
+
         positionTable = this.updatePositionTable(
           positionTable,
           scoreVisit,
@@ -111,7 +116,22 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           matchesShuffle[currentMatchIndex].visit.name
         );
 
+        // order position table
+        positionTable = positionTable.sort((a, b) =>
+          a.points !== b.points
+            ? b.points - a.points
+            : a.goalsDiff !== b.goalsDiff
+            ? b.goalsDiff - a.goalsDiff
+            : a.goalsAgainst - b.goalsAgainst
+        );
+
+        this.tournamentsFacade.updateTournamentPositionTable(
+          this.route.params['_value']['id'],
+          positionTable
+        );
+
         // ---------------------------------------------
+
         this.updateTeamsStatistics(
           {
             local: matchesShuffle[currentMatchIndex].local._id,
@@ -122,15 +142,8 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           false
         );
         // ---------------------------------------------
-        // order position table
-        positionTable = positionTable.sort((a, b) =>
-          a.points !== b.points
-            ? b.points - a.points
-            : a.goalsDiff !== b.goalsDiff
-            ? b.goalsDiff - a.goalsDiff
-            : a.goalsAgainst - b.goalsAgainst
-        );
       });
+
     this.positionTable$.subscribe((p) => {
       console.log('a');
       console.log(p);
@@ -161,30 +174,41 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     goalsScored: number,
     goalsAgainst: number,
     teamName: string
-  ) {
-    const currentPositionTableCopy = [...currentPositionTable];
+  ): IPositionTableData[] {
+    const teamPositionTableData = currentPositionTable.find(
+      (data) => data.team.name === teamName
+    );
 
-    return currentPositionTableCopy.map((teamOnPosition) => {
-      if (teamOnPosition.team.name === teamName) {
-        teamOnPosition.goalsScored = goalsScored;
-        teamOnPosition.goalsAgainst = goalsAgainst;
-        teamOnPosition.gamesPlayed++;
-        teamOnPosition.goalsDiff =
-          teamOnPosition.goalsScored - teamOnPosition.goalsAgainst;
-        if (goalsScored === goalsAgainst) {
-          teamOnPosition.gamesTied++;
-          this.setLastResult(teamOnPosition, 'T', 1);
-        } else {
-          if (goalsScored > goalsAgainst) {
-            teamOnPosition.gamesWon++;
-            this.setLastResult(teamOnPosition, 'W', 3);
-          } else {
-            teamOnPosition.gamesLost++;
-            this.setLastResult(teamOnPosition, 'L', 0);
-          }
-        }
+    console.log(teamPositionTableData);
+    const updatedTeamPositionTableData: IPositionTableData = {
+      ...teamPositionTableData,
+      goalsScored: teamPositionTableData.goalsScored + goalsScored,
+      goalsAgainst: teamPositionTableData.goalsAgainst + goalsAgainst,
+      gamesPlayed: teamPositionTableData.gamesPlayed + 1,
+      goalsDiff:
+        teamPositionTableData.goalsScored - teamPositionTableData.goalsAgainst,
+    };
+
+    if (goalsScored === goalsAgainst) {
+      updatedTeamPositionTableData.gamesTied =
+        updatedTeamPositionTableData.gamesTied + 1;
+      this.setLastResult(updatedTeamPositionTableData, 'T', 1);
+    } else {
+      if (goalsScored > goalsAgainst) {
+        updatedTeamPositionTableData.gamesWon =
+          updatedTeamPositionTableData.gamesWon + 1;
+        this.setLastResult(updatedTeamPositionTableData, 'W', 3);
+      } else {
+        updatedTeamPositionTableData.gamesLost =
+          updatedTeamPositionTableData.gamesLost + 1;
+        this.setLastResult(updatedTeamPositionTableData, 'L', 0);
       }
-      return teamOnPosition;
+    }
+    return currentPositionTable.map((data) => {
+      if (data.team.name === updatedTeamPositionTableData.team.name) {
+        return updatedTeamPositionTableData;
+      }
+      return data;
     });
   }
 
@@ -278,6 +302,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     this.teamsStatisticsData$
       .pipe(
         take(1),
+        filter((data) => !!data),
         map((teamsData) =>
           teamsData.filter(
             (team) => team.team === data.local || team.team === data.visit
@@ -332,14 +357,14 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           actualHistoricalData.totalGoalsScored + data.goalsScored,
         totalGoalsAgainst:
           actualHistoricalData.totalGoalsAgainst + data.goalsAgainst,
-        totalGamesPlayed: actualHistoricalData.totalGamesPlayed++,
+        totalGamesPlayed: actualHistoricalData.totalGamesPlayed + 1,
         totalGamesWon:
           data.goalsScored > data.goalsAgainst
-            ? actualHistoricalData.totalGamesWon++
+            ? actualHistoricalData.totalGamesWon + 1
             : actualHistoricalData.totalGamesWon,
         actualWinningStreak:
           data.goalsScored > data.goalsAgainst
-            ? actualHistoricalData.actualWinningStreak++
+            ? actualHistoricalData.actualWinningStreak + 1
             : 0,
         bestWinningStreak:
           data.goalsScored > data.goalsAgainst &&
@@ -349,7 +374,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
             : actualHistoricalData.bestWinningStreak,
         actualLostStreak:
           data.goalsScored < data.goalsAgainst
-            ? actualHistoricalData.actualLostStreak++
+            ? actualHistoricalData.actualLostStreak + 1
             : 0,
         bestLostStreak:
           data.goalsScored < data.goalsAgainst &&
@@ -360,8 +385,50 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
 
         totalGamesLost:
           data.goalsScored < data.goalsAgainst
-            ? actualHistoricalData.totalGamesLost++
+            ? actualHistoricalData.totalGamesLost + 1
             : actualHistoricalData.totalGamesLost,
+        goalsDiff:
+          actualHistoricalData.totalGoalsScored +
+          data.goalsScored -
+          actualHistoricalData.totalGoalsAgainst +
+          data.goalsAgainst,
+
+        totalTiedGames:
+          data.goalsScored === data.goalsAgainst
+            ? actualHistoricalData.totalTiedGames + 1
+            : actualHistoricalData.totalTiedGames,
+
+        goalsAverage:
+          actualHistoricalData.totalGoalsScored +
+          data.goalsScored / actualHistoricalData.totalGamesPlayed +
+          1,
+
+        goalsAgainstAverage:
+          actualHistoricalData.totalGoalsAgainst +
+          data.goalsAgainst / actualHistoricalData.totalGamesPlayed +
+          1,
+
+        wonGamesAverage:
+          data.goalsScored > data.goalsAgainst
+            ? (actualHistoricalData.totalGamesWon + 1) /
+              (actualHistoricalData.totalGamesPlayed + 1)
+            : actualHistoricalData.totalGamesWon /
+              (actualHistoricalData.totalGamesPlayed + 1),
+
+        lostGamesAverage:
+          data.goalsScored < data.goalsAgainst
+            ? (actualHistoricalData.totalGamesLost + 1) /
+              (actualHistoricalData.totalGamesPlayed + 1)
+            : actualHistoricalData.totalGamesLost /
+              (actualHistoricalData.totalGamesPlayed + 1),
+
+        wonLostRatio:
+          (data.goalsScored > data.goalsAgainst
+            ? actualHistoricalData.totalGamesWon + 1
+            : actualHistoricalData.totalGamesWon) /
+          (data.goalsScored < data.goalsAgainst
+            ? actualHistoricalData.totalGamesLost + 1
+            : actualHistoricalData.totalGamesLost),
       },
     };
   }

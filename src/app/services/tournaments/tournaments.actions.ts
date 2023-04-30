@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { IAppError } from '../../interfaces/appError.interface';
-import { ITournament } from '../../models/tournament.model';
+import { IPositionTableData, ITournament } from '../../models/tournament.model';
 
 export enum ETournamentsActions {
   GET_TOURNAMENTS = '[APP Soccer] GET_TOURNAMENTS',
@@ -10,6 +10,7 @@ export enum ETournamentsActions {
   TOURNAMENT_SELECTED = '[APP Soccer] TOURNAMENT_SELECTED',
   CREATE_TOURNAMENT = '[APP Soccer] CREATE_TOURNAMENT',
   UPDATE_TOURNAMENT_MATCH_SCORE = '[APP Soccer] UPDATE_TOURNAMENT_MATCH_SCORE',
+  UPDATE_TOURNAMENT_POSITION_TABLE = '[APP Soccer] UPDATE_TOURNAMENT_POSITION_TABLE',
 }
 
 export class GetTournaments implements Action {
@@ -40,10 +41,21 @@ export class CreateTournament implements Action {
   constructor(public payload: ITournament) {}
 }
 
+export class UpdateTournamentPositionTable implements Action {
+  public readonly type = ETournamentsActions.UPDATE_TOURNAMENT_POSITION_TABLE;
+  constructor(
+    public payload: {
+      tournamentId: string;
+      positionTable: IPositionTableData[];
+    }
+  ) {}
+}
+
 export type tournamentsActions =
   | GetTournaments
   | GetTournamentsFailure
   | GetTournamentsSuccess
   | IsTournamentSelected
   | SetTournamentSelected
-  | CreateTournament;
+  | CreateTournament
+  | UpdateTournamentPositionTable;

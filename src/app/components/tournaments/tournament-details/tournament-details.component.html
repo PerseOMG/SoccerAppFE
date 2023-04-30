@@ -1,2 +1,2 @@
 <p>tournament-details works!</p>
-<app-action-button [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
+<app-action-button *ngIf="(tournament$ |async) as tournament" [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>

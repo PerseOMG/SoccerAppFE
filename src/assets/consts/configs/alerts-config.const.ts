@@ -54,3 +54,13 @@ export const FORM_ALERTS: { [key: string]: IAlert } = {
     ...ALERT_STYLES,
   },
 };
+
+export const NO_TOURNAMENT_ALERT: { [key: string]: IAlert } = {
+  error: {
+    icon: 'error',
+    position: 'center',
+    title: 'Something went wrong. Please choose another tournament.',
+    showConfirmButton: false,
+    ...ALERT_STYLES,
+  },
+};

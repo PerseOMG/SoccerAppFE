@@ -50,6 +50,19 @@ export function tournamentsReducer(
         isTournamentSelected: true,
         tournamentSelected: action.payload,
       };
+    case ETournamentsActions.UPDATE_TOURNAMENT_POSITION_TABLE:
+      return {
+        ...state,
+        tournaments: state.tournaments.map((tournament) => {
+          if (tournament._id === action.payload.tournamentId) {
+            return {
+              ...tournament,
+              positionTable: action.payload.positionTable,
+            };
+          }
+          return tournament;
+        }),
+      };
     default:
       return state;
   }
