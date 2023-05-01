@@ -1,0 +1,33 @@
+@import "../../../../styles.scss";
+.heading {
+  text-align: center;
+}
+
+.team_logo {
+  height: 1.5rem;
+  width: 1.5rem;
+  mix-blend-mode: multiply;
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
+.table {
+  &-container {
+    width: 100%;
+    border-top: 2px solid $color-text-secondary;
+    border-bottom: 2px solid $color-text-secondary;
+    border-collapse: collapse;
+    margin-bottom: 5%;
+  }
+  &-row {
+    height: 2.5rem;
+    border-bottom: 2px solid $color-text-secondary;
+  }
+  &-cell {
+    min-width: 2.5%;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

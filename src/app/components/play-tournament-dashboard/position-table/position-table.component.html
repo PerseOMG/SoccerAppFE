@@ -1,0 +1,22 @@
+<h1 class="heading">Position Table</h1>
+
+<table class="table-container">
+    <tr class="table-row text-center ">
+        <td *ngFor="let label of headings "><strong>{{label}}</strong></td>
+    </tr>
+
+    <tr class="table-row " *ngFor="let team of positionTable; let idx=index ">
+        <td class="text-center ">{{idx + 1}}</td>
+        <td><img class="team_logo " [src]="team.team.logo " [alt]="team.team.name "> <strong> {{team.team.name}} </strong></td>
+        <td class="table-cell text-center ">{{team.gamesPlayed}}</td>
+        <td class="table-cell text-center ">{{team.gamesWon}}</td>
+        <td class="table-cell text-center ">{{team.gamesLost}}</td>
+        <td class="table-cell text-center ">{{team.gamesTied}}</td>
+        <td class="table-cell text-center ">{{team.goalsScored}}</td>
+        <td class="table-cell text-center ">{{team.goalsAgainst}}</td>
+        <td class="table-cell text-center ">{{team.goalsDiff}}</td>
+        <td class="table-cell text-center ">{{team.points}}</td>
+        <td class="table-cell text-center ">{{team.lastFiveScores}}</td>
+    </tr>
+
+</table>

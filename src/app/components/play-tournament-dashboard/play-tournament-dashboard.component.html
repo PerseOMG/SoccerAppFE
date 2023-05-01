@@ -1,20 +1,21 @@
-<p>play-tournament-dashboard works!</p>
-<ng-container *ngIf="(totalMatches$ | async) as totalMatches">
-    <ng-container *ngIf="(tournament$  |async) as tournament">
+<div class="main-container">
+    <ng-container *ngIf="(totalMatches$ | async) as totalMatches">
+        <ng-container *ngIf="(tournament$  |async) as tournament">
 
-        <span *ngIf="(displayInfo$ |async) === 'match'">{{(currentMatch$| async) |json }}</span>
-        <span *ngIf="(displayInfo$ |async) === 'positionTable'">{{(positionTable$ | async)  | json }}</span>
-        <span *ngIf="(displayInfo$ |async) === 'statistics'">{{(teamsStatisticsData$ | async)  | json }}</span>
+            <span *ngIf="(displayInfo$ |async) === 'match'">{{(currentMatch$| async) |json }}</span>
+            <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
+            <span *ngIf="(displayInfo$ |async) === 'statistics'">{{(teamsStatisticsData$ | async)  | json }}</span>
 
 
-        <nav>
-            <button (click)="displayInfo$.next('statistics')">Statistics</button>
-            <div (click)="displayInfo$.next('statistics')">
-                <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch()">Next Match</button>
-                <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
-            </div>
-            <button (click)="displayInfo$.next('positionTable')">Position Table</button>
+            <nav>
+                <button (click)="displayInfo$.next('statistics')">Statistics</button>
+                <div (click)="displayInfo$.next('statistics')">
+                    <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch()">Next Match</button>
+                    <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+                </div>
+                <button (click)="displayInfo$.next('positionTable')">Position Table</button>
 
-        </nav>
+            </nav>
+        </ng-container>
     </ng-container>
-</ng-container>
+</div>

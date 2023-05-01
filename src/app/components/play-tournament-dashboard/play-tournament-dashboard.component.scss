@@ -1,0 +1,10 @@
+@import "../../../styles.scss";
+.main-container {
+  background-color: $color-text-primary;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 1% 0;
+  padding: 10%;
+  font-family: $regular;
+}

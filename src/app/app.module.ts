@@ -38,6 +38,7 @@ import { TournamentsEffects } from './services/tournaments/tournaments.effects';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
+import { PositionTableComponent } from './components/play-tournament-dashboard/position-table/position-table.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { PlayTournamentDashboardComponent } from './components/play-tournament-d
     TournamentsCardComponent,
     TournamentDetailsComponent,
     PlayTournamentDashboardComponent,
+    PositionTableComponent,
   ],
   imports: [
     NgSelectModule,
