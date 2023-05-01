@@ -2,10 +2,19 @@
 <ng-container *ngIf="(totalMatches$ | async) as totalMatches">
     <ng-container *ngIf="(tournament$  |async) as tournament">
 
-        <span>{{(currentMatch$| async) |json }}</span>
-        <span>{{(positionTable$ | async)  | json }}</span>
-        <span>{{(teamsStatisticsData$ | async)  | json }}</span>
-        <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch()">Next Match</button>
-        <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+        <span *ngIf="(displayInfo$ |async) === 'match'">{{(currentMatch$| async) |json }}</span>
+        <span *ngIf="(displayInfo$ |async) === 'positionTable'">{{(positionTable$ | async)  | json }}</span>
+        <span *ngIf="(displayInfo$ |async) === 'statistics'">{{(teamsStatisticsData$ | async)  | json }}</span>
+
+
+        <nav>
+            <button (click)="displayInfo$.next('statistics')">Statistics</button>
+            <div (click)="displayInfo$.next('statistics')">
+                <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch()">Next Match</button>
+                <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+            </div>
+            <button (click)="displayInfo$.next('positionTable')">Position Table</button>
+
+        </nav>
     </ng-container>
 </ng-container>

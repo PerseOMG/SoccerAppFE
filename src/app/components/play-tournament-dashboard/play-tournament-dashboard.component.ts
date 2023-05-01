@@ -13,6 +13,7 @@ import { TeamsFacade } from '../../services/teams/teams.facade';
   styleUrls: ['./play-tournament-dashboard.component.scss'],
 })
 export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
+  displayInfo$: BehaviorSubject<string> = new BehaviorSubject('match');
   teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
   tournament$ = this.tournamentsFacade.selectTournamentById(
     this.route.params['_value']['id']
@@ -185,9 +186,10 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       goalsScored: teamPositionTableData.goalsScored + goalsScored,
       goalsAgainst: teamPositionTableData.goalsAgainst + goalsAgainst,
       gamesPlayed: teamPositionTableData.gamesPlayed + 1,
-      goalsDiff:
-        teamPositionTableData.goalsScored - teamPositionTableData.goalsAgainst,
     };
+    updatedTeamPositionTableData.goalsDiff =
+      updatedTeamPositionTableData.goalsScored -
+      updatedTeamPositionTableData.goalsAgainst;
 
     if (goalsScored === goalsAgainst) {
       updatedTeamPositionTableData.gamesTied =
