@@ -88,7 +88,7 @@ export class TeamsEffects {
         this.teamsService.createTeam(action.payload).pipe(
           map((response) => {
             this.alertService.fireAlert(TEAMS_ALERTS['success']);
-            this.router.navigate(['/teams']);
+            this.router.navigate(['/']);
             return new GetTeams();
           }),
           catchError((error: any) => {
@@ -138,7 +138,7 @@ export class TeamsEffects {
         this.teamsService.deleteTeam(action.payload).pipe(
           map((response) => {
             this.alertService.fireAlert(TEAMS_ALERTS['delete']);
-            this.router.navigate(['/teams']);
+            this.router.navigate(['/']);
             return new GetTeams();
           }),
           catchError((error: any) => {

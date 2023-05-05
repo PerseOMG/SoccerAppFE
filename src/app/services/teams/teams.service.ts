@@ -19,9 +19,13 @@ export class TeamsService {
   }
 
   createTeam(team: Team): Observable<TeamsResponse> {
+    const newTeam = {
+      ...team,
+      tournaments: team.tournaments.length > 0 ? team.tournaments : null,
+    };
     return this.http.post<TeamsResponse>(
       `${APP_SOCCER_SERVER_URL}/teams`,
-      team,
+      newTeam,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,

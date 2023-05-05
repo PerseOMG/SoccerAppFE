@@ -20,7 +20,7 @@ export const FORMS_CONFIG = {
       key: 'tournaments',
       title: 'Select Tournaments',
       type: 'select',
-      validators: ['required'],
+      validators: [''],
       errorMessage: '*You can select max 5 tournaments, or it will be tired :c',
       maxSelected: 5,
     },

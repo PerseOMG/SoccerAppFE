@@ -13,7 +13,7 @@ const questions = [
   },
 ];
 
-console.log(`Please answer the following to update a library.`);
+console.log(`Please answer the following to update the version.`);
 
 inquirer.prompt(questions).then((answers) => {
   const currentPackageJson = require(`${projectsPath}/package.json`);
