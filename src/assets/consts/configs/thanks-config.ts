@@ -166,4 +166,28 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Google Inc.',
     link_creator: 'https://iconscout.com/contributors/google-inc',
   },
+  {
+    label_icon: 'Free Check Icon',
+    link_icon: 'https://iconscout.com/icons/check',
+    label_creator: 'Jemis Mali',
+    link_creator: 'https://iconscout.com/contributors/jemismali',
+  },
+  {
+    label_icon: 'Free X Icon',
+    link_icon: 'https://iconscout.com/icons/x',
+    label_creator: 'Iconic',
+    link_creator: 'https://iconscout.com/contributors/iconic',
+  },
+  {
+    label_icon: 'Free Equal Icon',
+    link_icon: 'https://iconscout.com/icons/equal',
+    label_creator: 'Kawalan Studio',
+    link_creator: 'https://iconscout.com/contributors/kawalanicon',
+  },
+  {
+    label_icon: 'Free Round Icon',
+    link_icon: 'https://iconscout.com/icons/round',
+    label_creator: 'Chamestudio',
+    link_creator: 'https://iconscout.com/contributors/chamedesign',
+  },
 ];

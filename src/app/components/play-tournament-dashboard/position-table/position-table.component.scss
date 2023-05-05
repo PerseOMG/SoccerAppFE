@@ -25,6 +25,21 @@
   }
   &-cell {
     min-width: 2.5%;
+    padding: 10px;
+    &-border {
+      border-right: $color-text-secondary 1px solid;
+    }
+  }
+}
+
+.data {
+  &-games {
+    &-lost {
+      color: red;
+    }
+    &-won {
+      color: green;
+    }
   }
 }
 

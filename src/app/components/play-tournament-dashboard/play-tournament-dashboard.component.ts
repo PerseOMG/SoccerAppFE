@@ -18,6 +18,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   tournament$ = this.tournamentsFacade.selectTournamentById(
     this.route.params['_value']['id']
   );
+
   totalTeams$ = combineLatest([this.tournament$]).pipe(
     filter((data) => !!data),
     map(([tournamentData]) => {
@@ -34,6 +35,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     })
   );
   totalEditions$ = combineLatest([this.tournament$]).pipe(
+    take(1),
     map(([tournamentData]) => {
       return tournamentData.calendar.length;
     })
@@ -43,6 +45,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     this.tournament$,
     this.totalEditions$,
   ]).pipe(
+    take(1),
     map(([tournamentData, totalEditions]) => {
       const allMatches = [];
       for (let i = 0; i < totalEditions; i++) {
@@ -50,7 +53,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           allMatches.push({ ...match, hasBeenPlayed: false });
         }
       }
-
+      console.log('asdad');
       return allMatches.sort((a, b) => 0.5 - Math.random());
     })
   );
@@ -84,16 +87,12 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  playMatch() {
+  playMatch(matchesShuffle: any[]) {
     const { scoreLocal, scoreVisit } = this.getScore();
 
-    combineLatest([
-      this.calendarMatchesShuffle$,
-      this.currentMatchIndex$,
-      this.positionTable$,
-    ])
+    combineLatest([this.currentMatchIndex$, this.positionTable$])
       .pipe(take(1))
-      .subscribe(([matchesShuffle, currentMatchIndex, positionTable]) => {
+      .subscribe(([currentMatchIndex, positionTable]) => {
         // ---------------------------------------------
         //Assign score result and update hasBeenPlayed property
         matchesShuffle[
@@ -144,11 +143,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
         );
         // ---------------------------------------------
       });
-
-    this.positionTable$.subscribe((p) => {
-      console.log('a');
-      console.log(p);
-    });
 
     // increment index for the next match
     this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);

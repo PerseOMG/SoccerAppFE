@@ -2,21 +2,23 @@
 
 <table class="table-container">
     <tr class="table-row text-center ">
-        <td *ngFor="let label of headings "><strong>{{label}}</strong></td>
+        <td *ngFor="let label of headings; let idx=index;" ngClass="{{idx === 2 || idx === 9 ? 'table-cell-border' : '' }}" class="table-cell"><strong>{{label}}</strong></td>
     </tr>
 
     <tr class="table-row " *ngFor="let team of positionTable; let idx=index ">
         <td class="text-center ">{{idx + 1}}</td>
         <td><img class="team_logo " [src]="team.team.logo " [alt]="team.team.name "> <strong> {{team.team.name}} </strong></td>
-        <td class="table-cell text-center ">{{team.gamesPlayed}}</td>
-        <td class="table-cell text-center ">{{team.gamesWon}}</td>
-        <td class="table-cell text-center ">{{team.gamesLost}}</td>
+        <td class="table-cell text-center table-cell-border">{{team.gamesPlayed}}</td>
+        <td class="table-cell text-center data-games-won">{{team.gamesWon}}</td>
+        <td class="table-cell text-center data-games-lost">{{team.gamesLost}}</td>
         <td class="table-cell text-center ">{{team.gamesTied}}</td>
         <td class="table-cell text-center ">{{team.goalsScored}}</td>
         <td class="table-cell text-center ">{{team.goalsAgainst}}</td>
         <td class="table-cell text-center ">{{team.goalsDiff}}</td>
-        <td class="table-cell text-center ">{{team.points}}</td>
-        <td class="table-cell text-center ">{{team.lastFiveScores}}</td>
+        <td class="table-cell text-center table-cell-border">{{team.points}}</td>
+        <td class="table-cell text-center">
+            <img *ngFor="let result of team.lastFiveScores" style="height: 15px; width: 15px;" src="../../../../assets/icons/{{result=== 'T' ? 'equal.svg' : result=== 'L' ? 'x-scores.svg' : result === 'W' ? 'check.svg' : 'round.svg' }}" alt=" ">
+        </td>
     </tr>
 
 </table>
