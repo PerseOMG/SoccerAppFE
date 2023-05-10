@@ -53,7 +53,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           allMatches.push({ ...match, hasBeenPlayed: false });
         }
       }
-      console.log('asdad');
       return allMatches.sort((a, b) => 0.5 - Math.random());
     })
   );
@@ -62,10 +61,22 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       return tournamentData.positionTable;
     })
   );
-  currentMatch$ = combineLatest([
-    this.calendarMatchesShuffle$,
-    this.currentMatchIndex$,
-  ]).pipe(map(([matches, index]) => matches[index]));
+
+  playoffsData$ = combineLatest([this.positionTable$, this.tournament$]).pipe(
+    map(([positionTable, tournamentData]) => {
+      return {
+        locals: positionTable.slice(
+          0,
+          tournamentData.options.playoffsQuantity / 2
+        ),
+        visit: positionTable.slice(
+          tournamentData.options.playoffsQuantity / 2,
+          tournamentData.options.playoffsQuantity
+        ),
+      };
+    })
+  );
+
   playoffsPhaseCalendar = [];
 
   constructor(
@@ -85,6 +96,10 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       );
       this.teamsFacade.getTeamStatistics(teamsIds);
     });
+  }
+
+  getCurrentMatch(matchesShuffle: any[]) {
+    return matchesShuffle[this.currentMatchIndex$.value];
   }
 
   playMatch(matchesShuffle: any[]) {

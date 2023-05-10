@@ -3,19 +3,14 @@
         <ng-container *ngIf="(tournament$  |async) as tournament">
             <ng-container *ngIf="(calendarMatchesShuffle$ | async) as calendarMatchesShuffle">
 
-                <span *ngIf="(displayInfo$ |async) === 'match'">{{(currentMatch$| async) |json }}</span>
+                <span *ngIf="(displayInfo$ |async) === 'match'">{{getCurrentMatch(calendarMatchesShuffle) |json }}</span>
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
-                <span *ngIf="(displayInfo$ |async) === 'statistics'">{{(teamsStatisticsData$ | async)  | json }}</span>
-
-
+                <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [Playoffs]="playoffsData$ | async"></app-playoffs>
                 <nav>
-                    <button (click)="displayInfo$.next('statistics')">Statistics</button>
-                    <div (click)="displayInfo$.next('statistics')">
-                        <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
-                        <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
-                    </div>
+                    <button (click)="displayInfo$.next('playoffs')">Playoffs</button>
+                    <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
+                    <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
                     <button (click)="displayInfo$.next('positionTable')">Position Table</button>
-
                 </nav>
             </ng-container>
         </ng-container>
