@@ -352,12 +352,6 @@ h2 {
   }
 }
 
-.tournament-bracket__content
-  .tournament-bracket__team:last-child
-  .tournament-bracket__code {
-  order: 1;
-}
-
 .tournament-bracket__caption {
   font-size: 0.8rem;
   color: #bdbdbd;
@@ -476,6 +470,6 @@ h2 {
 .tournament-bracket__logo {
   width: 100%;
   height: 75%;
-  object-fit: contain;
+  object-fit: scale-down;
   mix-blend-mode: multiply;
 }
