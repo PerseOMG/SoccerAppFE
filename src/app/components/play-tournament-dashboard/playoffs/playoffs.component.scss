@@ -446,30 +446,13 @@ h2 {
   border-color: #dddddd;
 }
 
-.tournament-bracket__team--winner .tournament-bracket__number {
-  background-color: #fff176;
-  border-color: #fad674;
-}
-
-.tournament-bracket__medal {
-  padding: 0 0.5em;
-}
-
-.tournament-bracket__medal--gold {
-  color: #ffd700;
-}
-
-.tournament-bracket__medal--silver {
-  color: #c0c0c0;
-}
-
-.tournament-bracket__medal--bronze {
-  color: #cd7f32;
-}
-
 .tournament-bracket__logo {
   width: 100%;
   height: 75%;
   object-fit: scale-down;
   mix-blend-mode: multiply;
+}
+
+.tournament-bracket__table {
+  width: 100%;
 }
