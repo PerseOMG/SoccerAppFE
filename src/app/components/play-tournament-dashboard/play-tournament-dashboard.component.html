@@ -6,10 +6,10 @@
                 <span *ngIf="(displayInfo$ |async) === 'match'">{{getCurrentMatch(calendarMatchesShuffle) |json }}</span>
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
                 <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$"></app-playoffs>
-                <nav>
+                <nav style="margin-top: 10rem;">
                     <button (click)="displayInfo$.next('playoffs')">Playoffs</button>
                     <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
-                    <button *ngIf="totalMatches === currentMatchIndex$.value && tournament.options.winnerDefinition === 'playoffs'" (click)="playPLayoffsPhase()">Next Round</button>
+
                     <button (click)="displayInfo$.next('positionTable')">Position Table</button>
                 </nav>
             </ng-container>

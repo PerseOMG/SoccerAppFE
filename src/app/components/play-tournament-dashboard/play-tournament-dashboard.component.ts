@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest, filter, map, skip, take } from 'rxjs';
 import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
+import { getScore } from 'src/app/utils/getScore.util';
 
 @Component({
   selector: 'app-play-tournament-dashboard',
@@ -94,7 +95,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   }
 
   playMatch(matchesShuffle: any[]) {
-    const { scoreLocal, scoreVisit } = this.getScore();
+    const { scoreLocal, scoreVisit } = getScore();
 
     combineLatest([this.currentMatchIndex$, this.positionTable$])
       .pipe(take(1))
@@ -105,7 +106,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
           currentMatchIndex
         ].score = `${scoreLocal} - ${scoreVisit}`;
         matchesShuffle[currentMatchIndex].hasBeenPlayed = true;
-        console.log(matchesShuffle[currentMatchIndex]);
 
         // ---------------------------------------------
         positionTable = this.updatePositionTable(
@@ -154,22 +154,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
   }
 
-  getScore() {
-    let scoreLocal = 0;
-    let scoreVisit = 0;
-    for (let i = 0; i < 12; i++) {
-      const localProbabilityToScore = Math.random();
-      const visitProbabilityToScore = Math.random();
-      if (localProbabilityToScore - visitProbabilityToScore > 0.2) {
-        scoreLocal++;
-      }
-      if (visitProbabilityToScore - localProbabilityToScore > 0.2) {
-        scoreVisit++;
-      }
-    }
-    return { scoreLocal, scoreVisit };
-  }
-
   updatePositionTable(
     currentPositionTable: IPositionTableData[],
     goalsScored: number,
@@ -180,7 +164,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       (data) => data.team.name === teamName
     );
 
-    console.log(teamPositionTableData);
     const updatedTeamPositionTableData: IPositionTableData = {
       ...teamPositionTableData,
       goalsScored: teamPositionTableData.goalsScored + goalsScored,
@@ -229,67 +212,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   finishTournament(champion: ITeamStatisticsReference) {
     console.log('finished');
     console.log(champion);
-  }
-
-  createPlayoffsCalendar(teams: IPositionTableData[]) {
-    for (let i = 0; i < teams.length / 2; i++) {
-      this.playoffsPhaseCalendar.push({
-        local: teams[i],
-        score: '0 - 0',
-        visit: teams[teams.length - 1 - i],
-      });
-    }
-    console.log(this.playoffsPhaseCalendar);
-  }
-
-  playPLayoffsPhase() {
-    const nextPhaseCalendar: any = [];
-    if (
-      this.playoffsPhaseCalendar.length > 2 ||
-      this.playoffsPhaseCalendar.length === 0
-    ) {
-      // this;
-      // .createPlayoffsCalendar
-      // // this.positionTable.slice(0, this.tournament.options.playoffsQuantity)
-      // ();
-      this.playoffsPhaseMatches();
-      console.log(nextPhaseCalendar);
-      this.playPLayoffsPhase();
-    } else {
-      // Play Final
-      this.playoffsPhaseMatches();
-      const scores = this.playoffsPhaseCalendar[0].score.split(' - ');
-      console.log(scores);
-
-      this.finishTournament(
-        scores[0] > scores[1]
-          ? this.playoffsPhaseCalendar[0].local
-          : this.playoffsPhaseCalendar[0].visit
-      );
-    }
-  }
-
-  playoffsPhaseMatches() {
-    const nextPhaseCalendar = [];
-    let winnerOddMatch;
-    for (let match of this.playoffsPhaseCalendar) {
-      const { scoreLocal, scoreVisit } = this.getScore();
-      match.score = `${scoreLocal} - ${scoreVisit}`;
-      match.hasBeenPlayed = true;
-      if (this.playoffsPhaseCalendar.indexOf(match) % 2 !== 0) {
-        nextPhaseCalendar.push({
-          score: '0 - 0',
-          local: winnerOddMatch,
-          visit: scoreLocal >= scoreVisit ? match.local : match.visit,
-          hasBeenPlayed: false,
-        });
-      } else {
-        winnerOddMatch = scoreLocal >= scoreVisit ? match.local : match.visit;
-      }
-    }
-    if (nextPhaseCalendar.length > 0) {
-      this.playoffsPhaseCalendar = nextPhaseCalendar;
-    }
   }
 
   updateTeamsStatistics(

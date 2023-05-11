@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" *ngIf="PlayoffsCalendar$ | async as calendar">
     <h1>Playoffs</h1>
     <div class="tournament-bracket tournament-bracket--rounded">
-        <div class="tournament-bracket__round tournament-bracket__round--quarterfinals" *ngFor="let phase of PlayoffsCalendar$ |async">
+        <div class="tournament-bracket__round tournament-bracket__round--quarterfinals" *ngFor="let phase of calendar">
             <h3 class="tournament-bracket__round-title">{{ phase.length === 4 ? 'Quarterfinals' : phase.length === 2 ? 'Semifinals' : 'Final'}}</h3>
             <ul class="tournament-bracket__list">
                 <li class="tournament-bracket__item" *ngFor="let match of phase; let idx = index">
@@ -41,4 +41,5 @@
 
 
     </div>
+    <button style="margin-top: 5rem;" (click)="playMatch(calendar)">Next Match</button>
 </div>
