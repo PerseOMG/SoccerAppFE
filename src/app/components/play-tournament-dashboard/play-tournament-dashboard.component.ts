@@ -64,16 +64,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
 
   playoffsData$ = combineLatest([this.positionTable$, this.tournament$]).pipe(
     map(([positionTable, tournamentData]) => {
-      return {
-        locals: positionTable.slice(
-          0,
-          tournamentData.options.playoffsQuantity / 2
-        ),
-        visit: positionTable.slice(
-          tournamentData.options.playoffsQuantity / 2,
-          tournamentData.options.playoffsQuantity
-        ),
-      };
+      return positionTable.slice(0, tournamentData.options.playoffsQuantity);
     })
   );
 

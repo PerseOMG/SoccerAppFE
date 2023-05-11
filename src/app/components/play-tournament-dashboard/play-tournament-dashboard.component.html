@@ -5,7 +5,7 @@
 
                 <span *ngIf="(displayInfo$ |async) === 'match'">{{getCurrentMatch(calendarMatchesShuffle) |json }}</span>
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
-                <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [Playoffs]="playoffsData$ | async"></app-playoffs>
+                <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$"></app-playoffs>
                 <nav>
                     <button (click)="displayInfo$.next('playoffs')">Playoffs</button>
                     <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>

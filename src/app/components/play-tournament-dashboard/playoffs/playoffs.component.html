@@ -1,10 +1,10 @@
 <div class="container">
     <h1>Playoffs</h1>
     <div class="tournament-bracket tournament-bracket--rounded">
-        <div class="tournament-bracket__round tournament-bracket__round--quarterfinals">
-            <h3 class="tournament-bracket__round-title">{{ Playoffs.locals.length === 4 ? 'Quarterfinals' : Playoffs.locals.length === 2 ? 'Semifinals' : 'Final'}}</h3>
+        <div class="tournament-bracket__round tournament-bracket__round--quarterfinals" *ngFor="let phase of PlayoffsCalendar$ |async">
+            <h3 class="tournament-bracket__round-title">{{ phase.length === 4 ? 'Quarterfinals' : phase.length === 2 ? 'Semifinals' : 'Final'}}</h3>
             <ul class="tournament-bracket__list">
-                <li class="tournament-bracket__item" *ngFor="let local of Playoffs.locals; let idx = index">
+                <li class="tournament-bracket__item" *ngFor="let match of phase; let idx = index">
                     <div class="tournament-bracket__match" tabindex="0">
                         <table class="tournament-bracket__table">
                             <thead class="sr-only">
@@ -16,20 +16,20 @@
                             <tbody class="tournament-bracket__content">
                                 <tr class="tournament-bracket__team">
                                     <td class="tournament-bracket__team">
-                                        <abbr class="tournament-bracket__code">{{local.team.name}}</abbr>
-                                        <img class="tournament-bracket__logo" [src]="local.team.logo" alt="">
+                                        <abbr class="tournament-bracket__code">{{match.local.team.name}}</abbr>
+                                        <img class="tournament-bracket__logo" [src]="match.local.team.logo ?? '../../../../assets/icons/person.svg'" alt="team_logo">
                                     </td>
                                     <td class="tournament-bracket__score">
-                                        <span class="tournament-bracket__number">4</span>
+                                        <strong class="tournament-bracket__number">{{match.localScore}}</strong>
                                     </td>
                                 </tr>
                                 <tr class="tournament-bracket__team">
                                     <td class="tournament-bracket__team">
-                                        <abbr class="tournament-bracket__code">{{Playoffs.visit[Playoffs.visit.length - 1 - idx].team.name}}</abbr>
-                                        <img class="tournament-bracket__logo" [src]="Playoffs.visit[Playoffs.visit.length - 1 - idx].team.logo" alt="">
+                                        <abbr class="tournament-bracket__code">{{match.visit.team.name}}</abbr>
+                                        <img class="tournament-bracket__logo" [src]="match.visit.team.logo ?? '../../../../assets/icons/person.svg'" alt="team_logo">
                                     </td>
                                     <td class="tournament-bracket__score">
-                                        <span class="tournament-bracket__number">1</span>
+                                        <strong class="tournament-bracket__number">{{match.visitScore}}</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -38,44 +38,7 @@
                 </li>
             </ul>
         </div>
-        <div class="tournament-bracket__round tournament-bracket__round">
-            <h3 class="tournament-bracket__round-title">Semifinals</h3>
-            <ul class="tournament-bracket__list">
-                <li class="tournament-bracket__item">
-                    <div class="tournament-bracket__match" tabindex="0">
-                        <table class="tournament-bracket__table">
 
-                            <thead class="sr-only">
-                                <tr>
-                                    <th>team</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tournament-bracket__content">
-                                <tr class="tournament-bracket__team">
-                                    <td class="tournament-bracket__team">
-                                        <abbr class="tournament-bracket__code" title="Canada">CAN</abbr>
-                                        <span class="tournament-bracket__flag flag-icon flag-icon-ca" aria-label="Flag"></span>
-                                    </td>
-                                    <td class="tournament-bracket__score">
-                                        <span class="tournament-bracket__number">1</span>
-                                    </td>
-                                </tr>
-                                <tr class="tournament-bracket__team tournament-bracket__team--winner">
-                                    <td class="tournament-bracket__team">
-                                        <abbr class="tournament-bracket__code" title="Czech Republic">CZE</abbr>
-                                        <span class="tournament-bracket__flag flag-icon flag-icon-cz" aria-label="Flag"></span>
-                                    </td>
-                                    <td class="tournament-bracket__score">
-                                        <span class="tournament-bracket__number">2</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-            </ul>
-        </div>
 
     </div>
 </div>
