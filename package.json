@@ -22,6 +22,7 @@
     "@ng-select/ng-select": "^9.1.0",
     "@ngrx/effects": "^14.3.2",
     "@ngrx/store-devtools": "^14.3.2",
+    "canvas-confetti": "^1.6.0",
     "chart.js": "^3.9.1",
     "fs": "^0.0.1-security",
     "inquirer": "^8.0.0",

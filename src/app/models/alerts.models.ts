@@ -1,7 +1,7 @@
 export interface IAlert {
   title?: string;
   text?: string;
-  icon: 'error' | 'success' | 'warning' | 'info' | 'question';
+  icon?: 'error' | 'success' | 'warning' | 'info' | 'question';
   confirmButtonText?: string;
   iconColor?: string;
   timer?: number;
@@ -41,4 +41,7 @@ export interface IAlert {
   confirmButtonColor?: string;
   denyButtonColor?: string;
   confirmButtonAriaLabel?: string;
+  imageUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }

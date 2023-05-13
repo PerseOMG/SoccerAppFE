@@ -64,3 +64,14 @@ export const NO_TOURNAMENT_ALERT: { [key: string]: IAlert } = {
     ...ALERT_STYLES,
   },
 };
+
+export const CHAMPION_ALERT: { [key: string]: IAlert } = {
+  success: {
+    title: 'NEW TOURNAMENT CHAMPION!',
+    position: 'center',
+    showConfirmButton: false,
+    imageHeight: 250,
+    imageWidth: 250,
+    ...ALERT_STYLES,
+  },
+};

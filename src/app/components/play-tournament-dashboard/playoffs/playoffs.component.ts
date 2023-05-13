@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import { IPositionTableData } from 'src/app/models/tournament.model';
+import { showConfetti } from 'src/app/utils/confetti.util';
 import { getScore } from 'src/app/utils/getScore.util';
+import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
+import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
 
 @Component({
   selector: 'app-playoffs',
@@ -14,7 +17,7 @@ export class PlayoffsComponent implements OnInit {
   PlayoffsCalendar$: Observable<any>;
   currentMatchIndex$ = new BehaviorSubject(0);
   currentPhase$ = new BehaviorSubject(0);
-  constructor() {}
+  constructor(private sweetAlertService: SweetAlertsService) {}
 
   ngOnInit(): void {
     this.PlayoffsCalendar$ = combineLatest([this.PlayoffsTeams$]).pipe(
@@ -53,6 +56,7 @@ export class PlayoffsComponent implements OnInit {
   playMatch(calendar: any) {
     const { scoreLocal, scoreVisit } = getScore();
 
+    // Define who wins the match and insert it to next phase key
     calendar[this.currentPhase$.value][
       this.currentMatchIndex$.value
     ].localScore = scoreLocal;
@@ -60,31 +64,53 @@ export class PlayoffsComponent implements OnInit {
       this.currentMatchIndex$.value
     ].visitScore = scoreVisit;
 
-    if (scoreLocal >= scoreVisit) {
-      calendar[this.currentPhase$.value + 1][
-        Math.floor(this.currentMatchIndex$.value / 2)
-      ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
-        calendar[this.currentPhase$.value][
-          this.currentMatchIndex$.value
-        ].local.team;
+    if (calendar[this.currentPhase$.value + 1]) {
+      if (scoreLocal >= scoreVisit) {
+        calendar[this.currentPhase$.value + 1][
+          Math.floor(this.currentMatchIndex$.value / 2)
+        ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
+          calendar[this.currentPhase$.value][
+            this.currentMatchIndex$.value
+          ].local.team;
+      } else {
+        calendar[this.currentPhase$.value + 1][
+          Math.floor(this.currentMatchIndex$.value / 2)
+        ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
+          calendar[this.currentPhase$.value][
+            this.currentMatchIndex$.value
+          ].visit.team;
+      }
+
+      // Target next match
+      this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
+
+      // Next phase
+      if (
+        this.currentMatchIndex$.value ===
+        calendar[this.currentPhase$.value].length
+      ) {
+        this.currentPhase$.next(this.currentPhase$.value + 1);
+        this.currentMatchIndex$.next(0);
+      }
     } else {
-      calendar[this.currentPhase$.value + 1][
-        Math.floor(this.currentMatchIndex$.value / 2)
-      ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
-        calendar[this.currentPhase$.value][
-          this.currentMatchIndex$.value
-        ].visit.team;
+      const champion =
+        scoreLocal >= scoreVisit
+          ? calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+              .local
+          : calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+              .visit;
+      this.displayChampion(champion);
     }
+  }
 
-    this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
-
-    // Next phase
-    if (
-      this.currentMatchIndex$.value ===
-      calendar[this.currentPhase$.value].length
-    ) {
-      this.currentPhase$.next(this.currentPhase$.value + 1);
-      this.currentMatchIndex$.next(0);
-    }
+  displayChampion(champion: any) {
+    showConfetti();
+    setTimeout(() => {
+      this.sweetAlertService.fireAlert({
+        ...CHAMPION_ALERT['success'],
+        imageUrl: champion.team.logo,
+        text: champion.team.name,
+      });
+    }, 1000);
   }
 }
