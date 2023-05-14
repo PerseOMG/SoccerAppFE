@@ -1,14 +1,15 @@
 .main-container {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 app-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
 }
 
 .footer-spacer {
-    height: 70px;
+  height: 70px;
 }

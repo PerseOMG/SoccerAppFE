@@ -7,10 +7,10 @@
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
                 <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$"></app-playoffs>
                 <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
-                <nav style="margin-top: 10rem;">
-                    <button (click)="displayInfo$.next('playoffs')">Playoffs</button>
-                    <button (click)="displayInfo$.next('calendar')">Calendar</button>
-                    <button (click)="displayInfo$.next('positionTable')">Position Table</button>
+                <nav class="nav-container">
+                    <button class="nav-item" (click)="displayInfo$.next('playoffs')">Playoffs</button>
+                    <button class="nav-item" (click)="displayInfo$.next('calendar')">Calendar</button>
+                    <button class="nav-item" (click)="displayInfo$.next('positionTable')">Position Table</button>
                 </nav>
             </ng-container>
         </ng-container>

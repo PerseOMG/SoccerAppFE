@@ -9,6 +9,27 @@
   font-family: $regular;
 }
 
+.nav {
+  &-container {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  &-item {
+    border-radius: 2rem;
+    background-color: $color-text-secondary;
+    color: $color-text-primary;
+    border: 1px solid black;
+    cursor: pointer;
+    height: 2rem;
+    width: 10rem;
+    &:hover {
+      color: $color-secondary;
+      background-color: $color-primary;
+    }
+  }
+}
+
 ::ng-deep {
   .swal2-shown .swal2-height-auto {
     font-family: $regular !important;
