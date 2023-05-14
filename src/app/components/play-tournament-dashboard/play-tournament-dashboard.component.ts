@@ -14,7 +14,7 @@ import { getScore } from 'src/app/utils/getScore.util';
   styleUrls: ['./play-tournament-dashboard.component.scss'],
 })
 export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
-  displayInfo$: BehaviorSubject<string> = new BehaviorSubject('match');
+  displayInfo$: BehaviorSubject<string> = new BehaviorSubject('calendar');
   teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
   tournament$ = this.tournamentsFacade.selectTournamentById(
     this.route.params['_value']['id']
@@ -68,8 +68,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       return positionTable.slice(0, tournamentData.options.playoffsQuantity);
     })
   );
-
-  playoffsPhaseCalendar = [];
 
   constructor(
     private teamsFacade: TeamsFacade,

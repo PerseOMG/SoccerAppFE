@@ -3,13 +3,13 @@
         <ng-container *ngIf="(tournament$  |async) as tournament">
             <ng-container *ngIf="(calendarMatchesShuffle$ | async) as calendarMatchesShuffle">
 
-                <span *ngIf="(displayInfo$ |async) === 'match'">{{getCurrentMatch(calendarMatchesShuffle) |json }}</span>
+                <app-calendar *ngIf="(displayInfo$ |async) === 'calendar'" [calendar]="calendarMatchesShuffle"></app-calendar>
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
                 <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$"></app-playoffs>
+                <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
                 <nav style="margin-top: 10rem;">
                     <button (click)="displayInfo$.next('playoffs')">Playoffs</button>
-                    <button *ngIf="totalMatches > currentMatchIndex$.value" (click)="playMatch(calendarMatchesShuffle)">Next Match</button>
-
+                    <button (click)="displayInfo$.next('calendar')">Calendar</button>
                     <button (click)="displayInfo$.next('positionTable')">Position Table</button>
                 </nav>
             </ng-container>
