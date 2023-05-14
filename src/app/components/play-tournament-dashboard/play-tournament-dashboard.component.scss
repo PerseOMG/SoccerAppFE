@@ -8,3 +8,13 @@
   padding: 10%;
   font-family: $regular;
 }
+
+::ng-deep {
+  .swal2-shown .swal2-height-auto {
+    font-family: $regular !important;
+    .swal2-image {
+      background-color: white;
+      mix-blend-mode: multiply;
+    }
+  }
+}

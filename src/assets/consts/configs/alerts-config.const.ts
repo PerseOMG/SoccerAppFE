@@ -7,6 +7,13 @@ const ALERT_STYLES = {
   confirmButtonAriaLabel: '"Quicksand", sans-serif;',
 };
 
+const ALERT_STYLES_SECONDARY = {
+  background: '#eae3d2',
+  color: '#273748',
+  confirmButtonColor: '#607eaa',
+  confirmButtonAriaLabel: '"Quicksand", sans-serif;',
+};
+
 export const TOURNAMENT_ALERTS: { [key: string]: IAlert } = {
   success: {
     icon: 'success',
@@ -67,11 +74,11 @@ export const NO_TOURNAMENT_ALERT: { [key: string]: IAlert } = {
 
 export const CHAMPION_ALERT: { [key: string]: IAlert } = {
   success: {
-    title: 'NEW TOURNAMENT CHAMPION!',
+    text: '🏆 NEW CHAMPION! 🏆',
     position: 'center',
     showConfirmButton: false,
     imageHeight: 250,
     imageWidth: 250,
-    ...ALERT_STYLES,
+    ...ALERT_STYLES_SECONDARY,
   },
 };

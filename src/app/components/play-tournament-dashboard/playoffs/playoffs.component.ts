@@ -109,7 +109,7 @@ export class PlayoffsComponent implements OnInit {
       this.sweetAlertService.fireAlert({
         ...CHAMPION_ALERT['success'],
         imageUrl: champion.team.logo,
-        text: champion.team.name,
+        title: ` ${champion.team.name}`,
       });
     }, 1000);
   }
