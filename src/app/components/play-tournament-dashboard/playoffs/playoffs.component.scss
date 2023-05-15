@@ -5,6 +5,28 @@
   margin: 20px auto;
 }
 
+.play-match-btn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  bottom: 5%;
+  right: 5%;
+  border: 1px solid $color-primary;
+  cursor: pointer;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px $color-primary;
+  background-color: $color-primary;
+  img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+  }
+  &:hover {
+    background-color: $color-text-secondary;
+  }
+}
+
 h1,
 h2 {
   text-align: center;

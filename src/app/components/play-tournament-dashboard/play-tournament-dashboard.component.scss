@@ -44,6 +44,9 @@
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px $color-primary;
+  img {
+    filter: invert(1);
+  }
   &:hover {
     color: $color-secondary;
     background-color: $color-primary;

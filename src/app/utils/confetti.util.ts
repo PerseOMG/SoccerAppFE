@@ -1,5 +1,5 @@
 import confetti from 'canvas-confetti';
-const duration = 15 * 1000;
+const duration = 25 * 100;
 const animationEnd = Date.now() + duration;
 const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
@@ -7,13 +7,9 @@ function randomInRange(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-export const showConfetti = () => {
-  let interval = setInterval(function () {
+export const showConfetti = () =>
+  setInterval(() => {
     const timeLeft = animationEnd - Date.now();
-
-    if (timeLeft <= 0) {
-      return clearInterval(interval);
-    }
 
     const particleCount = 50 * (timeLeft / duration);
     // since particles fall down, start a bit higher than random
@@ -30,4 +26,3 @@ export const showConfetti = () => {
       })
     );
   }, 250);
-};
