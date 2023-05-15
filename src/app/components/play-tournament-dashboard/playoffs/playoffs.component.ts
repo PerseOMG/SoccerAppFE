@@ -13,7 +13,8 @@ import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.
 })
 export class PlayoffsComponent implements OnInit {
   @Input() PlayoffsTeams$: Observable<IPositionTableData[]>;
-
+  @Input() totalMatches: number;
+  @Input() currentMatch: number;
   PlayoffsCalendar$: Observable<any>;
   currentMatchIndex$ = new BehaviorSubject(0);
   currentPhase$ = new BehaviorSubject(0);
