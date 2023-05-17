@@ -38,6 +38,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       return tournamentData.calendar.length;
     })
   );
+  currentEditionIndex$ = new BehaviorSubject(0);
   currentMatchIndex$ = new BehaviorSubject(0);
   calendarMatchesShuffle$ = combineLatest([
     this.tournament$,
@@ -46,8 +47,10 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     take(1),
     map(([tournamentData, totalTeams]) => {
       const teams = tournamentData.teams.map((team) => team);
-      const calendar = createCalendar(teams, totalTeams);
-      console.log(calendar);
+      const calendar = createCalendar(
+        teams.sort(() => Math.random() - 0.5),
+        totalTeams
+      );
       return calendar;
     })
   );
@@ -144,7 +147,12 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       });
 
     // increment index for the next match
-    this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
+    if (this.currentMatchIndex$.value < matchesShuffle.length - 1) {
+      this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
+    } else {
+      this.currentMatchIndex$.next(0);
+      this.currentEditionIndex$.next(this.currentEditionIndex$.value + 1);
+    }
   }
 
   updatePositionTable(

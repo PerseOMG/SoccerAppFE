@@ -41,9 +41,8 @@
 
 
     </div>
-    <span>{{totalMatches}}</span>
-    <span>{{totalMatches}}</span>
-    <button class="play-match-btn" (click)="playMatch(calendar)" *ngIf="totalMatches === currentMatch"><img src="'../../../../../assets/icons/default-tournament-logo.svg" alt=""></button>
+
+    <button class="play-match-btn" (click)="playMatch(calendar)" *ngIf="showButton"><img src="'../../../../../assets/icons/default-tournament-logo.svg" alt=""></button>
 </div>
 
 <div style="margin-top: 5rem;"></div>

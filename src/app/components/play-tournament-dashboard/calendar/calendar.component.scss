@@ -16,6 +16,15 @@
   overflow-y: scroll;
 }
 
+.round-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h3 {
+    color: $color-primary;
+  }
+}
+
 .table {
   &-container {
     width: 75%;
