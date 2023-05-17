@@ -7,6 +7,7 @@ import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
+import { createCalendar } from '../../utils/createTournamentCalendar.util';
 
 @Component({
   selector: 'app-play-tournament-dashboard',
@@ -28,11 +29,7 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   );
   totalMatches$ = combineLatest([this.totalTeams$]).pipe(
     map(([totalTeams]) => {
-      let matchesCount = 0;
-      for (let i = 0; i < totalTeams; i++) {
-        matchesCount = matchesCount + i;
-      }
-      return matchesCount;
+      return (totalTeams * (totalTeams - 1)) / 2;
     })
   );
   totalEditions$ = combineLatest([this.tournament$]).pipe(
@@ -44,19 +41,17 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
   currentMatchIndex$ = new BehaviorSubject(0);
   calendarMatchesShuffle$ = combineLatest([
     this.tournament$,
-    this.totalEditions$,
+    this.totalTeams$,
   ]).pipe(
     take(1),
-    map(([tournamentData, totalEditions]) => {
-      const allMatches = [];
-      for (let i = 0; i < totalEditions; i++) {
-        for (const match of tournamentData.calendar[i].matches) {
-          allMatches.push({ ...match, hasBeenPlayed: false });
-        }
-      }
-      return allMatches.sort((a, b) => 0.5 - Math.random());
+    map(([tournamentData, totalTeams]) => {
+      const teams = tournamentData.teams.map((team) => team);
+      const calendar = createCalendar(teams, totalTeams);
+      console.log(calendar);
+      return calendar;
     })
   );
+
   positionTable$ = combineLatest([this.tournament$]).pipe(
     map(([tournamentData]) => {
       return tournamentData.positionTable;

@@ -1,12 +1,15 @@
 <h1 class="heading">Calendar</h1>
 <div class="calendar-container">
-    <table class="table-container">
-        <tr class="table-row" *ngFor="let match of calendar">
-            <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong> {{match.local.name}} </strong></td>
-            <td>
-                <strong>{{match.score}}</strong>
-            </td>
-            <td><strong> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
-        </tr>
-    </table>
+    <ng-container *ngFor="let edition of calendar">
+        <h3>{{edition.edition}}</h3>
+        <table class="table-container">
+            <tr class="table-row" *ngFor="let match of edition.matches">
+                <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong> {{match.local.name}} </strong></td>
+                <td>
+                    <strong>{{match.score}}</strong>
+                </td>
+                <td><strong> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
+            </tr>
+        </table>
+    </ng-container>
 </div>
