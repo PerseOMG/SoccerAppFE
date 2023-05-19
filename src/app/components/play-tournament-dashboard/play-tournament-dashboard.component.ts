@@ -134,15 +134,12 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
 
         // ---------------------------------------------
 
-        this.updateTeamsStatistics(
-          {
-            local: matchesShuffle[currentMatchIndex].local._id,
-            localScore: scoreLocal,
-            visit: matchesShuffle[currentMatchIndex].visit._id,
-            visitScore: scoreVisit,
-          },
-          false
-        );
+        this.updateTeamsStatistics({
+          local: matchesShuffle[currentMatchIndex].local._id,
+          localScore: scoreLocal,
+          visit: matchesShuffle[currentMatchIndex].visit._id,
+          visitScore: scoreVisit,
+        });
         // ---------------------------------------------
       });
 
@@ -215,15 +212,12 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     console.log(champion);
   }
 
-  updateTeamsStatistics(
-    data: {
-      local: string;
-      localScore: number;
-      visit: string;
-      visitScore: number;
-    },
-    isFinal: boolean
-  ) {
+  updateTeamsStatistics(data: {
+    local: string;
+    localScore: number;
+    visit: string;
+    visitScore: number;
+  }) {
     this.teamsStatisticsData$
       .pipe(
         take(1),
