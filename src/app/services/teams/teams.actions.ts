@@ -18,6 +18,7 @@ export enum ETeamsActions {
   GET_TEAMS_STATISTICS_SUCCESS = '[APP Soccer] GET_TEAMS_STATISTICS_SUCCESS',
   GET_TEAMS_STATISTICS_FAILURE = '[APP Soccer] GET_TEAMS_STATISTICS_FAILURE',
   UPDATE_TEAMS_STATISTICS = '[APP Soccer] UPDATE_TEAMS_STATISTICS',
+  UPDATE_TEAMS_MODEL = '[APP Soccer] UPDATE_TEAMS_MODEL',
 }
 
 export class GetTeams implements Action {
@@ -74,6 +75,13 @@ export class GetTeamsStatisticsFailure implements Action {
   constructor(public payload: IAppError) {}
 }
 
+export class UpdateTeamModel implements Action {
+  public readonly type = ETeamsActions.UPDATE_TEAMS_MODEL;
+  constructor(
+    public payload: { team: Team; edition: number; tournamentId: string }
+  ) {}
+}
+
 export class NoAction implements Action {
   public readonly type = ETeamsActions.NO_ACTION;
 }
@@ -90,4 +98,5 @@ export type teamsActions =
   | GetTeamsStatisticsSuccess
   | GetTeamsStatisticsFailure
   | UpdateTeamsStatistics
+  | UpdateTeamModel
   | NoAction;

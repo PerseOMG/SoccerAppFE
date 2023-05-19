@@ -41,5 +41,15 @@ export class TeamsFacade {
     this.store.dispatch(new teamsActions.UpdateTeamsStatistics(teamStatistics));
   };
 
+  updateTeamChampionships = (
+    team: Team,
+    tournamentId: string,
+    edition: number
+  ) => {
+    this.store.dispatch(
+      new teamsActions.UpdateTeamModel({ team, tournamentId, edition })
+    );
+  };
+
   constructor(private store: Store<AppState>) {}
 }

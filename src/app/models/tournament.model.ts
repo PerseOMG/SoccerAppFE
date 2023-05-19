@@ -4,6 +4,7 @@ export interface ITournament {
   teams: ITeamTournamentReference[];
   logo?: string;
   isEditionComplete?: boolean;
+  edition?: number;
   positionTable?: IPositionTableData[];
   calendar?: ICalendar[];
   options?: {
@@ -27,7 +28,6 @@ export interface ITeamTournamentReference {
 }
 
 export interface ICalendar {
-  edition: number;
   matches: {
     visit: ITeamStatisticsReference;
     local: ITeamStatisticsReference;

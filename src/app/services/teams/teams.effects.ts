@@ -6,6 +6,7 @@ import {
   GetTeams,
   GetTeamsFailure,
   GetTeamsSuccess,
+  UpdateTeamModel,
 } from './teams.actions';
 import { TeamsService } from './teams.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -18,6 +19,7 @@ import {
 import { Router } from '@angular/router';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
+import { Team, totalChampionshipsData } from '../../models/team.models';
 import {
   GetTeamsStatistics,
   GetTeamsStatisticsSuccess,
@@ -153,6 +155,59 @@ export class TeamsEffects {
           })
         )
       )
+    )
+  );
+
+  updateTeamModel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<UpdateTeamModel>(ETeamsActions.UPDATE_TEAMS_MODEL),
+      switchMap((action) => {
+        const team = { ...action.payload.team };
+        const edition = action.payload.edition;
+        const tournament = action.payload.tournamentId;
+        const totalChampionshipUpdated = team.totalChampionships.length
+          ? team.totalChampionships.map((tournamentChampionships) => {
+              if (tournamentChampionships.tournament === tournament) {
+                return {
+                  tournament,
+                  edition: tournamentChampionships.edition.push(
+                    String(edition)
+                  ),
+                  value: tournamentChampionships.edition.length,
+                };
+              }
+              return tournamentChampionships;
+            })
+          : (team.totalChampionships = [
+              {
+                tournament,
+                value: 1,
+                edition: [String(edition)],
+              },
+            ]);
+
+        const updatedTeam: Team = {
+          ...team,
+          totalChampionships:
+            totalChampionshipUpdated as totalChampionshipsData[],
+        };
+
+        return this.teamsService.updateTeamModel(updatedTeam).pipe(
+          map((response) => {
+            return new GetTeams();
+          }),
+          catchError((error: any) => {
+            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            return of(
+              new CreateTeamFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        );
+      })
     )
   );
 }

@@ -5,7 +5,7 @@
 
                 <app-calendar *ngIf="(displayInfo$ |async) === 'calendar'" [calendar]="calendarMatchesShuffle"></app-calendar>
                 <app-position-table *ngIf="(displayInfo$ |async) === 'positionTable'" [positionTable]="positionTable$ | async"></app-position-table>
-                <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$" [showButton]="(totalEditions$ |async) === currentEditionIndex$.value "></app-playoffs>
+                <app-playoffs *ngIf="(displayInfo$ |async) === 'playoffs'" [PlayoffsTeams$]="playoffsData$" [showButton]="(totalEditions$ |async) === currentEditionIndex$.value" [currentEdition]="tournament.edition" [tournamentId]="tournament._id"></app-playoffs>
                 <button class="play-tournament-btn" *ngIf="(totalEditions$ |async) !== currentEditionIndex$.value && currentMatchIndex$.value < calendarMatchesShuffle[currentEditionIndex$.value].matches.length" (click)="playMatch(calendarMatchesShuffle[currentEditionIndex$.value].matches)"><img src="'../../../../../assets/icons/play.svg" alt=""></button>
                 <nav class="nav-container">
                     <button class="nav-item" (click)="displayInfo$.next('playoffs')">Playoffs</button>

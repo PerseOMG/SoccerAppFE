@@ -65,5 +65,19 @@ export class TeamsService {
       }
     );
   }
+
+  updateTeamModel(
+    team: Team
+  ): Observable<{ status: string; results: number; data: {} }> {
+    return this.http.patch<{ status: string; results: number; data: {} }>(
+      `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
+      team,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
+    );
+  }
   constructor(private http: HttpClient) {}
 }

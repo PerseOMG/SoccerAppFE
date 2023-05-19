@@ -5,6 +5,7 @@ import { showConfetti } from 'src/app/utils/confetti.util';
 import { getScore } from 'src/app/utils/getScore.util';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
+import { TeamsFacade } from '../../../services/teams/teams.facade';
 
 @Component({
   selector: 'app-playoffs',
@@ -14,10 +15,15 @@ import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.
 export class PlayoffsComponent implements OnInit {
   @Input() PlayoffsTeams$: Observable<IPositionTableData[]>;
   @Input() showButton: boolean;
+  @Input() currentEdition: number;
+  @Input() tournamentId: string;
   PlayoffsCalendar$: Observable<any>;
   currentMatchIndex$ = new BehaviorSubject(0);
   currentPhase$ = new BehaviorSubject(0);
-  constructor(private sweetAlertService: SweetAlertsService) {}
+  constructor(
+    private sweetAlertService: SweetAlertsService,
+    private teamsFacade: TeamsFacade
+  ) {}
 
   ngOnInit(): void {
     this.PlayoffsCalendar$ = combineLatest([this.PlayoffsTeams$]).pipe(
@@ -112,5 +118,11 @@ export class PlayoffsComponent implements OnInit {
         title: ` ${champion.team.name}`,
       });
     }, 1000);
+    //Update Team Model
+    this.teamsFacade.updateTeamChampionships(
+      champion.team,
+      this.tournamentId,
+      this.currentEdition
+    );
   }
 }

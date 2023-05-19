@@ -7,13 +7,19 @@ export interface Team {
     _id: string;
     name: string;
   }[];
-  totalChampionships?: {
-    tournament?: { _id?: string; name?: string };
-    value?: number;
-    edition?: string[];
-  }[];
+  totalChampionships?: totalChampionshipsData[];
   userId?: string;
 }
+
+export interface totalChampionshipsData {
+  tournament?: totalChampionshipTournamentData;
+  value?: number;
+  edition?: string[];
+}
+
+export type totalChampionshipTournamentData =
+  | string
+  | { _id?: string; name?: string };
 
 export interface Data {
   teams?: Team[];
