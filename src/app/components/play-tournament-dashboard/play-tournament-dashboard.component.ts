@@ -3,11 +3,11 @@ import { TournamentsFacade } from '../../services/tournaments/tournaments.facade
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
 import { BehaviorSubject, combineLatest, filter, map, skip, take } from 'rxjs';
-import { ITeamStatisticsReference } from '../../models/tournament.model';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../services/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
 import { createCalendar } from '../../utils/createTournamentCalendar.util';
+import { createTeamStatisticsObj } from 'src/app/utils/updateTeamStatistics.util';
 
 @Component({
   selector: 'app-play-tournament-dashboard',
@@ -207,11 +207,6 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     teamOnPosition.lastFiveScores = lastFiveScores;
   }
 
-  finishTournament(champion: ITeamStatisticsReference) {
-    console.log('finished');
-    console.log(champion);
-  }
-
   updateTeamsStatistics(data: {
     local: string;
     localScore: number;
@@ -230,25 +225,43 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
       )
       .subscribe((teamStatistics) => {
         // local
-        const actualHistoricalData = {
-          ...teamStatistics[0].teamHistoricalData,
-        };
+        const actualHistoricalData =
+          data.local === teamStatistics[0].team
+            ? {
+                ...teamStatistics[0].teamHistoricalData,
+              }
+            : {
+                ...teamStatistics[1].teamHistoricalData,
+              };
+
         const localTeamStatistics: ITeamStatistics = {
-          ...this.createTeamStatisticsObj(
-            teamStatistics[0],
+          ...createTeamStatisticsObj(
+            data.local === teamStatistics[0].team
+              ? teamStatistics[0]
+              : teamStatistics[1],
             actualHistoricalData,
+            data.visit,
             { goalsAgainst: data.visitScore, goalsScored: data.localScore }
           ),
         };
 
         //visit
-        const actualVisitHistoricalData = {
-          ...teamStatistics[1].teamHistoricalData,
-        };
+        const actualVisitHistoricalData =
+          data.visit === teamStatistics[1].team
+            ? {
+                ...teamStatistics[1].teamHistoricalData,
+              }
+            : {
+                ...teamStatistics[0].teamHistoricalData,
+              };
+
         const visitTeamStatistics: ITeamStatistics = {
-          ...this.createTeamStatisticsObj(
-            teamStatistics[1],
+          ...createTeamStatisticsObj(
+            data.visit === teamStatistics[1].team
+              ? teamStatistics[1]
+              : teamStatistics[0],
             actualVisitHistoricalData,
+            data.local,
             {
               goalsScored: data.visitScore,
               goalsAgainst: data.localScore,
@@ -259,96 +272,5 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
         this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
         this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
       });
-  }
-
-  createTeamStatisticsObj(
-    actualTeamStatistics: ITeamStatistics,
-    actualHistoricalData,
-    data: {
-      goalsScored: number;
-      goalsAgainst: number;
-    }
-  ) {
-    return {
-      ...actualTeamStatistics,
-      teamHistoricalData: {
-        totalGoalsScored:
-          actualHistoricalData.totalGoalsScored + data.goalsScored,
-        totalGoalsAgainst:
-          actualHistoricalData.totalGoalsAgainst + data.goalsAgainst,
-        totalGamesPlayed: actualHistoricalData.totalGamesPlayed + 1,
-        totalGamesWon:
-          data.goalsScored > data.goalsAgainst
-            ? actualHistoricalData.totalGamesWon + 1
-            : actualHistoricalData.totalGamesWon,
-        actualWinningStreak:
-          data.goalsScored > data.goalsAgainst
-            ? actualHistoricalData.actualWinningStreak + 1
-            : 0,
-        bestWinningStreak:
-          data.goalsScored > data.goalsAgainst &&
-          actualHistoricalData.actualWinningStreak >
-            actualHistoricalData.bestWinningStreak
-            ? actualHistoricalData.actualWinningStreak
-            : actualHistoricalData.bestWinningStreak,
-        actualLostStreak:
-          data.goalsScored < data.goalsAgainst
-            ? actualHistoricalData.actualLostStreak + 1
-            : 0,
-        bestLostStreak:
-          data.goalsScored < data.goalsAgainst &&
-          actualHistoricalData.actualLostStreak >
-            actualHistoricalData.bestLostStreak
-            ? actualHistoricalData.actualLostStreak
-            : actualHistoricalData.bestLostStreak,
-
-        totalGamesLost:
-          data.goalsScored < data.goalsAgainst
-            ? actualHistoricalData.totalGamesLost + 1
-            : actualHistoricalData.totalGamesLost,
-        goalsDiff:
-          actualHistoricalData.totalGoalsScored +
-          data.goalsScored -
-          actualHistoricalData.totalGoalsAgainst +
-          data.goalsAgainst,
-
-        totalTiedGames:
-          data.goalsScored === data.goalsAgainst
-            ? actualHistoricalData.totalTiedGames + 1
-            : actualHistoricalData.totalTiedGames,
-
-        goalsAverage:
-          actualHistoricalData.totalGoalsScored +
-          data.goalsScored / actualHistoricalData.totalGamesPlayed +
-          1,
-
-        goalsAgainstAverage:
-          actualHistoricalData.totalGoalsAgainst +
-          data.goalsAgainst / actualHistoricalData.totalGamesPlayed +
-          1,
-
-        wonGamesAverage:
-          data.goalsScored > data.goalsAgainst
-            ? (actualHistoricalData.totalGamesWon + 1) /
-              (actualHistoricalData.totalGamesPlayed + 1)
-            : actualHistoricalData.totalGamesWon /
-              (actualHistoricalData.totalGamesPlayed + 1),
-
-        lostGamesAverage:
-          data.goalsScored < data.goalsAgainst
-            ? (actualHistoricalData.totalGamesLost + 1) /
-              (actualHistoricalData.totalGamesPlayed + 1)
-            : actualHistoricalData.totalGamesLost /
-              (actualHistoricalData.totalGamesPlayed + 1),
-
-        wonLostRatio:
-          (data.goalsScored > data.goalsAgainst
-            ? actualHistoricalData.totalGamesWon + 1
-            : actualHistoricalData.totalGamesWon) /
-          (data.goalsScored < data.goalsAgainst
-            ? actualHistoricalData.totalGamesLost + 1
-            : actualHistoricalData.totalGamesLost),
-      },
-    };
   }
 }

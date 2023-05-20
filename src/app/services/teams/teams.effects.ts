@@ -19,7 +19,7 @@ import {
 import { Router } from '@angular/router';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
-import { Team, totalChampionshipsData } from '../../models/team.models';
+import { Team, TotalChampionshipsData } from '../../models/team.models';
 import {
   GetTeamsStatistics,
   GetTeamsStatisticsSuccess,
@@ -162,10 +162,9 @@ export class TeamsEffects {
     this.actions$.pipe(
       ofType<UpdateTeamModel>(ETeamsActions.UPDATE_TEAMS_MODEL),
       switchMap((action) => {
-        const team = { ...action.payload.team };
-        const edition = action.payload.edition;
+        const { team, edition } = { ...action.payload };
         const tournament = action.payload.tournamentId;
-        const totalChampionshipUpdated = team.totalChampionships.length
+        const totalChampionshipUpdated = team?.totalChampionships?.length
           ? team.totalChampionships.map((tournamentChampionships) => {
               if (tournamentChampionships.tournament === tournament) {
                 return {
@@ -173,23 +172,25 @@ export class TeamsEffects {
                   edition: tournamentChampionships.edition.push(
                     String(edition)
                   ),
-                  value: tournamentChampionships.edition.length,
+                  value: tournamentChampionships?.edition?.length,
                 };
               }
               return tournamentChampionships;
             })
-          : (team.totalChampionships = [
+          : [
               {
                 tournament,
                 value: 1,
                 edition: [String(edition)],
               },
-            ]);
+            ];
+
+        console.log({ ...team });
 
         const updatedTeam: Team = {
           ...team,
           totalChampionships:
-            totalChampionshipUpdated as totalChampionshipsData[],
+            totalChampionshipUpdated as TotalChampionshipsData[],
         };
 
         return this.teamsService.updateTeamModel(updatedTeam).pipe(

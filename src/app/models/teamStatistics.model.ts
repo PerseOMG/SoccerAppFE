@@ -8,21 +8,8 @@ export interface ITeamStatisticsResponse {
 
 export interface ITeamStatistics {
   team: string;
-  matchesData: {
-    teamsAgainst: ITeamStatisticsReference;
-    goalsInFavor: number;
-    goalsAgainst: number;
-    gamesWon: number;
-    gamesLost: number;
-    gamesTied: number;
-  }[];
-  finalsData: {
-    finalsWon: number;
-    finalsLost: number;
-    totalLostFinals: number;
-    finalsWonAgainst: ITeamStatisticsReference;
-    finalsLostAgainst: ITeamStatisticsReference;
-  };
+  matchesData: MatchesData[];
+  finalsData: FinalsData;
   teamHistoricalData: {
     totalGoalsScored?: number;
     totalGoalsAgainst?: number;
@@ -47,6 +34,22 @@ export interface ITeamStatistics {
     LostGamesAverage?: number;
     wonLostRatio?: number;
   };
+}
+
+export interface FinalsData {
+  finalsWon: number;
+  finalsLost: number;
+  finalsWonAgainst: ITeamStatisticsReference[];
+  finalsLostAgainst: ITeamStatisticsReference[];
+}
+
+export interface MatchesData {
+  teamAgainst: ITeamStatisticsReference | string;
+  goalsInFavor: number;
+  goalsAgainst: number;
+  gamesWon: number;
+  gamesLost: number;
+  gamesTied: number;
 }
 
 interface matchStatistics {

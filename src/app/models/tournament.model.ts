@@ -79,6 +79,7 @@ export interface ITeamStatisticsReference {
   logo: string;
   name: string;
   value: number;
+  _id: string;
 }
 
 export interface IData {

@@ -69,6 +69,7 @@ export class TeamsService {
   updateTeamModel(
     team: Team
   ): Observable<{ status: string; results: number; data: {} }> {
+    console.log(team);
     return this.http.patch<{ status: string; results: number; data: {} }>(
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       team,

@@ -1,11 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  filter,
+  map,
+  take,
+} from 'rxjs';
 import { IPositionTableData } from 'src/app/models/tournament.model';
 import { showConfetti } from 'src/app/utils/confetti.util';
 import { getScore } from 'src/app/utils/getScore.util';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
+import { createTeamStatisticsObj } from '../../../utils/updateTeamStatistics.util';
+import { ITeamStatistics } from '../../../models/teamStatistics.model';
+import { Team } from 'src/app/models/team.models';
 
 @Component({
   selector: 'app-playoffs',
@@ -17,6 +27,7 @@ export class PlayoffsComponent implements OnInit {
   @Input() showButton: boolean;
   @Input() currentEdition: number;
   @Input() tournamentId: string;
+  teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
   PlayoffsCalendar$: Observable<any>;
   currentMatchIndex$ = new BehaviorSubject(0);
   currentPhase$ = new BehaviorSubject(0);
@@ -87,6 +98,17 @@ export class PlayoffsComponent implements OnInit {
           ].visit.team;
       }
 
+      this.updateTeamsStatistics({
+        local:
+          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+            .local.team._id,
+        localScore: scoreLocal,
+        visit:
+          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+            .visit.team._id,
+        visitScore: scoreVisit,
+      });
+
       // Target next match
       this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
 
@@ -99,13 +121,27 @@ export class PlayoffsComponent implements OnInit {
         this.currentMatchIndex$.next(0);
       }
     } else {
+      this.updateTeamsStatistics({
+        local:
+          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+            .local.team._id,
+        localScore: scoreLocal,
+        visit:
+          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
+            .visit.team._id,
+        visitScore: scoreVisit,
+        isFinal: true,
+      });
+
       const champion =
         scoreLocal >= scoreVisit
           ? calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
               .local
           : calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
               .visit;
+
       this.displayChampion(champion);
+      this.updateTeamsData(champion);
     }
   }
 
@@ -118,7 +154,79 @@ export class PlayoffsComponent implements OnInit {
         title: ` ${champion.team.name}`,
       });
     }, 1000);
-    //Update Team Model
+  }
+
+  updateTeamsStatistics(data: {
+    local: string;
+    localScore: number;
+    visit: string;
+    visitScore: number;
+    isFinal?: boolean;
+  }) {
+    this.teamsStatisticsData$
+      .pipe(
+        take(1),
+        filter((data) => !!data),
+        map((teamsData) =>
+          teamsData.filter(
+            (team) => team.team === data.local || team.team === data.visit
+          )
+        )
+      )
+      .subscribe((teamStatistics) => {
+        // local
+        const actualHistoricalData =
+          data.local === teamStatistics[0].team
+            ? {
+                ...teamStatistics[0].teamHistoricalData,
+              }
+            : {
+                ...teamStatistics[1].teamHistoricalData,
+              };
+
+        const localTeamStatistics: ITeamStatistics = {
+          ...createTeamStatisticsObj(
+            data.local === teamStatistics[0].team
+              ? teamStatistics[0]
+              : teamStatistics[1],
+            actualHistoricalData,
+            data.visit,
+            { goalsAgainst: data.visitScore, goalsScored: data.localScore },
+            data.isFinal
+          ),
+        };
+
+        //visit
+        const actualVisitHistoricalData =
+          data.visit === teamStatistics[1].team
+            ? {
+                ...teamStatistics[1].teamHistoricalData,
+              }
+            : {
+                ...teamStatistics[0].teamHistoricalData,
+              };
+
+        const visitTeamStatistics: ITeamStatistics = {
+          ...createTeamStatisticsObj(
+            data.visit === teamStatistics[1].team
+              ? teamStatistics[1]
+              : teamStatistics[0],
+            actualVisitHistoricalData,
+            data.local,
+            {
+              goalsScored: data.visitScore,
+              goalsAgainst: data.localScore,
+            },
+            data.isFinal
+          ),
+        };
+
+        this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
+        this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
+      });
+  }
+
+  updateTeamsData(champion: any) {
     this.teamsFacade.updateTeamChampionships(
       champion.team,
       this.tournamentId,
