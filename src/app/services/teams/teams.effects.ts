@@ -6,7 +6,9 @@ import {
   GetTeams,
   GetTeamsFailure,
   GetTeamsSuccess,
+  NoAction,
   UpdateTeamModel,
+  UpdateTeamsStatisticsDB,
 } from './teams.actions';
 import { TeamsService } from './teams.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -184,9 +186,6 @@ export class TeamsEffects {
                 edition: [String(edition)],
               },
             ];
-
-        console.log({ ...team });
-
         const updatedTeam: Team = {
           ...team,
           totalChampionships:
@@ -196,6 +195,29 @@ export class TeamsEffects {
         return this.teamsService.updateTeamModel(updatedTeam).pipe(
           map((response) => {
             return new GetTeams();
+          }),
+          catchError((error: any) => {
+            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            return of(
+              new CreateTeamFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        );
+      })
+    )
+  );
+
+  updateTeamsStatisticsDB = createEffect(() =>
+    this.actions$.pipe(
+      ofType<UpdateTeamsStatisticsDB>(ETeamsActions.UPDATE_TEAM_STATISTICS_DB),
+      switchMap((action) => {
+        return this.teamsService.updateTeamStatistics(action.payload).pipe(
+          map(() => {
+            return new NoAction();
           }),
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);

@@ -4,7 +4,10 @@ import { TeamsResponse } from 'src/app/models/team.models';
 import { Observable } from 'rxjs';
 import { APP_SOCCER_SERVER_URL } from 'src/app.constants';
 import { Team } from '../../models/team.models';
-import { ITeamStatisticsResponse } from '../../models/teamStatistics.model';
+import {
+  ITeamStatistics,
+  ITeamStatisticsResponse,
+} from '../../models/teamStatistics.model';
 
 @Injectable({
   providedIn: 'root',
@@ -69,7 +72,6 @@ export class TeamsService {
   updateTeamModel(
     team: Team
   ): Observable<{ status: string; results: number; data: {} }> {
-    console.log(team);
     return this.http.patch<{ status: string; results: number; data: {} }>(
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       team,
@@ -78,6 +80,13 @@ export class TeamsService {
           authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
         },
       }
+    );
+  }
+
+  updateTeamStatistics(teamData: ITeamStatistics) {
+    return this.http.patch(
+      `${APP_SOCCER_SERVER_URL}/team/statistics/${teamData._id}`,
+      teamData
     );
   }
   constructor(private http: HttpClient) {}

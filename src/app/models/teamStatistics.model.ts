@@ -8,6 +8,7 @@ export interface ITeamStatisticsResponse {
 
 export interface ITeamStatistics {
   team: string;
+  _id: string;
   matchesData: MatchesData[];
   finalsData: FinalsData;
   teamHistoricalData: {

@@ -51,5 +51,9 @@ export class TeamsFacade {
     );
   };
 
+  updateTeamStatisticsDB = (teamsData: ITeamStatistics) => {
+    this.store.dispatch(new teamsActions.UpdateTeamsStatisticsDB(teamsData));
+  };
+
   constructor(private store: Store<AppState>) {}
 }
