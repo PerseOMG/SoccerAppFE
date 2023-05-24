@@ -83,6 +83,8 @@
     &-container {
       display: flex;
       justify-content: center;
+      flex-direction: column;
+      font-family: $regular;
     }
     &-image {
       height: 20px;

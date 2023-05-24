@@ -33,9 +33,11 @@
         <ng-container *ngIf="options.showDetails">
             <hr class="separator ">
             <div class="card__championships-container ">
-                <ng-container *ngFor="let championship of team.totalChampionships ">
-                    <span>{{championship.tournament}}</span>
-                    <img *ngFor="let star of getStarsArray(championship.value)" class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
+                <ng-container *ngFor="let championship of team.totalChampionships">
+                    <strong>{{championship.tournament.name}}</strong>
+                    <div>
+                        <img *ngFor="let star of getStarsArray(championship.value)" class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
+                    </div>
                 </ng-container>
                 <ng-container *ngIf="team.totalChampionships.length === 0 ">
                     <img class="card__championships-image " src="../../../assets/icons/x.svg " alt="NA ">
