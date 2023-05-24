@@ -168,7 +168,7 @@ export class TeamsEffects {
         const tournament = action.payload.tournamentId;
         const totalChampionshipUpdated = team?.totalChampionships?.length
           ? team.totalChampionships.map((tournamentChampionships) => {
-              if (tournamentChampionships.tournament === tournament) {
+              if (tournamentChampionships.tournament.name === tournament) {
                 return {
                   tournament,
                   edition: tournamentChampionships.edition.push(

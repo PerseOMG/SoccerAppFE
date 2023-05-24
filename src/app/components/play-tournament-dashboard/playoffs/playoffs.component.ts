@@ -15,7 +15,6 @@ import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { createTeamStatisticsObj } from '../../../utils/updateTeamStatistics.util';
 import { ITeamStatistics } from '../../../models/teamStatistics.model';
-import { Team } from 'src/app/models/team.models';
 
 @Component({
   selector: 'app-playoffs',
@@ -232,5 +231,11 @@ export class PlayoffsComponent implements OnInit {
       this.tournamentId,
       this.currentEdition
     );
+
+    this.teamsStatisticsData$.subscribe((teamsData) => {
+      teamsData.forEach((data) =>
+        this.teamsFacade.updateTeamStatisticsDB(data)
+      );
+    });
   }
 }

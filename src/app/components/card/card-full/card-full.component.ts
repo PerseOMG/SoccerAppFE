@@ -60,9 +60,9 @@ export class CardFullComponent implements OnInit, AfterViewInit {
               {
                 ...GAMES_CHART_DATA.datasets,
                 data: [
-                  team[0].teamHistoricalData?.totalGamesWon + 10,
-                  team[0].teamHistoricalData?.totalGamesLost + 1,
-                  team[0].teamHistoricalData?.totalTiedGames + 9,
+                  team[0].teamHistoricalData?.totalGamesLost,
+                  team[0].teamHistoricalData?.totalGamesWon,
+                  team[0].teamHistoricalData?.totalTiedGames,
                 ],
               },
             ],
@@ -77,8 +77,8 @@ export class CardFullComponent implements OnInit, AfterViewInit {
               {
                 ...GOALS_CHART_DATA.datasets,
                 data: [
-                  team[0].teamHistoricalData?.totalGoalsScored + 40,
-                  team[0].teamHistoricalData?.totalGoalsAgainst + 36,
+                  team[0].teamHistoricalData?.totalGoalsScored,
+                  team[0].teamHistoricalData?.totalGoalsAgainst,
                 ],
               },
             ],

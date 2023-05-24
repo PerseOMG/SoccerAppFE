@@ -22,10 +22,6 @@
                             <h3>Total Tournaments: {{team.tournaments.length ?? 'NA' }}</h3>
                         </div>
 
-
-                        <div class="row">
-                            <h3>Total Tournaments Played: {{statistics[0]?.teamHistoricalData?.totalChampionshipsPlayed ?? 'NA' }}</h3>
-                        </div>
                         <div class="row">
                             <!-- Finals -->
                             <!-- <h3>Total Finals Lost: {{statistics[0].finalsData?.totalLostFinals ?? 'NA' }}</h3> -->
@@ -40,7 +36,7 @@
                     <table>
                         <tr *ngFor="let item of team.totalChampionships">
                             <th>
-                                <h5>{{item.tournament ?? 'NA' }}</h5>
+                                <h5>{{item.tournament.name ?? 'NA' }}</h5>
                             </th>
                             <th>
                                 <img class="championships-image" *ngFor="let star of getStarsArray(item.value)" src="../../../assets/icons/trophy.svg" alt="*">

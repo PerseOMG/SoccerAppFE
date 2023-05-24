@@ -86,7 +86,12 @@ export class TeamsService {
   updateTeamStatistics(teamData: ITeamStatistics) {
     return this.http.patch(
       `${APP_SOCCER_SERVER_URL}/team/statistics/${teamData._id}`,
-      teamData
+      teamData,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
     );
   }
   constructor(private http: HttpClient) {}

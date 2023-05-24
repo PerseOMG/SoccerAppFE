@@ -27,7 +27,6 @@ export interface ITeamStatistics {
     actualLostStreak?: number;
     goalsDiff?: number;
     totalTiedGames?: number;
-    totalChampionshipsPlayed?: number;
     totalTournaments?: number;
     goalsAverage?: number;
     goalsAgainstAverage?: number;
