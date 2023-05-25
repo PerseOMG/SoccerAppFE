@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
@@ -14,7 +14,9 @@ import { createTeamStatisticsObj } from 'src/app/utils/updateTeamStatistics.util
   templateUrl: './play-tournament-dashboard.component.html',
   styleUrls: ['./play-tournament-dashboard.component.scss'],
 })
-export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
+export class PlayTournamentDashboardComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   displayInfo$: BehaviorSubject<string> = new BehaviorSubject('calendar');
   teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
   tournament$ = this.tournamentsFacade.selectTournamentById(
@@ -72,6 +74,12 @@ export class PlayTournamentDashboardComponent implements OnInit, AfterViewInit {
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute
   ) {}
+
+  ngOnDestroy(): void {
+    this.tournament$.subscribe((tournamentData) =>
+      this.tournamentsFacade.saveTournamentData(tournamentData)
+    );
+  }
 
   ngOnInit(): void {}
 

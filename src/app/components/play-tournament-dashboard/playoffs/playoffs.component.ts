@@ -15,6 +15,7 @@ import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.
 import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { createTeamStatisticsObj } from '../../../utils/updateTeamStatistics.util';
 import { ITeamStatistics } from '../../../models/teamStatistics.model';
+import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
 
 @Component({
   selector: 'app-playoffs',
@@ -32,7 +33,8 @@ export class PlayoffsComponent implements OnInit {
   currentPhase$ = new BehaviorSubject(0);
   constructor(
     private sweetAlertService: SweetAlertsService,
-    private teamsFacade: TeamsFacade
+    private teamsFacade: TeamsFacade,
+    private tournamentsFacade: TournamentsFacade
   ) {}
 
   ngOnInit(): void {
@@ -141,6 +143,7 @@ export class PlayoffsComponent implements OnInit {
 
       this.displayChampion(champion);
       this.updateTeamsData(champion);
+      this.tournamentsFacade.updateTournamentEdition(this.tournamentId);
     }
   }
 

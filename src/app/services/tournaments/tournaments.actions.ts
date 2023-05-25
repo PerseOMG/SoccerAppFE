@@ -11,6 +11,9 @@ export enum ETournamentsActions {
   CREATE_TOURNAMENT = '[APP Soccer] CREATE_TOURNAMENT',
   UPDATE_TOURNAMENT_MATCH_SCORE = '[APP Soccer] UPDATE_TOURNAMENT_MATCH_SCORE',
   UPDATE_TOURNAMENT_POSITION_TABLE = '[APP Soccer] UPDATE_TOURNAMENT_POSITION_TABLE',
+  UPDATE_TOURNAMENT_EDITION = '[APP Soccer] UPDATE_TOURNAMENT_EDITION',
+  SAVE_TOURNAMENT_DATA = '[APP Soccer] SAVE_TOURNAMENT_DATA',
+  SAVE_TOURNAMENT_DATA_SUCCESS = '[APP Soccer] SAVE_TOURNAMENT_DATA_SUCCESS',
 }
 
 export class GetTournaments implements Action {
@@ -51,6 +54,20 @@ export class UpdateTournamentPositionTable implements Action {
   ) {}
 }
 
+export class UpdateTournamentEdition implements Action {
+  public readonly type = ETournamentsActions.UPDATE_TOURNAMENT_EDITION;
+  constructor(public payload: string) {}
+}
+
+export class SaveTournamentData implements Action {
+  public readonly type = ETournamentsActions.SAVE_TOURNAMENT_DATA;
+  constructor(public payload: ITournament) {}
+}
+
+export class SaveTournamentDataSuccess implements Action {
+  public readonly type = ETournamentsActions.SAVE_TOURNAMENT_DATA_SUCCESS;
+}
+
 export type tournamentsActions =
   | GetTournaments
   | GetTournamentsFailure
@@ -58,4 +75,7 @@ export type tournamentsActions =
   | IsTournamentSelected
   | SetTournamentSelected
   | CreateTournament
-  | UpdateTournamentPositionTable;
+  | UpdateTournamentPositionTable
+  | UpdateTournamentEdition
+  | SaveTournamentData
+  | SaveTournamentDataSuccess;

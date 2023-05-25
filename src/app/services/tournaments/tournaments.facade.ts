@@ -48,5 +48,13 @@ export class TournamentsFacade {
   createTournament = (tournament: ITournament) =>
     this.store.dispatch(new tournamentsActions.CreateTournament(tournament));
 
+  updateTournamentEdition = (tournamentId: string) =>
+    this.store.dispatch(
+      new tournamentsActions.UpdateTournamentEdition(tournamentId)
+    );
+
+  saveTournamentData = (tournament: ITournament) =>
+    this.store.dispatch(new tournamentsActions.SaveTournamentData(tournament));
+
   constructor(private store: Store<AppState>) {}
 }

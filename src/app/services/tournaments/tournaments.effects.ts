@@ -6,6 +6,9 @@ import {
   GetTournamentsFailure,
   GetTournamentsSuccess,
   CreateTournament,
+  UpdateTournamentEdition,
+  SaveTournamentData,
+  SaveTournamentDataSuccess,
 } from './tournaments.actions';
 import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -64,6 +67,28 @@ export class TournamentsEffects {
           catchError((error: any) => {
             console.log(error);
 
+            return of(
+              new GetTournamentsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  updateTournamentEdition$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<SaveTournamentData>(ETournamentsActions.SAVE_TOURNAMENT_DATA),
+      switchMap((action) =>
+        this.tournamentsService.updateTournamentEdition(action.payload).pipe(
+          map((response) => {
+            return new SaveTournamentDataSuccess();
+          }),
+          catchError((error: any) => {
             return of(
               new GetTournamentsFailure({
                 code: error.status,

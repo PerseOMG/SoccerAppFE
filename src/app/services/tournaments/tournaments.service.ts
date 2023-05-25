@@ -35,4 +35,16 @@ export class TournamentsService {
       }
     );
   }
+
+  updateTournamentEdition(tournament: ITournament) {
+    return this.http.patch<ITournamentResponse>(
+      `${APP_SOCCER_SERVER_URL}/tournaments/${tournament._id}`,
+      tournament,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
+    );
+  }
 }

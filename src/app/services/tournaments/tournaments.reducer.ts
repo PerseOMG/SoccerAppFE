@@ -63,6 +63,19 @@ export function tournamentsReducer(
           return tournament;
         }),
       };
+    case ETournamentsActions.UPDATE_TOURNAMENT_EDITION:
+      return {
+        ...state,
+        tournaments: state.tournaments.map((tournament) => {
+          if (tournament._id === action.payload) {
+            return {
+              ...tournament,
+              edition: tournament.edition + 1,
+            };
+          }
+          return tournament;
+        }),
+      };
     default:
       return state;
   }
