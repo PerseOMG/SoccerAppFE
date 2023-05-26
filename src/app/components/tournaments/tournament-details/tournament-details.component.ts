@@ -25,6 +25,8 @@ export class TournamentDetailsComponent implements OnInit {
       })
     );
 
+  tournamentData$ = [];
+
   constructor(
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute,

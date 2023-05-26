@@ -1,2 +1,18 @@
-<p>tournament-details works!</p>
-<app-action-button *ngIf="(tournament$ |async) as tournament" [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
+<div *ngIf="(tournament$ |async) as tournament">
+    <div>
+        <h2>{{tournament.name}}</h2>
+        <img [src]="tournament.logo" [alt]="tournament.name">
+    </div>
+
+
+    <div>
+        <div *ngFor="let team of tournament.teams">
+            <img [src]="team.logo" [alt]="team.name">
+            <h5>{{team.name}}</h5>
+            <div *ngFor="let championship of team.totalChampionships">
+                <img *ngFor="let cupEdition of championship.edition" src="../../../../assets/icons/trophy.svg" alt="cupEdition">
+            </div>
+        </div>
+    </div>
+    <app-action-button [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
+</div>
