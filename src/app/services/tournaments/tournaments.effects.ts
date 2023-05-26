@@ -80,27 +80,26 @@ export class TournamentsEffects {
     )
   );
 
-  updateTournamentEdition$ = createEffect(() =>
+  saveTournamentData$ = createEffect(() =>
     this.actions$.pipe(
       ofType<SaveTournamentData>(ETournamentsActions.SAVE_TOURNAMENT_DATA),
       switchMap((action) => {
-        delete action.payload.positionTable;
-        return this.tournamentsService
-          .updateTournamentEdition(action.payload)
-          .pipe(
-            map((response) => {
-              return new SaveTournamentDataSuccess();
-            }),
-            catchError((error: any) => {
-              return of(
-                new GetTournamentsFailure({
-                  code: error.status,
-                  status: error.type,
-                  message: error.message,
-                })
-              );
-            })
-          );
+        const tournament = { ...action.payload };
+        delete tournament.positionTable;
+        return this.tournamentsService.saveTournamentData(tournament).pipe(
+          map((response) => {
+            return new SaveTournamentDataSuccess();
+          }),
+          catchError((error: any) => {
+            return of(
+              new GetTournamentsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        );
       })
     )
   );
