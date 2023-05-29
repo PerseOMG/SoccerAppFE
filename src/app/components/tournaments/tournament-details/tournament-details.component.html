@@ -1,18 +1,34 @@
-<div *ngIf="(tournament$ |async) as tournament">
-    <div>
-        <h2>{{tournament.name}}</h2>
-        <img [src]="tournament.logo" [alt]="tournament.name">
+<div class="tournament" *ngIf="(tournament$ |async) as tournament">
+    <div class="tournament-grid tournament-grid__regular">
+        <div class="tournament-card tournament-card__small">
+            <div class="tournament-card__small-header">
+                <img class="tournament-card__small-image" [src]="tournament.logo" [alt]="tournament.name">
+                <h1 class="tournament-card__small-name">{{tournament.name}}</h1>
+                <strong>Current edition: {{tournament.edition}}</strong>
+            </div>
+        </div>
+
+        <div class="tournament-card tournament-card__small">
+            <h2>last champion</h2>
+        </div>
     </div>
 
 
-    <div>
+    <div class="tournament-flex tournament-carousel">
         <div *ngFor="let team of tournament.teams">
-            <img [src]="team.logo" [alt]="team.name">
-            <h5>{{team.name}}</h5>
-            <div *ngFor="let championship of team.totalChampionships">
-                <img *ngFor="let cupEdition of championship.edition" src="../../../../assets/icons/trophy.svg" alt="cupEdition">
+            <div class="tournament-card tournament-card__small">
+                <img class="tournament-card__small-team-image" [src]="team.logo" [alt]="team.name">
+                <h3 class="tournament-card__small-name">{{team.name}}</h3>
+                <div *ngFor="let championship of team.totalChampionships">
+                    <strong>
+                    <img class="tournament-card__small-trophy" src="../../../../assets/icons/trophy.svg" alt="cupEdition">
+                     x {{championship.value}}
+                  </strong>
+
+                </div>
             </div>
         </div>
+
     </div>
     <app-action-button [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
 </div>

@@ -1,0 +1,50 @@
+@import "../../../../styles.scss";
+.tournament {
+  font-family: $regular;
+  margin-top: 10%;
+  &-grid {
+    display: grid;
+    &__regular {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &-flex {
+    display: flex;
+  }
+  &-carousel {
+    overflow-x: scroll;
+    height: 250px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  &-card {
+    text-align: center;
+    background-color: $color-secondary;
+    &__small {
+      color: $color-text-secondary;
+      margin: 1rem;
+      border-radius: 5%;
+      &-header {
+        transform: translateY(-25%);
+      }
+      &-team-image {
+        height: 100px;
+        width: 100px;
+        mix-blend-mode: multiply;
+        padding: 1rem;
+      }
+      &-image {
+        border-radius: 50%;
+      }
+      &-trophy {
+        height: 40px;
+        width: 40px;
+      }
+      &-name {
+        transform: translateY(-50%);
+        font-weight: bolder;
+        margin: 0;
+      }
+    }
+  }
+}
