@@ -67,6 +67,8 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
             ],
           },
         });
+
+        this.tournamentsFacade.getTournamentStatistics(tournament._id);
       }
     });
   }
