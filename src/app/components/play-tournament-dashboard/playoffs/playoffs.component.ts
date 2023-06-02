@@ -15,6 +15,7 @@ import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { createTeamStatisticsObj } from '../../../utils/updateTeamStatistics.util';
 import { ITeamStatistics } from '../../../models/teamStatistics.model';
 import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-playoffs',
@@ -33,7 +34,8 @@ export class PlayoffsComponent implements OnInit {
   constructor(
     private sweetAlertService: SweetAlertsService,
     private teamsFacade: TeamsFacade,
-    private tournamentsFacade: TournamentsFacade
+    private tournamentsFacade: TournamentsFacade,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -64,14 +66,23 @@ export class PlayoffsComponent implements OnInit {
           }
           calendar.push(matches);
         }
-
         return calendar;
       })
     );
   }
 
   playMatch(calendar: any) {
-    const { scoreLocal, scoreVisit } = getScore();
+    let { scoreLocal, scoreVisit } = getScore();
+
+    while (
+      scoreLocal === scoreVisit &&
+      !calendar[this.currentPhase$.value + 1]
+    ) {
+      const { scoreLocal: finalScoreLocal, scoreVisit: finalScoreVisit } =
+        getScore();
+      scoreLocal = finalScoreLocal;
+      scoreVisit = finalScoreVisit;
+    }
 
     // Define who wins the match and insert it to next phase key
     calendar[this.currentPhase$.value][
@@ -148,12 +159,19 @@ export class PlayoffsComponent implements OnInit {
 
   displayChampion(champion: any) {
     setTimeout(() => {
-      this.sweetAlertService.fireAlert({
-        ...CHAMPION_ALERT['success'],
-        imageUrl: champion.team.logo,
-        title: ` ${champion.team.name}`,
-      });
-    }, 1000);
+      this.sweetAlertService.fireAlert(
+        {
+          ...CHAMPION_ALERT['success'],
+          imageUrl: champion.team.logo,
+          title: ` ${champion.team.name}`,
+        },
+        (result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['tournaments']);
+          }
+        }
+      );
+    }, 1500);
   }
 
   updateTeamsStatistics(data: {

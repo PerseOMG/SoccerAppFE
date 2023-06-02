@@ -8,7 +8,7 @@ import { IAlert } from '../../models/alerts.models';
 export class SweetAlertsService {
   constructor() {}
 
-  fireAlert(alertConfig: IAlert) {
-    Swal.fire(alertConfig);
+  fireAlert(alertConfig: IAlert, successCb?: any) {
+    Swal.fire(alertConfig).then(successCb);
   }
 }

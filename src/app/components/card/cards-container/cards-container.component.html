@@ -2,7 +2,7 @@
 <div class="text-center">
     <app-filters></app-filters>
     <div class="cards-container__container" *ngIf="(teams$ |async) as teams">
-        <app-card *ngFor="let team of teams | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: getItemsPerPage(), currentPage: getCurrentPage()}" [team]="team" [options]="cardOptions"></app-card>
+        <app-card *ngFor="let team of teams | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: (itemsPerPage$ | async), currentPage: (currentPage$ | async)}" [team]="team" [options]="cardOptions"></app-card>
     </div>
     <ng-container *ngIf="(teams$ |async) as teams">
         <pagination-controls *ngIf="teams.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"

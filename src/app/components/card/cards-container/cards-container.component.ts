@@ -20,29 +20,16 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     isSelectable: true,
     showDetails: true,
   };
+
+  currentPage$ = this.paginationFacade.getCurrentPage();
+  itemsPerPage$ = this.paginationFacade.getItemsPerPage();
+
   constructor(
     private teamsFacade: TeamsFacade,
     private paginationFacade: PaginationFacade
   ) {}
 
   ngOnInit(): void {}
-
-  getCurrentPage(): number {
-    let currentPage: number;
-    this.paginationFacade.getCurrentPage().subscribe((val) => {
-      currentPage = val;
-    });
-    return currentPage;
-  }
-
-  getItemsPerPage(): number {
-    let itemsPerPage: number;
-    this.paginationFacade.getItemsPerPage().subscribe((val) => {
-      itemsPerPage = val;
-    });
-
-    return itemsPerPage;
-  }
 
   onPageChange(page: number) {
     this.paginationFacade.setCurrentPage(page);

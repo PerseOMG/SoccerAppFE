@@ -76,9 +76,10 @@ export const CHAMPION_ALERT: { [key: string]: IAlert } = {
   success: {
     text: '🏆 NEW CHAMPION! 🏆',
     position: 'center',
-    showConfirmButton: false,
+    showConfirmButton: true,
     imageHeight: 250,
     imageWidth: 250,
+    allowOutsideClick: false,
     ...ALERT_STYLES_SECONDARY,
   },
 };

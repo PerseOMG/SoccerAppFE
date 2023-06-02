@@ -61,7 +61,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
               {
                 backgroundColor: ['#eae3d2'],
                 data: tournament.teams.map(
-                  (team) => team.totalChampionships[0].edition.length
+                  (team) => team.totalChampionships[0]?.edition?.length
                 ),
               },
             ],
