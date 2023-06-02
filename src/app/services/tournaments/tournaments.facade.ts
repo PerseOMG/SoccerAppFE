@@ -56,7 +56,7 @@ export class TournamentsFacade {
   saveTournamentData = (tournament: ITournament) =>
     this.store.dispatch(new tournamentsActions.SaveTournamentData(tournament));
 
-  getTeamStatistics = (tournamentId: string) =>
+  getTournamentStatistics = (tournamentId: string) =>
     this.store.dispatch(
       new tournamentsActions.GetTournamentStatistics(tournamentId)
     );
