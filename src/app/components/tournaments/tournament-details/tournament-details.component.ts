@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { combineLatest, tap } from 'rxjs';
+import { combineLatest, map, tap } from 'rxjs';
 import { TournamentsFacade } from '../../../services/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
@@ -32,7 +32,16 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
         }
       })
     );
-
+  tournamentLastChampion$ = this.tournament$.pipe(
+    map(
+      (tournament) =>
+        tournament?.teams?.filter((team) =>
+          team?.totalChampionships[0]?.edition?.includes(
+            tournament?.edition?.toString()
+          )
+        )[0]
+    )
+  );
   tournamentData$ = [];
 
   constructor(

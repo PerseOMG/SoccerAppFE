@@ -24,9 +24,6 @@
       color: $color-text-secondary;
       margin: 1rem;
       border-radius: 5%;
-      &-header {
-        transform: translateY(-25%);
-      }
       &-team-image {
         height: 100px;
         width: 100px;
@@ -41,7 +38,6 @@
         width: 40px;
       }
       &-name {
-        transform: translateY(-50%);
         font-weight: bolder;
         margin: 0;
       }

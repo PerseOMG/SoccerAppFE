@@ -2,14 +2,16 @@
     <div class="tournament-grid tournament-grid__regular">
         <div class="tournament-card tournament-card__small">
             <div class="tournament-card__small-header">
+                <h2 class="tournament-card__small-name">{{tournament.name}}</h2>
                 <img class="tournament-card__small-image" [src]="tournament.logo" [alt]="tournament.name">
-                <h1 class="tournament-card__small-name">{{tournament.name}}</h1>
-                <strong>Current edition: {{tournament.edition}}</strong>
+                <h4>Current edition: {{tournament.edition}}</h4>
             </div>
         </div>
 
-        <div class="tournament-card tournament-card__small">
-            <h2>last champion</h2>
+        <div class="tournament-card tournament-card__small" *ngIf="(tournamentLastChampion$ | async) as champion">
+            <h2 class="tournament-card__small-name">Last Champion</h2>
+            <img class="tournament-card__small-image" [src]="champion?.logo" [alt]="champion.name">
+            <h4 class="tournament-card__small-name">{{champion?.name}}</h4>
         </div>
     </div>
 
