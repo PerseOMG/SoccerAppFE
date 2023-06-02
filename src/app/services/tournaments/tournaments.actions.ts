@@ -1,6 +1,10 @@
 import { Action } from '@ngrx/store';
 import { IAppError } from '../../interfaces/appError.interface';
-import { IPositionTableData, ITournament } from '../../models/tournament.model';
+import {
+  IPositionTableData,
+  ITournament,
+  ITournamentStatistics,
+} from '../../models/tournament.model';
 
 export enum ETournamentsActions {
   GET_TOURNAMENTS = '[APP Soccer] GET_TOURNAMENTS',
@@ -14,6 +18,8 @@ export enum ETournamentsActions {
   UPDATE_TOURNAMENT_EDITION = '[APP Soccer] UPDATE_TOURNAMENT_EDITION',
   SAVE_TOURNAMENT_DATA = '[APP Soccer] SAVE_TOURNAMENT_DATA',
   SAVE_TOURNAMENT_DATA_SUCCESS = '[APP Soccer] SAVE_TOURNAMENT_DATA_SUCCESS',
+  GET_TOURNAMENTS_STATISTICS = '[APP Soccer] GET_TOURNAMENTS_STATISTICS',
+  GET_TOURNAMENTS_STATISTICS_SUCCESS = '[APP Soccer] GET_TOURNAMENTS_SUCCESS_STATISTICS',
 }
 
 export class GetTournaments implements Action {
@@ -68,6 +74,16 @@ export class SaveTournamentDataSuccess implements Action {
   public readonly type = ETournamentsActions.SAVE_TOURNAMENT_DATA_SUCCESS;
 }
 
+export class GetTournamentStatistics implements Action {
+  public readonly type = ETournamentsActions.GET_TOURNAMENTS_STATISTICS;
+  constructor(public payload: string) {}
+}
+
+export class GetTournamentStatisticsSuccess implements Action {
+  public readonly type = ETournamentsActions.GET_TOURNAMENTS_STATISTICS_SUCCESS;
+  constructor(public payload: ITournamentStatistics) {}
+}
+
 export type tournamentsActions =
   | GetTournaments
   | GetTournamentsFailure
@@ -78,4 +94,6 @@ export type tournamentsActions =
   | UpdateTournamentPositionTable
   | UpdateTournamentEdition
   | SaveTournamentData
-  | SaveTournamentDataSuccess;
+  | SaveTournamentDataSuccess
+  | GetTournamentStatisticsSuccess
+  | GetTournamentStatistics;

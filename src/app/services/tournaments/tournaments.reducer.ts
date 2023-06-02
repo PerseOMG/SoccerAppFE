@@ -1,5 +1,8 @@
 import { IAppError } from '../../interfaces/appError.interface';
-import { ITournament } from '../../models/tournament.model';
+import {
+  ITournament,
+  ITournamentStatistics,
+} from '../../models/tournament.model';
 import { tournamentsActions, ETournamentsActions } from './tournaments.actions';
 
 export interface ITournamentsState {
@@ -9,6 +12,7 @@ export interface ITournamentsState {
   status: 'error' | 'pending' | 'success';
   isTournamentSelected: boolean;
   tournamentSelected: ITournament;
+  tournamentStatistics: ITournamentStatistics;
 }
 
 export const initTournamentsState: ITournamentsState = {
@@ -18,6 +22,7 @@ export const initTournamentsState: ITournamentsState = {
   status: null,
   isTournamentSelected: false,
   tournamentSelected: null,
+  tournamentStatistics: null,
 };
 
 export function tournamentsReducer(
@@ -75,6 +80,11 @@ export function tournamentsReducer(
           }
           return tournament;
         }),
+      };
+    case ETournamentsActions.GET_TOURNAMENTS_STATISTICS_SUCCESS:
+      return {
+        ...state,
+        tournamentStatistics: action.payload,
       };
     default:
       return state;

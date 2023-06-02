@@ -47,4 +47,15 @@ export class TournamentsService {
       }
     );
   }
+
+  getTournamentStatistics(tournamentId: string) {
+    return this.http.get<ITournamentResponse>(
+      `${APP_SOCCER_SERVER_URL}/tournament/historical/${tournamentId}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+        },
+      }
+    );
+  }
 }

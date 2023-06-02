@@ -9,6 +9,8 @@ import {
   UpdateTournamentEdition,
   SaveTournamentData,
   SaveTournamentDataSuccess,
+  GetTournamentStatistics,
+  GetTournamentStatisticsSuccess,
 } from './tournaments.actions';
 import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -101,6 +103,32 @@ export class TournamentsEffects {
           })
         );
       })
+    )
+  );
+
+  getTournamentStatistics$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<GetTournamentStatistics>(
+        ETournamentsActions.GET_TOURNAMENTS_STATISTICS
+      ),
+      switchMap((action) =>
+        this.tournamentsService.getTournamentStatistics(action.payload).pipe(
+          map((response) => {
+            return new GetTournamentStatisticsSuccess(response.data);
+          }),
+          catchError((error: any) => {
+            console.log(error);
+
+            return of(
+              new GetTournamentsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        )
+      )
     )
   );
 }

@@ -89,7 +89,7 @@ export interface IData {
 export interface ITournamentResponse {
   status: string;
   results: number;
-  data: IData;
+  data: any;
 }
 
 export interface ITournamentCardData {
