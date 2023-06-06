@@ -13,9 +13,10 @@
   }
   &-carousel {
     overflow-x: scroll;
-    height: 250px;
+    height: 300px;
     width: 100%;
     justify-content: space-between;
+    margin: 0 5%;
   }
   &-card {
     text-align: center;
@@ -24,6 +25,7 @@
       color: $color-text-secondary;
       margin: 1rem;
       border-radius: 5%;
+      height: 80%;
       &-team-image {
         height: 100px;
         width: 100px;
