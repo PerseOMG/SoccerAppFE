@@ -13,6 +13,7 @@ export class PaginationFacade {
   getItemsPerPage = () => this.store.select(paginationSelectors.itemsPerPage);
   getCurrentPage = () => this.store.select(paginationSelectors.currentPage);
   getFilter = () => this.store.select(paginationSelectors.filter);
+  getTournament = () => this.store.select(paginationSelectors.tournament);
 
   // Actions
   setCurrentPage = (currentPage: number) =>
@@ -23,6 +24,9 @@ export class PaginationFacade {
 
   setFilter = (filter: string) =>
     this.store.dispatch(new paginationActions.SetFilter(filter));
+
+  setTournamentFilter = (tournament: string) =>
+    this.store.dispatch(new paginationActions.SetTournamentFilter(tournament));
 
   constructor(private store: Store<AppState>) {}
 }

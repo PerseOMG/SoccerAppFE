@@ -7,7 +7,7 @@ import { ITournament } from '../models/tournament.model';
 })
 export class StringFilterPipe implements PipeTransform {
   transform(filterArray: any[], value: string): any[] {
-    if (value === '') {
+    if (value === '' || !value) {
       return filterArray;
     }
     return filterArray.filter((item) =>

@@ -4,12 +4,14 @@ export interface IPaginationState {
   currentPage: number;
   itemsPerPage: TItemsPerPageOptions;
   filter: string;
+  tournament: string;
 }
 
 export const initTeamsState: IPaginationState = {
   currentPage: 1,
   itemsPerPage: 10,
-  filter: '',
+  filter: null,
+  tournament: null,
 };
 
 export function paginationReducer(
@@ -23,6 +25,8 @@ export function paginationReducer(
       return { ...state, itemsPerPage: action.payload };
     case EPaginationActions.SET_FILTER:
       return { ...state, filter: action.payload };
+    case EPaginationActions.SET_TOURNAMENT_FILTER:
+      return { ...state, tournament: action.payload };
 
     default:
       return state;

@@ -8,6 +8,8 @@ export enum EPaginationActions {
   GET_ITEMS_PER_PAGE = '[APP Soccer] GET_ITEMS_PER_PAGE',
   SET_FILTER = '[APP Soccer] SET_FILTER',
   GET_FILTER = '[APP Soccer] GET_FILTER',
+  SET_TOURNAMENT_FILTER = '[APP Soccer] SET_TOURNAMENT_FILTER',
+  GET_TOURNAMENT_FILTER = '[APP Soccer] GET_TOURNAMENT_FILTER',
 }
 
 export class GetCurrentPage implements Action {
@@ -20,6 +22,10 @@ export class GetItemsPerPage implements Action {
 
 export class GetFilter implements Action {
   public readonly type = EPaginationActions.GET_FILTER;
+}
+
+export class GetTournamentFilter implements Action {
+  public readonly type = EPaginationActions.GET_TOURNAMENT_FILTER;
 }
 
 export class SetCurrentPage implements Action {
@@ -37,10 +43,17 @@ export class SetFilter implements Action {
   constructor(public payload: string) {}
 }
 
+export class SetTournamentFilter implements Action {
+  public readonly type = EPaginationActions.SET_TOURNAMENT_FILTER;
+  constructor(public payload: string) {}
+}
+
 export type paginationActions =
   | GetCurrentPage
   | GetItemsPerPage
   | GetFilter
   | SetCurrentPage
   | SetItemsPerPage
-  | SetFilter;
+  | SetFilter
+  | GetTournamentFilter
+  | SetTournamentFilter;

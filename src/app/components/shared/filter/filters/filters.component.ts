@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationFacade } from '../../../../services/pagination/pagination.facade';
 import { TItemsPerPageOptions } from '../../../../../assets/consts/configs/pagination-config';
+import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-filters',
@@ -8,10 +10,22 @@ import { TItemsPerPageOptions } from '../../../../../assets/consts/configs/pagin
   styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements OnInit {
-  constructor(private paginationFacade: PaginationFacade) {}
   filter = '';
   itemsPerPageOptions: TItemsPerPageOptions[] = [5, 10, 15, 20];
-  itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
+  itemsPerPageSelected$ = this.paginationFacade.getItemsPerPage();
+  tournamentsOptions$ = this.tournamentFacade.selectAllTournaments().pipe(
+    filter((tournamentsData) => !!tournamentsData.tournaments),
+    map((tournamentsData) =>
+      tournamentsData?.tournaments?.map((tournament) => tournament?.name)
+    )
+  );
+  tournamentFilterSelected$ = this.paginationFacade.getTournament();
+
+  constructor(
+    private paginationFacade: PaginationFacade,
+    private tournamentFacade: TournamentsFacade
+  ) {}
+
   ngOnInit(): void {}
 
   onKey() {
@@ -20,5 +34,9 @@ export class FiltersComponent implements OnInit {
 
   changeItemsPerPage(option: TItemsPerPageOptions) {
     this.paginationFacade.setItemsPerPage(option);
+  }
+
+  changeTournamentFilter(tournamentName: string) {
+    this.paginationFacade.setTournamentFilter(tournamentName);
   }
 }

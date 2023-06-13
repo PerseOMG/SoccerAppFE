@@ -1,10 +1,17 @@
 <div class="main-container">
-    <input type="text" class="form-control" id="name" placeholder="Search" (keyup)="onKey()" [(ngModel)]="filter" name="name">
+    <div class="flex-container">
+        <input type="text" class="form-control" id="name" placeholder="Search" (keyup)="onKey()" [(ngModel)]="filter" name="name">
 
-    <div class="options-container">
-        <ng-container *ngFor="let option of itemsPerPageOptions">
-            <button [ngClass]="{'options-button-selected': option === (itemsPerPageSelected | async)}" class="options-button" (click)="changeItemsPerPage(option)">{{option}}</button>
-        </ng-container>
+        <div class="options-container">
+            <ng-container *ngFor="let option of itemsPerPageOptions">
+                <button [ngClass]="{'options-button-selected': option === (itemsPerPageSelected$ | async)}" class="options-button" (click)="changeItemsPerPage(option)">{{option}}</button>
+            </ng-container>
+        </div>
     </div>
 
+    <div class="flex-container">
+        <ng-container *ngFor=" let tournamentName of (tournamentsOptions$ | async) ">
+            <button [ngClass]="{ 'options-button-selected': tournamentName===( tournamentFilterSelected$ | async)} " class="tournament-options-button " (click)="changeTournamentFilter( tournamentName) ">{{tournamentName}}</button>
+        </ng-container>
+    </div>
 </div>

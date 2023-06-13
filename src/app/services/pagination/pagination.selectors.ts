@@ -18,8 +18,14 @@ export const filter = createSelector(
   (state: AppState) => state.pagination.filter
 );
 
+export const tournament = createSelector(
+  selectStore,
+  (state: AppState) => state.pagination.tournament
+);
+
 export const paginationSelectors = {
   currentPage,
   itemsPerPage,
   filter,
+  tournament,
 };
