@@ -1,5 +1,5 @@
 <div class="card__container" [ngClass]="team.isFavorite ? 'isFavorite' : null" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'">
-    <div *ngIf="options.showDetails" class="card__action-buttons-container">
+    <!-- <div *ngIf="options.showDetails" class="card__action-buttons-container">
 
         <img class="card__action-buttons" [src]=" team.isFavorite ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite(team)" alt="favorite">
 
@@ -19,7 +19,7 @@
             </ul>
         </div>
 
-    </div>
+    </div> -->
 
     <div (click)="options.isSelectable ? handleTeamSelection(team) : null ">
 

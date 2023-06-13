@@ -1,5 +1,5 @@
 <div class="card__container">
-    <div *ngIf="options.showActionButtons" class="card__action-buttons-container">
+    <!-- <div *ngIf="options.showActionButtons" class="card__action-buttons-container">
 
         <div style="display: initial">
             <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">
@@ -17,7 +17,7 @@
             </ul>
         </div>
 
-    </div>
+    </div> -->
 
     <div class="card__info-container " (click)="onSelect(tournament._id)">
         <img class="card__info-image " [src]="tournament.logo ?? '../../../../assets/icons/default-tournament-logo.svg' " [alt]="tournament.name ">
