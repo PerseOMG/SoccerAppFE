@@ -26,7 +26,9 @@ export function paginationReducer(
     case EPaginationActions.SET_FILTER:
       return { ...state, filter: action.payload };
     case EPaginationActions.SET_TOURNAMENT_FILTER:
-      return { ...state, tournament: action.payload };
+      const tournament =
+        state.tournament === action.payload ? null : action.payload;
+      return { ...state, tournament };
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PaginationFacade } from '../../../../services/pagination/pagination.facade';
 import { TItemsPerPageOptions } from '../../../../../assets/consts/configs/pagination-config';
 import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
@@ -10,6 +10,7 @@ import { filter, map } from 'rxjs';
   styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements OnInit {
+  @Input() cardsType: string;
   filter = '';
   itemsPerPageOptions: TItemsPerPageOptions[] = [5, 10, 15, 20];
   itemsPerPageSelected$ = this.paginationFacade.getItemsPerPage();

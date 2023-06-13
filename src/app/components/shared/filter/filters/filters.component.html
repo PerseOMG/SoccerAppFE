@@ -9,9 +9,9 @@
         </div>
     </div>
 
-    <div class="flex-container">
+    <div *ngIf="cardsType === 'teams'" class="flex-container">
         <ng-container *ngFor=" let tournamentName of (tournamentsOptions$ | async) ">
-            <button [ngClass]="{ 'options-button-selected': tournamentName===( tournamentFilterSelected$ | async)} " class="tournament-options-button " (click)="changeTournamentFilter( tournamentName) ">{{tournamentName}}</button>
+            <button [ngClass]="{ 'tournament-options-button-selected': tournamentName == ( tournamentFilterSelected$ | async)} " class="tournament-options-button " (click)="changeTournamentFilter( tournamentName) ">{{tournamentName}}</button>
         </ng-container>
     </div>
 </div>
