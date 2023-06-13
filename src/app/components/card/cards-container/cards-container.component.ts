@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeamsFacade } from '../../../services/teams/teams.facade';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, filter, map } from 'rxjs';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
 import { PaginationFacade } from '../../../services/pagination/pagination.facade';
 import { Team } from '../../../models/team.models';
@@ -11,7 +11,24 @@ import { Team } from '../../../models/team.models';
   styleUrls: ['./cards-container.component.scss'],
 })
 export class CardsContainerComponent implements OnInit, OnDestroy {
-  teams$: Observable<Team[]> = this.teamsFacade.selectAllTeams();
+  teams$: Observable<Team[]> = combineLatest([
+    this.teamsFacade.selectAllTeams(),
+    this.paginationFacade.getTournament(),
+  ]).pipe(
+    map(([teams, tournamentFilter]) => {
+      if (!tournamentFilter) {
+        return teams;
+      }
+
+      const filteredTeams = teams.filter((team) =>
+        team.tournaments.some(
+          (tournament) => tournament.name === tournamentFilter
+        )
+      );
+
+      return filteredTeams;
+    })
+  );
   itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
   filter = this.paginationFacade.getFilter();
   config = CARDS_PAGINATION_CONTROLS;
