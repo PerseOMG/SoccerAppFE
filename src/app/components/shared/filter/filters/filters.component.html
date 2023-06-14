@@ -7,11 +7,15 @@
                 <button [ngClass]="{'options-button-selected': option === (itemsPerPageSelected$ | async)}" class="options-button" (click)="changeItemsPerPage(option)">{{option}}</button>
             </ng-container>
         </div>
+
+        <div *ngIf="cardsType === 'teams'" (click)="setShowOptions()" class="tournament-options-arrow">
+            <img [ngClass]="{'tournament-options-arrow-active' : (showMoreOptions | async )}" src="../../../../../assets/icons/arrow.svg" alt="more">
+        </div>
     </div>
 
     <div *ngIf="cardsType === 'teams'" class="flex-container">
         <ng-container *ngFor=" let tournamentName of (tournamentsOptions$ | async) ">
-            <button [ngClass]="{ 'tournament-options-button-selected': tournamentName == ( tournamentFilterSelected$ | async)} " class="tournament-options-button " (click)="changeTournamentFilter( tournamentName) ">{{tournamentName}}</button>
+            <button [ngClass]="{ 'tournament-options-button-selected': tournamentName == ( tournamentFilterSelected$ | async), 'tournament-options-button-d-none': !(showMoreOptions | async)} " class="tournament-options-button" (click)="changeTournamentFilter( tournamentName) ">{{tournamentName}}</button>
         </ng-container>
     </div>
 </div>

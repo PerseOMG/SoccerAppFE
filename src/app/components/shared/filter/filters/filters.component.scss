@@ -46,18 +46,29 @@ input::placeholder {
   }
 }
 
-.tournament-options-button {
-  border: 0;
-  height: 35px;
-  border-radius: 10px;
-  background-color: $color-primary;
-  color: $color-secondary;
-  cursor: pointer;
-  font-family: $regular;
-  &:hover,
-  &-selected {
-    color: $color-text-primary;
-    background-color: $color-text-secondary;
-    border: black 1px solid;
+.tournament-options {
+  &-arrow {
+    cursor: pointer;
+    &-active {
+      transform: rotate(180deg);
+    }
+  }
+  &-button {
+    border: 0;
+    height: 35px;
+    border-radius: 10px;
+    background-color: $color-primary;
+    color: $color-secondary;
+    cursor: pointer;
+    font-family: $regular;
+    &-d-none {
+      display: none !important;
+    }
+    &:hover,
+    &-selected {
+      color: $color-text-primary;
+      background-color: $color-text-secondary;
+      border: black 1px solid;
+    }
   }
 }

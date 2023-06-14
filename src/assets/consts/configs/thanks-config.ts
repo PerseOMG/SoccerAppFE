@@ -190,4 +190,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Chamestudio',
     link_creator: 'https://iconscout.com/contributors/chamedesign',
   },
+  {
+    label_icon: 'Free Arrow Icon',
+    link_icon: 'https://iconscout.com/icons/arrow',
+    label_creator: 'Elegant Themes',
+    link_creator: 'https://iconscout.com/contributors/elegant-themes',
+  },
 ];

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PaginationFacade } from '../../../../services/pagination/pagination.facade';
 import { TItemsPerPageOptions } from '../../../../../assets/consts/configs/pagination-config';
 import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
-import { filter, map } from 'rxjs';
+import { BehaviorSubject, filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-filters',
@@ -21,6 +21,7 @@ export class FiltersComponent implements OnInit {
     )
   );
   tournamentFilterSelected$ = this.paginationFacade.getTournament();
+  showMoreOptions = new BehaviorSubject(false);
 
   constructor(
     private paginationFacade: PaginationFacade,
@@ -28,6 +29,10 @@ export class FiltersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  setShowOptions() {
+    this.showMoreOptions.next(!this.showMoreOptions.value);
+  }
 
   onKey() {
     this.paginationFacade.setFilter(this.filter);
