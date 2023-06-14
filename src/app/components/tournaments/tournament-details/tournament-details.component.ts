@@ -68,7 +68,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
             labels: tournament.teams.map((team) => `${team.name} 🏆`),
             datasets: [
               {
-                backgroundColor: ['#eae3d2'],
+                backgroundColor: ['#607eaa'],
                 data: tournament.teams.map(
                   (team) => team.totalChampionships[0]?.edition?.length
                 ),
