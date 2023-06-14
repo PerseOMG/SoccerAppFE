@@ -1,55 +1,59 @@
 @import "../../../../../styles.scss";
 .main-nav {
-    &__container {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    height: 55px;
+    background-color: $color-primary;
+    align-items: center;
+    font-family: $regular;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    .brand-logo {
+      &__container {
         display: flex;
-        justify-content: space-between;
-        height: 55px;
-        background-color: $color-primary;
         align-items: center;
-        font-family: $regular;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-        .brand-logo {
-            &__container {
-                display: flex;
-                align-items: center;
-                font-size: 1rem;
-                color: $color-text-primary;
-                cursor: pointer;
-            }
-        }
-        .logo {
-            &__image {
-                height: 30px;
-                background-color: $color-secondary;
-                border-radius: 50%;
-                margin: 0 5px;
-            }
-        }
-        .nav-links {
-            padding-right: 40px;
-            a {
-                display: inline-block;
-                position: relative;
-                text-decoration: none;
-                color: $color-secondary;
-                margin: 0 15px;
-            }
-            a:after {
-                content: "";
-                position: absolute;
-                width: 100%;
-                transform: scaleX(0);
-                height: 2px;
-                bottom: 0;
-                left: 0;
-                background-color: $color-secondary;
-                transform-origin: bottom right;
-                transition: transform 0.25s ease-out;
-            }
-            a:hover:after {
-                transform: scaleX(1);
-                transform-origin: bottom left;
-            }
-        }
+        font-size: 1rem;
+        color: $color-text-primary;
+        cursor: pointer;
+      }
     }
+    .version {
+      color: $color-text-primary;
+    }
+    .logo {
+      &__image {
+        height: 30px;
+        background-color: $color-secondary;
+        border-radius: 50%;
+        margin: 0 5px;
+      }
+    }
+    .nav-links {
+      padding-right: 40px;
+      a {
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        color: $color-secondary;
+        margin: 0 15px;
+      }
+      a:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: $color-secondary;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+      a:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
 }

@@ -6,10 +6,12 @@
         <strong>{{developer}} - </strong>
         <p> {{year}}</p>
     </div>
-
+    <div class="version">
+        <strong>Version {{appVersion}}</strong>
+    </div>
     <div class="nav-links">
         <ng-container *ngFor="let navLink of navLinks">
-            <a [routerLink]="navLink.link">{{navLink.label  }}</a>
+            <a [routerLink]="navLink.link">{{navLink.label}}</a>
         </ng-container>
     </div>
 </div>

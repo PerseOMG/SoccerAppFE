@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FOOTER_LINKS } from 'src/assets/consts/configs/footer-config.consts';
 import { DEVELOPER } from '../../../../../assets/consts/configs/footer-config.consts';
+import packageJson from '../../../../../../package.json';
 
 @Component({
   selector: 'app-footer',
@@ -11,6 +12,7 @@ export class FooterComponent implements OnInit {
   year = new Date().getFullYear();
   navLinks = FOOTER_LINKS;
   developer = DEVELOPER;
+  appVersion = packageJson.version;
   constructor() {}
 
   ngOnInit(): void {}
