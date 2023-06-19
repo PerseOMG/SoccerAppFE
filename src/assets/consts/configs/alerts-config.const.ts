@@ -83,3 +83,16 @@ export const CHAMPION_ALERT: { [key: string]: IAlert } = {
     ...ALERT_STYLES_SECONDARY,
   },
 };
+
+export const AUTH_ALERTS: { [key: string]: IAlert } = {
+  error: {
+    icon: 'error',
+    position: 'center',
+    ...ALERT_STYLES,
+  },
+  success: {
+    icon: 'success',
+    position: 'center',
+    ...ALERT_STYLES,
+  },
+};

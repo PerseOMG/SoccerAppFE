@@ -14,13 +14,20 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
+import { SweetAlertsService } from '../alerts/sweet-alerts.service';
+import { AUTH_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
 
 @Injectable()
 export class AuthEffects {
+  redirectCb = () => {
+    this.router.navigate(['/']);
+  };
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sweetAlertsService: SweetAlertsService
   ) {}
 
   login$ = createEffect(() =>
@@ -30,16 +37,26 @@ export class AuthEffects {
         this.authService.login(action.payload).pipe(
           map((response) => {
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.router.navigate(['/']);
+            this.sweetAlertsService.fireAlert(
+              {
+                ...AUTH_ALERTS['success'],
+                title: `Welcome Back ${response.user.name}!`,
+              },
+              this.redirectCb
+            );
+
             return new LoginSuccess(response);
           }),
           catchError((error: any) => {
-            console.log(error);
+            this.sweetAlertsService.fireAlert({
+              ...AUTH_ALERTS['error'],
+              title: `${error.error.message}`,
+            });
             return of(
               new LoginFailure({
                 code: error.status,
                 status: error.type,
-                message: error.message,
+                message: error.error.message,
               })
             );
           })
@@ -55,11 +72,20 @@ export class AuthEffects {
         this.authService.signup(action.payload).pipe(
           map((response) => {
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.router.navigate(['/']);
+            this.sweetAlertsService.fireAlert(
+              {
+                ...AUTH_ALERTS['success'],
+                title: `Welcome ${response.user.name}!`,
+              },
+              this.redirectCb
+            );
             return new SignUpSuccess(response);
           }),
           catchError((error: any) => {
-            console.log(error);
+            this.sweetAlertsService.fireAlert({
+              ...AUTH_ALERTS['error'],
+              title: `${error.error.message}`,
+            });
             return of(
               new SignUpFailure({
                 code: error.status,
