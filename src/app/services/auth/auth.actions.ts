@@ -10,6 +10,8 @@ export enum EAuthActions {
   SIGNUP = '[APP Soccer] SIGNUP',
   SIGNUP_SUCCESS = '[APP Soccer] SIGNUP_SUCCESS',
   SIGNUP_FAILURE = '[APP Soccer] SIGNUP_FAILURE',
+  LOGOUT = '[APP Soccer] LOGOUT',
+  LOGOUT_SUCCESS = '[APP Soccer] LOGOUT_SUCCESS',
 }
 
 export class Login implements Action {
@@ -42,10 +44,20 @@ export class SignUpFailure implements Action {
   constructor(public payload: IAppError) {}
 }
 
+export class Logout implements Action {
+  public readonly type = EAuthActions.LOGOUT;
+}
+
+export class LogoutSuccess implements Action {
+  public readonly type = EAuthActions.LOGOUT_SUCCESS;
+}
+
 export type authActions =
   | Login
   | LoginFailure
   | LoginSuccess
   | SignUp
   | SignUpFailure
-  | SignUpSuccess;
+  | SignUpSuccess
+  | Logout
+  | LogoutSuccess;

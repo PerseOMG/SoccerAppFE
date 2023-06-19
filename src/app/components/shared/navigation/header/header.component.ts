@@ -12,7 +12,7 @@ import {
   HEADER_LINKS,
   APP_NAME,
 } from '../../../../../assets/consts/configs/header-config.const';
-import { APP_SOCCER_JWT_KEY } from '../../../../../app.constants';
+import { AuthFacade } from 'src/app/services/auth/auth.facade';
 
 @Component({
   selector: 'app-header',
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   isMouseIn = false;
   buttonObj = this.getButtonObjValue();
 
-  constructor(private location: Location) {}
+  constructor(private location: Location, private authFacade: AuthFacade) {}
 
   ngOnInit(): void {
     this.location.onUrlChange(() => {
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
 
   onClick() {
     if (this.isLoggedIn) {
-      localStorage.removeItem(APP_SOCCER_JWT_KEY);
+      this.authFacade.logout();
     }
   }
 

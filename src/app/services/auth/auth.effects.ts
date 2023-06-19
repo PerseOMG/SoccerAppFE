@@ -8,6 +8,8 @@ import {
   SignUpSuccess,
   Login,
   SignUpFailure,
+  Logout,
+  LogoutSuccess,
 } from './auth.actions';
 import { AuthService } from './auth.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -16,6 +18,7 @@ import { Router } from '@angular/router';
 import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { AUTH_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
+import { title } from 'process';
 
 @Injectable()
 export class AuthEffects {
@@ -96,6 +99,20 @@ export class AuthEffects {
           })
         )
       )
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<Logout>(EAuthActions.LOGOUT),
+      switchMap(() => {
+        localStorage.removeItem(APP_SOCCER_JWT_KEY);
+        this.sweetAlertsService.fireAlert(
+          { ...AUTH_ALERTS['success'], title: 'Logged Out Successfully!' },
+          this.redirectCb
+        );
+        return of(new LogoutSuccess());
+      })
     )
   );
 }
