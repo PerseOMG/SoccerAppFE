@@ -42,7 +42,17 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
         )[0]
     )
   );
-  tournamentData$ = [];
+  allTournamentChampions$ = this.tournament$.pipe(
+    map((tournament) =>
+      tournament?.teams
+        ?.filter((team) => team.totalChampionships[0]?.edition?.length > 0)
+        .sort(
+          (a, b) =>
+            b.totalChampionships[0]?.edition?.length -
+            a.totalChampionships[0]?.edition?.length
+        )
+    )
+  );
 
   constructor(
     private tournamentsFacade: TournamentsFacade,
@@ -56,30 +66,32 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    combineLatest([this.tournament$]).subscribe(([tournament]) => {
-      const CHAMPIONSHIPS = (<HTMLCanvasElement>(
-        document.getElementById('championshipsChart')
-      ))?.getContext('2d');
+    combineLatest([this.tournament$, this.allTournamentChampions$]).subscribe(
+      ([tournament, allChampions]) => {
+        const CHAMPIONSHIPS = (<HTMLCanvasElement>(
+          document.getElementById('championshipsChart')
+        ))?.getContext('2d');
 
-      if (tournament) {
-        this.generateChart(CHAMPIONSHIPS, {
-          ...CHAMPIONSHIPS_CHART_CONSTS,
-          data: {
-            labels: tournament.teams.map((team) => `${team.name} 🏆`),
-            datasets: [
-              {
-                backgroundColor: ['#607eaa'],
-                data: tournament.teams.map(
-                  (team) => team.totalChampionships[0]?.edition?.length
-                ),
-              },
-            ],
-          },
-        });
+        if (tournament) {
+          this.generateChart(CHAMPIONSHIPS, {
+            ...CHAMPIONSHIPS_CHART_CONSTS,
+            data: {
+              labels: allChampions?.map((team) => `${team.name} 🏆`),
+              datasets: [
+                {
+                  backgroundColor: ['#607eaa'],
+                  data: allChampions?.map(
+                    (team) => team.totalChampionships[0].value
+                  ),
+                },
+              ],
+            },
+          });
 
-        this.tournamentsFacade.getTournamentStatistics(tournament._id);
+          this.tournamentsFacade.getTournamentStatistics(tournament._id);
+        }
       }
-    });
+    );
   }
 
   generateChart(chartElement: CanvasRenderingContext2D, config: any) {
