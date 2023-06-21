@@ -76,9 +76,11 @@ export class PlayTournamentDashboardComponent
   ) {}
 
   ngOnDestroy(): void {
-    this.tournament$.subscribe((tournamentData) =>
-      this.tournamentsFacade.saveTournamentData(tournamentData)
-    );
+    this.tournament$
+      .pipe(take(1))
+      .subscribe((tournamentData) =>
+        this.tournamentsFacade.saveTournamentData(tournamentData)
+      );
     this.tournamentsFacade.getAllTournaments();
   }
 
