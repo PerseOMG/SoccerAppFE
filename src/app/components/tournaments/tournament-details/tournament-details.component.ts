@@ -37,7 +37,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
       (tournament) =>
         tournament?.teams?.filter((team) =>
           team?.totalChampionships[0]?.edition?.includes(
-            tournament?.edition?.toString()
+            (tournament?.edition - 1).toString()
           )
         )[0]
     )

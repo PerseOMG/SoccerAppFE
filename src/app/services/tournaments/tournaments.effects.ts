@@ -18,12 +18,14 @@ import { of } from 'rxjs';
 import { SweetAlertsService } from '../alerts/sweet-alerts.service';
 import { TOURNAMENT_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Router } from '@angular/router';
+import { TournamentsFacade } from './tournaments.facade';
 
 @Injectable()
 export class TournamentsEffects {
   constructor(
     private actions$: Actions,
     private tournamentsService: TournamentsService,
+    private tournamentsFacade: TournamentsFacade,
     private alertService: SweetAlertsService,
     private router: Router
   ) {}
@@ -39,7 +41,6 @@ export class TournamentsEffects {
             return new GetTournaments();
           }),
           catchError((error: any) => {
-            console.log(error);
             this.alertService.fireAlert({
               ...TOURNAMENT_ALERTS['error'],
               text: error.error.message,
@@ -67,13 +68,11 @@ export class TournamentsEffects {
             return new GetTournamentsSuccess(response.data.tournaments);
           }),
           catchError((error: any) => {
-            console.log(error);
-
             return of(
               new GetTournamentsFailure({
                 code: error.status,
                 status: error.type,
-                message: error.message,
+                message: error.error.message,
               })
             );
           })
@@ -88,25 +87,21 @@ export class TournamentsEffects {
       switchMap((action) => {
         const tournament = { ...action.payload };
         delete tournament.positionTable;
-        return this.tournamentsService
-          .saveTournamentData({
-            ...tournament,
-            edition: tournament.edition + 1,
+        return this.tournamentsService.saveTournamentData(tournament).pipe(
+          map((response) => {
+            this.tournamentsFacade.getAllTournaments();
+            return new SaveTournamentDataSuccess();
+          }),
+          catchError((error: any) => {
+            return of(
+              new GetTournamentsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.error.message,
+              })
+            );
           })
-          .pipe(
-            map((response) => {
-              return new SaveTournamentDataSuccess();
-            }),
-            catchError((error: any) => {
-              return of(
-                new GetTournamentsFailure({
-                  code: error.status,
-                  status: error.type,
-                  message: error.message,
-                })
-              );
-            })
-          );
+        );
       })
     )
   );
@@ -122,13 +117,11 @@ export class TournamentsEffects {
             return new GetTournamentStatisticsSuccess(response.data);
           }),
           catchError((error: any) => {
-            console.log(error);
-
             return of(
               new GetTournamentsFailure({
                 code: error.status,
                 status: error.type,
-                message: error.message,
+                message: error.error.message,
               })
             );
           })
