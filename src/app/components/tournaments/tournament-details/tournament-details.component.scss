@@ -23,6 +23,7 @@
     &__small {
       color: $color-text-secondary;
       margin: 1rem;
+      padding: 0.5rem;
       border-radius: 5%;
       height: 80%;
       &-team-image {
@@ -33,8 +34,8 @@
       }
       &-image {
         border-radius: 50%;
-        max-width: 200px;
-        max-height: 200px;
+        max-width: 150px;
+        max-height: 150px;
       }
       &-trophy {
         height: 40px;
