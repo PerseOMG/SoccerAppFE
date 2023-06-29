@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { combineLatest, map, tap } from 'rxjs';
+import { combineLatest, map, take, tap } from 'rxjs';
 import { TournamentsFacade } from '../../../services/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
@@ -66,8 +66,9 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    combineLatest([this.tournament$, this.allTournamentChampions$]).subscribe(
-      ([tournament, allChampions]) => {
+    combineLatest([this.tournament$, this.allTournamentChampions$])
+      .pipe(take(1))
+      .subscribe(([tournament, allChampions]) => {
         const CHAMPIONSHIPS = (<HTMLCanvasElement>(
           document.getElementById('championshipsChart')
         ))?.getContext('2d');
@@ -90,8 +91,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
 
           this.tournamentsFacade.getTournamentStatistics(tournament._id);
         }
-      }
-    );
+      });
   }
 
   generateChart(chartElement: CanvasRenderingContext2D, config: any) {

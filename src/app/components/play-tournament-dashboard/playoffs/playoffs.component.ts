@@ -251,7 +251,7 @@ export class PlayoffsComponent implements OnInit {
       this.currentEdition
     );
 
-    this.teamsStatisticsData$.subscribe((teamsData) => {
+    this.teamsStatisticsData$.pipe(take(1)).subscribe((teamsData) => {
       teamsData.forEach((data) =>
         this.teamsFacade.updateTeamStatisticsDB(data)
       );
