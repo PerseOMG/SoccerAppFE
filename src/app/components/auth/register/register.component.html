@@ -5,7 +5,7 @@
 
         <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form" action="">
             <input formControlName="name" [ngStyle]="{'border-color': setControlInvalidStyle('name') ? 'red' : '' }" class="register-form-input" type="text" placeholder="User Name">
-            <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="register-form-input" type="text" placeholder="Email">
+            <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="register-form-input" type="email" placeholder="Email">
 
             <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" register-form-input " type="password" placeholder="Password ">
             <input formControlName="passwordConfirm" [ngStyle]="{'border-color': setControlInvalidStyle('passwordConfirm') ? 'red' : '' }" class=" register-form-input " type="password" placeholder="Confirm Password ">
