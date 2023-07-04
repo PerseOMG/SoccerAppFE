@@ -184,7 +184,7 @@ export class TeamsEffects {
               {
                 tournament,
                 value: 1,
-                edition: [String(edition + 1)],
+                edition: [String(edition)],
               },
             ];
         const updatedTeam: Team = {
