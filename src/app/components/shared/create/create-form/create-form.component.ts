@@ -108,7 +108,7 @@ export class CreateFormComponent implements OnInit {
       case 'tournament':
         if (
           this.dynamicForm.get('teams').value.length >=
-            Number(this.dynamicForm.get('playoffsQuantity').value) + 2 ||
+            Number(this.dynamicForm.get('playoffsQuantity').value) + 1 ||
           this.dynamicForm.get('winnerDefinition').value === 'points'
         ) {
           const tournament: ITournament = {

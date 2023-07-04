@@ -18,7 +18,7 @@
                     </ng-container>
                 </div>
                 <ng-template #stepTwoTemplate>
-                    <h3 *ngIf="dynamicForm.get('winnerDefinition').value.includes('playoffs')">Please choose at least {{dynamicForm.get('playoffsQuantity').value[0] + 2}} players</h3>
+                    <h3 *ngIf="dynamicForm.get('winnerDefinition').value.includes('playoffs')">Please choose at least {{dynamicForm.get('playoffsQuantity').value[0] + 1}} players</h3>
                     <app-drag-and-drop [dragObjTemplate]="(dragAndDropItems | async)" (dragObjSelected)="onDragAndDropEvent($event)"></app-drag-and-drop>
                 </ng-template>
                 <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">{{ getButtonLabel() }}</button>

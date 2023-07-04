@@ -1,7 +1,22 @@
 export const createCalendar = (teams: any[], totalTeams) => {
   const schedule = [];
-  const rounds = totalTeams - 1;
+  let rounds = totalTeams - 1;
   // Generate the schedule
+
+  const isOddTeams = totalTeams % 2 !== 0;
+
+  // If odd number of teams, add a dummy team with a bye
+  if (isOddTeams) {
+    const dummyTeam = {
+      _id: 'dummy',
+      name: 'Dummy Team',
+      logo: '',
+      totalChampionships: [],
+    };
+    teams.push(dummyTeam);
+    rounds = totalTeams;
+    totalTeams = totalTeams + 1;
+  }
   for (let round = 0; round < rounds; round++) {
     const roundMatches = [];
     const matchesPerTeam = {};
@@ -12,6 +27,10 @@ export const createCalendar = (teams: any[], totalTeams) => {
 
       const localTeam = teams[localIndex];
       const visitTeam = teams[visitIndex];
+
+      if (localTeam._id === 'dummy' || visitTeam._id === 'dummy') {
+        continue;
+      }
 
       const match = {
         local: { ...localTeam },
