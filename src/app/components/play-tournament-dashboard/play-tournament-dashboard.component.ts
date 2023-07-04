@@ -37,7 +37,11 @@ export class PlayTournamentDashboardComponent
   totalEditions$ = combineLatest([this.tournament$]).pipe(
     take(1),
     map(([tournamentData]) => {
-      return tournamentData.calendar.length;
+      if (tournamentData.teams.length % 2 === 0) {
+        return tournamentData.calendar.length;
+      } else {
+        return tournamentData.calendar.length + 1;
+      }
     })
   );
   currentEditionIndex$ = new BehaviorSubject(0);
