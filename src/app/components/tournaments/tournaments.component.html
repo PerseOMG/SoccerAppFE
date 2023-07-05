@@ -9,7 +9,6 @@
 
     <pagination-controls *ngIf="tournaments.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"
         [nextLabel]="config.nextLabel" (pageChange)="onPageChange($event)"></pagination-controls>
-
 </div>
 
 <ng-template #NoData>
