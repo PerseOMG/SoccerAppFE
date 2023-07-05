@@ -12,7 +12,7 @@
     display: flex;
   }
   &-carousel {
-    overflow-x: scroll;
+    overflow-x: auto;
     height: 300px;
     width: 100%;
     justify-content: space-between;
