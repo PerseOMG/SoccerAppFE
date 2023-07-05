@@ -57,7 +57,10 @@ export const FORMS_CONFIG = {
       validators: ['required'],
       errorMessage: 'This field is required, please select only 1 option.',
       maxSelected: 1,
-      options: ['playoffs', 'points'],
+      options: [
+        'playoffs',
+        // 'points'
+      ],
       changes: 'playoffsQuantity',
     },
     {
