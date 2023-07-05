@@ -41,6 +41,7 @@ import { PlayTournamentDashboardComponent } from './components/play-tournament-d
 import { PositionTableComponent } from './components/play-tournament-dashboard/position-table/position-table.component';
 import { PlayoffsComponent } from './components/play-tournament-dashboard/playoffs/playoffs.component';
 import { CalendarComponent } from './components/play-tournament-dashboard/calendar/calendar.component';
+import { NoDataComponent } from './components/shared/no-data/no-data.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CalendarComponent } from './components/play-tournament-dashboard/calend
     PositionTableComponent,
     PlayoffsComponent,
     CalendarComponent,
+    NoDataComponent,
   ],
   imports: [
     NgSelectModule,
