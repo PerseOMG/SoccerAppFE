@@ -77,10 +77,10 @@
                         <h2> Averages </h2>
 
                         <!-- Average -->
-                        <h3>Goals Scored Average: {{statistics[0]?.teamHistoricalData?.goalsAverage ?? 'NA' }}</h3>
-                        <h3>Goals Against Average: {{statistics[0]?.teamHistoricalData?.goalsAgainstAverage ?? 'NA' }}</h3>
-                        <h3>Won Games Average: {{statistics[0]?.teamHistoricalData?.wonGamesAverage ?? 'NA' }}</h3>
-                        <h3>Lost Games Average: {{statistics[0]?.teamHistoricalData?.LostGamesAverage ?? 'NA' }}</h3>
+                        <h3>Goals Scored Average: {{statistics[0]?.teamHistoricalData?.goalsAverage?.toFixed(2) ?? 'NA' }}</h3>
+                        <h3>Goals Against Average: {{statistics[0]?.teamHistoricalData?.goalsAgainstAverage?.toFixed(2) ?? 'NA' }}</h3>
+                        <h3>Won Games Average: {{statistics[0]?.teamHistoricalData?.wonGamesAverage?.toFixed(2) ?? 'NA' }}</h3>
+                        <h3>Lost Games Average: {{statistics[0]?.teamHistoricalData?.LostGamesAverage?.toFixed(2) ?? 'NA' }}</h3>
                         <h3>Win-Lose Ratio: {{statistics[0]?.teamHistoricalData?.wonLostRatio ?? 'NA' }}</h3>
 
                     </div>
