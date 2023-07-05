@@ -1,13 +1,19 @@
-<div class="text-center">
+<div class="text-center" *ngIf="(tournaments$ |async).tournaments as tournaments">
     <h1>My Tournaments</h1>
     <app-filters></app-filters>
-    <div class="cards-container__container" *ngIf="(tournaments$ |async) as tournaments">
-        <app-tournaments-card [options]="{showActionButtons: true}" *ngFor="let tournament of tournaments.tournaments | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: (itemsPerPage$ | async), currentPage: (currentPage$  |async)}" [tournament]="tournament"></app-tournaments-card>
-    </div>
-    <ng-container *ngIf="(tournaments$ |async).tournaments as tournaments">
-        <pagination-controls *ngIf="tournaments.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"
-            [nextLabel]="config.nextLabel" (pageChange)="onPageChange($event)"></pagination-controls>
+    <ng-container *ngIf="tournaments.length; else NoData">
+        <div class="cards-container__container">
+            <app-tournaments-card [options]="{showActionButtons: true}" *ngFor="let tournament of tournaments | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: (itemsPerPage$ | async), currentPage: (currentPage$  |async)}" [tournament]="tournament"></app-tournaments-card>
+        </div>
     </ng-container>
+
+    <pagination-controls *ngIf="tournaments.length > (itemsPerPageSelected |async)" class="pagination" [id]="config.id" [maxSize]="config.maxSize" [directionLinks]="config.directionLinks" [autoHide]="config.autoHide" [responsive]="config.responsive" [previousLabel]="config.previousLabel"
+        [nextLabel]="config.nextLabel" (pageChange)="onPageChange($event)"></pagination-controls>
+
 </div>
+
+<ng-template #NoData>
+    <app-no-data [dataType]="'Tournaments'"></app-no-data>
+</ng-template>
 
 <app-action-button [redirectTo]="'tournament'" [action]="'create'"></app-action-button>
