@@ -76,6 +76,8 @@ export class CardFullComponent implements OnInit, AfterViewInit {
             datasets: [
               {
                 ...GOALS_CHART_DATA.datasets,
+                borderWidth: 2,
+                borderRadius: 50,
                 data: [
                   team[0].teamHistoricalData?.totalGoalsScored,
                   team[0].teamHistoricalData?.totalGoalsAgainst,

@@ -81,6 +81,9 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
               datasets: [
                 {
                   backgroundColor: ['#607eaa'],
+                  borderWidth: 2,
+                  borderRadius: 50,
+                  label: `Total championships`,
                   data: allChampions?.map(
                     (team) => team.totalChampionships[0].value
                   ),
