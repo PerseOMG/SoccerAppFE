@@ -1,5 +1,6 @@
 <!-- <app-card-detail></app-card-detail> -->
 <div class="text-center" *ngIf="(teams$ |async) as teams">
+    <h1>My Teams</h1>
     <app-filters [cardsType]="'teams'"></app-filters>
     <div class="cards-container__container" *ngIf="teams.length; else NoData">
         <app-card *ngFor="let team of teams | stringFilter: (filter | async) | paginate: {id: config.id,   itemsPerPage: (itemsPerPage$ | async), currentPage: (currentPage$ | async)}" [team]="team" [options]="cardOptions"></app-card>

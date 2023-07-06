@@ -196,4 +196,16 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'Elegant Themes',
     link_creator: 'https://iconscout.com/contributors/elegant-themes',
   },
+  {
+    label_icon: 'Free Football Player Icon',
+    link_icon: 'https://iconscout.com/icons/football-player',
+    label_creator: 'IconScout Store',
+    link_creator: 'https://iconscout.com/contributors/iconscout',
+  },
+  {
+    label_icon: 'Free Trophy Icon',
+    link_icon: 'https://iconscout.com/icons/trophy',
+    label_creator: 'IconScout',
+    link_creator: 'https://iconscout.com',
+  },
 ];

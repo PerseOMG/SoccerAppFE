@@ -1,1 +1,5 @@
-<h1>You have not created {{dataType}} yet!</h1>
+<div class="main-card">
+    <h1 class="main-card__title">You Have Not {{dataType}} Created Yet!</h1>
+    <img class="main-card__image" [src]="dataType === 'Teams' ? '../../../../assets/icons/football-player.svg' : '../../../../assets/icons/trophy-no-data.svg'" [alt]="dataType">
+    <strong class="main-card__message">Please create your first {{dataType === 'Teams'? 'team' : 'tournament'}} to start playing!</strong>
+</div>
