@@ -8,7 +8,7 @@
             </ng-container>
         </div>
 
-        <div *ngIf="cardsType === 'teams' && (tournamentsOptions$ | async).length" (click)="setShowOptions()" class="tournament-options-arrow">
+        <div *ngIf="cardsType === 'teams' && (tournamentsOptions$ | async)?.length" (click)="setShowOptions()" class="tournament-options-arrow">
             <img [ngClass]="{'tournament-options-arrow-active' : (showMoreOptions | async )}" src="../../../../../assets/icons/arrow.svg" alt="more">
         </div>
     </div>
