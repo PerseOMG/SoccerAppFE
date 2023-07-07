@@ -21,21 +21,29 @@ const routes: Routes = [
     component: CardsContainerComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [NotLoggedGuard],
+    data: { title: 'Login' },
+  },
   {
     path: 'signup',
     component: RegisterComponent,
     canActivate: [NotLoggedGuard],
+    data: { title: 'Sign Up' },
   },
   {
     path: 'teams/:id',
     component: CardFullComponent,
     canActivate: [AuthGuard],
+    data: { title: 'Team Details' },
   },
   {
     path: 'tournaments',
     component: TournamentsComponent,
     canActivate: [AuthGuard],
+    data: { title: 'Tournaments' },
   },
   {
     path: 'tournamentDetails/:id',

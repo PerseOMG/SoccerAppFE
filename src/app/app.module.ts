@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -89,7 +89,7 @@ import { NoDataComponent } from './components/shared/no-data/no-data.component';
     }),
     EffectsModule.forRoot([TeamsEffects, AuthEffects, TournamentsEffects]),
   ],
-  providers: [DragulaService],
+  providers: [DragulaService, Title],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

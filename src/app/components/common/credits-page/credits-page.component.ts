@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { THANKS_LINKS } from '../../../../assets/consts/configs/thanks-config';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-credits-page',
@@ -8,7 +9,9 @@ import { THANKS_LINKS } from '../../../../assets/consts/configs/thanks-config';
 })
 export class CreditsPageComponent implements OnInit {
   thanksLinks = THANKS_LINKS;
-  constructor() {}
+  constructor(private titleService: AppTitleService) {
+    this.titleService.setDocTitle('Thank You All');
+  }
 
   ngOnInit(): void {}
 }

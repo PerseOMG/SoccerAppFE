@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthFacade } from '../../../services/auth/auth.facade';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-register',
@@ -96,8 +97,10 @@ export class RegisterComponent implements OnInit {
   states: any = {};
   constructor(
     private formBuilder: FormBuilder,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private titleService: AppTitleService
   ) {
+    this.titleService.setDocTitle('Signup');
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(6)]],
       email: [

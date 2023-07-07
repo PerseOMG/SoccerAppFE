@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
 import { PaginationFacade } from '../../services/pagination/pagination.facade';
 import { CARDS_PAGINATION_CONTROLS } from '../../../assets/consts/configs/pagination-config';
+import { AppTitleService } from '../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-tournaments',
@@ -17,8 +18,11 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   itemsPerPage$ = this.paginationFacade.getItemsPerPage();
   constructor(
     private tournamentFacade: TournamentsFacade,
-    private paginationFacade: PaginationFacade
-  ) {}
+    private paginationFacade: PaginationFacade,
+    private titleService: AppTitleService
+  ) {
+    this.titleService.setDocTitle('All Tournaments');
+  }
 
   ngOnInit(): void {}
 

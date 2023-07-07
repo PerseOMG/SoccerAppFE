@@ -10,8 +10,6 @@ import { APP_SOCCER_JWT_KEY } from '../app.constants';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Soccer_App_FE';
-
   constructor(
     private teamsFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,

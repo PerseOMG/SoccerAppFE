@@ -4,6 +4,7 @@ import { Observable, combineLatest, filter, map } from 'rxjs';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
 import { PaginationFacade } from '../../../services/pagination/pagination.facade';
 import { Team } from '../../../models/team.models';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-cards-container',
@@ -43,8 +44,11 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private teamsFacade: TeamsFacade,
-    private paginationFacade: PaginationFacade
-  ) {}
+    private paginationFacade: PaginationFacade,
+    private titleService: AppTitleService
+  ) {
+    this.titleService.setDocTitle('All Teams');
+  }
 
   ngOnInit(): void {}
 

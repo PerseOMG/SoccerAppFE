@@ -9,6 +9,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthFacade } from '../../../services/auth/auth.facade';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-login',
@@ -91,8 +92,10 @@ export class LoginComponent implements OnInit {
   states: any = {};
   constructor(
     private formBuilder: FormBuilder,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private titleService: AppTitleService
   ) {
+    this.titleService.setDocTitle('Login');
     this.loginForm = this.formBuilder.group({
       email: [
         '',

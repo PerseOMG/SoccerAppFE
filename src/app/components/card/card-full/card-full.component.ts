@@ -9,6 +9,7 @@ import { TeamsFacade } from '../../../services/teams/teams.facade';
 import { Chart, registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 import {
   GAMES_CHART_CONFIG,
   GAMES_CHART_DATA,
@@ -32,7 +33,12 @@ export class CardFullComponent implements OnInit, AfterViewInit {
   );
   teamStatistics$ = this.teamsFacade.selectTeamStatistics();
 
-  constructor(private teamsFacade: TeamsFacade, private route: ActivatedRoute) {
+  constructor(
+    private teamsFacade: TeamsFacade,
+    private route: ActivatedRoute,
+    private titleService: AppTitleService
+  ) {
+    this.team$.subscribe((team) => this.titleService.setDocTitle(team?.name));
     Chart.register(...registerables);
     this.teamsFacade.getTeamStatistics(this.route.snapshot.paramMap.get('id'));
   }

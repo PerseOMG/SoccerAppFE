@@ -8,6 +8,7 @@ import { TeamsFacade } from '../../services/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
 import { createCalendar } from '../../utils/createTournamentCalendar.util';
 import { createTeamStatisticsObj } from 'src/app/utils/updateTeamStatistics.util';
+import { AppTitleService } from '../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-play-tournament-dashboard',
@@ -76,8 +77,13 @@ export class PlayTournamentDashboardComponent
   constructor(
     private teamsFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private titleService: AppTitleService
+  ) {
+    this.tournament$.subscribe((tournament) =>
+      this.titleService.setDocTitle(`Play ${tournament?.name}`)
+    );
+  }
 
   ngOnDestroy(): void {
     this.tournament$

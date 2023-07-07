@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
 import { ITournament } from '../../../../models/tournament.model';
+import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-create-form',
@@ -34,13 +35,15 @@ export class CreateFormComponent implements OnInit {
     private fb: FormBuilder,
     private teamFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
-    private sweetAlertService: SweetAlertsService
+    private sweetAlertService: SweetAlertsService,
+    private titleService: AppTitleService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.model = params['model'];
       this.filterFields = FORMS_CONFIG[this.model] as IFormFields[];
+      this.titleService.setDocTitle(`Create ${this.model}`);
       if (this.filterFields) {
         this.dynamicForm = this.generateDynamicForm();
       }

@@ -12,6 +12,7 @@ import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.servic
 import { NO_TOURNAMENT_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
 import { registerables, Chart } from 'chart.js';
 import { CHAMPIONSHIPS_CHART_CONSTS } from 'src/assets/consts/charts-data/championships.chart.consts';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-tournament-details',
@@ -58,8 +59,12 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: SweetAlertsService
+    private alertService: SweetAlertsService,
+    private titleService: AppTitleService
   ) {
+    this.tournament$.subscribe((tournament) =>
+      this.titleService.setDocTitle(tournament?.name)
+    );
     Chart.register(...registerables);
   }
 
