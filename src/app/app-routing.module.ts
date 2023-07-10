@@ -18,32 +18,28 @@ import { PlayTournamentDashboardComponent } from './components/play-tournament-d
 const routes: Routes = [
   {
     path: '',
-    component: CardsContainerComponent,
+    component: TournamentsComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
     canActivate: [NotLoggedGuard],
-    data: { title: 'Login' },
   },
   {
     path: 'signup',
     component: RegisterComponent,
     canActivate: [NotLoggedGuard],
-    data: { title: 'Sign Up' },
   },
   {
     path: 'teams/:id',
     component: CardFullComponent,
     canActivate: [AuthGuard],
-    data: { title: 'Team Details' },
   },
   {
-    path: 'tournaments',
-    component: TournamentsComponent,
+    path: 'teams',
+    component: CardsContainerComponent,
     canActivate: [AuthGuard],
-    data: { title: 'Tournaments' },
   },
   {
     path: 'tournamentDetails/:id',

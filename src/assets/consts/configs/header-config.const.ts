@@ -9,8 +9,8 @@ interface IAppName {
 }
 
 export const HEADER_LINKS: INavLink[] = [
-  { label: 'My Tournaments', link: 'tournaments' },
-  { label: 'My Teams', link: '/' },
+  { label: 'My Tournaments', link: '/' },
+  { label: 'My Teams', link: 'teams' },
   // { label: 'Global Statistics', link: 'statistics' },
   // { label: 'My Profile', link: 'profile' },
 ];
