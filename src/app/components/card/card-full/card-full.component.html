@@ -22,28 +22,42 @@
                             <h3>Total Tournaments: {{team.tournaments.length ?? 'NA' }}</h3>
                         </div>
 
-                        <div class="row">
-                            <!-- Finals -->
-                            <!-- <h3>Total Finals Lost: {{statistics[0].finalsData?.totalLostFinals ?? 'NA' }}</h3> -->
+                        <div>
+                            <h3>Total Finals Lost: {{statistics[0].finalsData?.finalsLost ?? 'NA' }}</h3>
+                            <h2>Championships Won: </h2>
+
+                            <table>
+                                <tr *ngFor="let item of team.totalChampionships">
+                                    <th>
+                                        <h5>{{item.tournament.name ?? 'NA' }}</h5>
+                                    </th>
+                                    <th>
+                                        <img class="championships-image" *ngFor="let star of getStarsArray(item.value)" src="../../../assets/icons/trophy.svg" alt="*">
+                                        <ng-container *ngIf="team.totalChampionships?.length === 0">
+                                            <img class="championships-image" src="../../../assets/icons/x.svg" alt="NA">
+                                        </ng-container>
+                                    </th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
 
 
                 <div class="row">
-                    <h2>Championships Won: </h2>
+                    <table class="table" cellSpacing="0">
+                        <tr>
+                            <th class="table-cell table-cell-border">Team</th>
+                            <th class="table-cell  table-cell-border">Tournament Won</th>
+                            <th class="table-cell  table-cell-border">Times</th>
+                        </tr>
+                        <tr *ngFor="let teamData of finalsWonAgainstData$ |async">
+                            <td class="table-cell  table-cell-border"><img style="height: 15px; width: 15px;" [src]="teamData.team.logo" [alt]="teamData.team.name">
+                                <strong>{{teamData.team.name}}</strong>
+                            </td>
+                            <td class="table-cell  table-cell-border">{{teamData.team.tournament}}</td>
+                            <td class="table-cell  table-cell-border">{{teamData.count}}</td>
 
-                    <table>
-                        <tr *ngFor="let item of team.totalChampionships">
-                            <th>
-                                <h5>{{item.tournament.name ?? 'NA' }}</h5>
-                            </th>
-                            <th>
-                                <img class="championships-image" *ngFor="let star of getStarsArray(item.value)" src="../../../assets/icons/trophy.svg" alt="*">
-                                <ng-container *ngIf="team.totalChampionships?.length === 0">
-                                    <img class="championships-image" src="../../../assets/icons/x.svg" alt="NA">
-                                </ng-container>
-                            </th>
                         </tr>
                     </table>
                 </div>
