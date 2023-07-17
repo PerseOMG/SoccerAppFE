@@ -37,7 +37,7 @@ export class TournamentsEffects {
         this.tournamentsService.createTournament(action.payload).pipe(
           map((response) => {
             this.alertService.fireAlert(TOURNAMENT_ALERTS['success']);
-            this.router.navigate(['/tournaments']);
+            this.router.navigate(['/']);
             return new GetTournaments();
           }),
           catchError((error: any) => {

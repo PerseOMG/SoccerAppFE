@@ -28,7 +28,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
         if (!tournament) {
           setTimeout(() => {
             this.alertService.fireAlert(NO_TOURNAMENT_ALERT['error']);
-            this.router.navigate(['/tournaments']);
+            this.router.navigate(['/']);
           }, 1000);
         }
       })
