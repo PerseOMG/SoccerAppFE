@@ -1,5 +1,5 @@
 <div class="card__container" [ngClass]="team.isFavorite ? 'isFavorite' : null" (mouseenter)="onMouseEvent()" (mouseleave)="onMouseEvent()" [@hoverAnimation]="isMouseIn ? 'hover':'void'">
-    <!-- <div *ngIf="options.showDetails" class="card__action-buttons-container">
+    <div *ngIf="options.showDetails" class="card__action-buttons-container">
 
         <img class="card__action-buttons" [src]=" team.isFavorite ?  '../../../assets/icons/favorite.svg' : '../../../assets/icons/heart-empty.svg'" alt="favorite" (click)="onFavorite(team)" alt="favorite">
 
@@ -19,7 +19,7 @@
             </ul>
         </div>
 
-    </div> -->
+    </div>
 
     <div (click)="options.isSelectable ? handleTeamSelection(team) : null ">
 
@@ -35,9 +35,14 @@
             <div class="card__championships-container ">
                 <ng-container *ngFor="let championship of team.totalChampionships">
                     <strong>{{championship.tournament.name}}</strong>
-                    <div>
+                    <div *ngIf="championship.value <= 10; else secondaryTemplate">
                         <img *ngFor="let star of getStarsArray(championship.value)" class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* ">
                     </div>
+                    <ng-template #secondaryTemplate>
+                        <div>
+                            <img class="card__championships-image " src="../../../assets/icons/trophy.svg " alt="* "> <strong>x {{championship.value}}</strong>
+                        </div>
+                    </ng-template>
                 </ng-container>
                 <ng-container *ngIf="team.totalChampionships.length === 0 ">
                     <img class="card__championships-image " src="../../../assets/icons/x.svg " alt="NA ">
@@ -46,6 +51,5 @@
             <hr class="separator ">
 
         </ng-container>
-
 
     </div>
