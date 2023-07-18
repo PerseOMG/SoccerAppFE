@@ -105,4 +105,8 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
   generateChart(chartElement: CanvasRenderingContext2D, config: any) {
     new Chart(chartElement, config);
   }
+
+  onClickTeam(id: string) {
+    this.router.navigate(['/', 'teams', id]);
+  }
 }

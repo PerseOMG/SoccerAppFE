@@ -20,6 +20,7 @@
   &-card {
     text-align: center;
     background-color: $color-secondary;
+    cursor: pointer;
     &__small {
       color: $color-text-secondary;
       margin: 1rem;
