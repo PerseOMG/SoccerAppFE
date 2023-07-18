@@ -69,6 +69,40 @@ export class CardFullComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   );
 
+  finalsLostAgainstData$ = combineLatest([
+    this.teamStatistics$,
+    this.teamsFacade.selectAllTeams(),
+  ]).pipe(
+    takeUntil(this.onDestroy$),
+    map(([teamStatistics, teams]) => {
+      if (!teamStatistics) {
+        return [];
+      }
+      const finalsLostAgainst =
+        teamStatistics[0]?.finalsData?.finalsLostAgainst || [];
+      const filteredTeams = teams.filter((team) =>
+        finalsLostAgainst.includes(team._id)
+      );
+
+      const data = filteredTeams.map((team) => {
+        const count = finalsLostAgainst.filter(
+          (teamId) => teamId === team._id
+        ).length;
+
+        return {
+          team: {
+            name: team.name,
+            logo: team.logo,
+            tournament: team.tournaments[0].name,
+          },
+          count,
+        };
+      });
+
+      return data;
+    })
+  );
+
   constructor(
     private teamsFacade: TeamsFacade,
     private route: ActivatedRoute,

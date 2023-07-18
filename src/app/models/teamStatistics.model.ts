@@ -40,7 +40,7 @@ export interface FinalsData {
   finalsWon: number;
   finalsLost: number;
   finalsWonAgainst: string[];
-  finalsLostAgainst: ITeamStatisticsReference[];
+  finalsLostAgainst: string[];
 }
 
 export interface MatchesData {
