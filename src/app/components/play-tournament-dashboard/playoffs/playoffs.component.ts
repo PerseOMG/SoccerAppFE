@@ -9,12 +9,12 @@ import {
 } from 'rxjs';
 import { IPositionTableData } from 'src/app/models/tournament.model';
 import { getScore } from 'src/app/utils/getScore.util';
-import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
+import { SweetAlertsService } from '../../../state/alerts/sweet-alerts.service';
 import { CHAMPION_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
-import { TeamsFacade } from '../../../services/teams/teams.facade';
+import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { createTeamStatisticsObj } from '../../../utils/updateTeamStatistics.util';
 import { ITeamStatistics } from '../../../models/teamStatistics.model';
-import { TournamentsFacade } from 'src/app/services/tournaments/tournaments.facade';
+import { TournamentsFacade } from 'src/app/state/tournaments/tournaments.facade';
 import { Router } from '@angular/router';
 
 @Component({

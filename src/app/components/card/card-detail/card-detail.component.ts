@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../../models/team.models';
-import { TeamsFacade } from '../../../services/teams/teams.facade';
+import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import {

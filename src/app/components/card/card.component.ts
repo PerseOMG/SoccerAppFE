@@ -7,7 +7,7 @@ import {
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.models';
-import { TeamsFacade } from '../../services/teams/teams.facade';
+import { TeamsFacade } from '../../state/teams/teams.facade';
 import { Router } from '@angular/router';
 
 @Component({

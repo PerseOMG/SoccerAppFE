@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TeamsFacade } from '../../../services/teams/teams.facade';
+import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { Observable, combineLatest, filter, map } from 'rxjs';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
-import { PaginationFacade } from '../../../services/pagination/pagination.facade';
+import { PaginationFacade } from '../../../state/pagination/pagination.facade';
 import { Team } from '../../../models/team.models';
-import { AppTitleService } from '../../../services/appTitle/app-title.service';
+import { AppTitleService } from '../../../state/appTitle/app-title.service';
 
 @Component({
   selector: 'app-cards-container',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { THANKS_LINKS } from '../../../../assets/consts/configs/thanks-config';
-import { AppTitleService } from '../../../services/appTitle/app-title.service';
+import { AppTitleService } from '../../../state/appTitle/app-title.service';
 
 @Component({
   selector: 'app-credits-page',
