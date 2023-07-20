@@ -1,91 +1,14 @@
-import {
-  animate,
-  keyframes,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthFacade } from '../../../state/auth/auth.facade';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
+import { LOGIN_ANIMATIONS } from '../../../../assets/consts/animations/login.animations.consts';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('invalidFormAnimation', [
-      state(
-        'invalidAnimationStart',
-        style({
-          transform: 'scale(1)',
-        })
-      ),
-      state(
-        'invalidAnimationEnd',
-        style({
-          transform: 'scale(1)',
-        })
-      ),
-      transition(
-        'invalidAnimationEnd => invalidAnimationStart, invalidAnimationStart => invalidAnimationEnd',
-        [
-          animate(
-            '1000ms ease-in',
-            keyframes([
-              style({
-                transform: 'translate3d(-1px, 0, 0)',
-                offset: 0.1,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(2px, 0, 0)',
-                offset: 0.2,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(-4px, 0, 0)',
-                offset: 0.3,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(4px, 0, 0)',
-                offset: 0.4,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(-4px, 0, 0)',
-                offset: 0.5,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(4px, 0, 0)',
-                offset: 0.6,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(-4px, 0, 0)',
-                offset: 0.7,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(2px, 0, 0)',
-                offset: 0.8,
-                borderColor: 'red',
-              }),
-              style({
-                transform: 'translate3d(-1px, 0, 0)',
-                offset: 0.9,
-                borderColor: 'red',
-              }),
-            ])
-          ),
-        ]
-      ),
-    ]),
-  ],
+  animations: [LOGIN_ANIMATIONS.invalid],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

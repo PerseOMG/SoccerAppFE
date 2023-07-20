@@ -3,7 +3,7 @@
         <h1>Welcome Back</h1>
         <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
 
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form" action="">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
             <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="login-form-input" type="text" placeholder="Email">
             <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" login-form-input" type="password" placeholder="Password ">
             <button class="login-form-button " [disabled]="loginForm.invalid">Login</button>
