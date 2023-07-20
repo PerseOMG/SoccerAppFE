@@ -5,7 +5,7 @@ import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TeamsFacade } from '../../../../state/teams/teams.facade';
 import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
-import { SweetAlertsService } from '../../../../state/alerts/sweet-alerts.service';
+import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
 import {
   FormGroup,
   FormBuilder,
@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
 import { ITournament } from '../../../../models/tournament.model';
-import { AppTitleService } from '../../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-create-form',

@@ -4,7 +4,7 @@ import { Observable, combineLatest, filter, map } from 'rxjs';
 import { CARDS_PAGINATION_CONTROLS } from '../../../../assets/consts/configs/pagination-config';
 import { PaginationFacade } from '../../../state/pagination/pagination.facade';
 import { Team } from '../../../models/team.models';
-import { AppTitleService } from '../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-cards-container',

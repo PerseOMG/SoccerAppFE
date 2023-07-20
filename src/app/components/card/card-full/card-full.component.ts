@@ -10,7 +10,7 @@ import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { Chart, registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, combineLatest, map, takeUntil } from 'rxjs';
-import { AppTitleService } from '../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 import {
   GAMES_CHART_CONFIG,
   GAMES_CHART_DATA,

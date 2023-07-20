@@ -19,7 +19,7 @@ import {
   SetFavoriteTeam,
 } from './teams.actions';
 import { Router } from '@angular/router';
-import { SweetAlertsService } from '../alerts/sweet-alerts.service';
+import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Team, TotalChampionshipsData } from '../../models/team.models';
 import {

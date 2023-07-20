@@ -8,7 +8,7 @@ import { TeamsFacade } from '../../state/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
 import { createCalendar } from '../../utils/createTournamentCalendar.util';
 import { createTeamStatisticsObj } from 'src/app/utils/updateTeamStatistics.util';
-import { AppTitleService } from '../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-play-tournament-dashboard',

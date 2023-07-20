@@ -8,11 +8,11 @@ import {
 import { combineLatest, map, take, tap } from 'rxjs';
 import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SweetAlertsService } from '../../../state/alerts/sweet-alerts.service';
+import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { NO_TOURNAMENT_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
 import { registerables, Chart } from 'chart.js';
 import { CHAMPIONSHIPS_CHART_CONSTS } from 'src/assets/consts/charts-data/championships.chart.consts';
-import { AppTitleService } from '../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-tournament-details',

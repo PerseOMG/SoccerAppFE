@@ -16,7 +16,7 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
-import { SweetAlertsService } from '../alerts/sweet-alerts.service';
+import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { AUTH_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
 import { title } from 'process';
 

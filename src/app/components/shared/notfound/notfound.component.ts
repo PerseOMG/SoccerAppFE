@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppTitleService } from '../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-notfound',

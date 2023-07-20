@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthFacade } from '../../../state/auth/auth.facade';
-import { AppTitleService } from '../../../state/appTitle/app-title.service';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-register',
