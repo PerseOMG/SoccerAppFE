@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthFacade } from '../../../state/auth/auth.facade';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
-import { LOGIN_ANIMATIONS } from '../../../../assets/consts/animations/login.animations.consts';
+import { FORM_ANIMATIONS } from '../../../../assets/consts/animations/login.animations.consts';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  animations: [LOGIN_ANIMATIONS.invalid],
+  animations: [FORM_ANIMATIONS.invalid],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

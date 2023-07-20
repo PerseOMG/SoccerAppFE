@@ -7,7 +7,7 @@ import {
   trigger,
 } from '@angular/animations';
 
-export const LOGIN_ANIMATIONS = {
+export const FORM_ANIMATIONS = {
   invalid: trigger('invalidFormAnimation', [
     state(
       'invalidAnimationStart',
