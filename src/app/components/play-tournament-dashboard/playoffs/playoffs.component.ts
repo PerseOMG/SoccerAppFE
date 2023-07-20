@@ -167,7 +167,7 @@ export class PlayoffsComponent implements OnInit {
         },
         (result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['tournaments']);
+            this.router.navigate(['/']);
           }
         }
       );
