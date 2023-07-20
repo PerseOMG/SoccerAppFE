@@ -1,39 +1,24 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { Team } from 'src/app/models/team.models';
-import { TeamsFacade } from '../../state/teams/teams.facade';
 import { Router } from '@angular/router';
+import { Team } from '../../models/team.models';
+import { TeamsFacade } from '../../state/teams/teams.facade';
+import { CARDS_ANIMATIONS } from '../../../assets/consts/animations/card.animations.consts';
+
+interface TeamCardOptions {
+  allowAnimations: boolean;
+  isSelectable: boolean;
+  showDetails: boolean;
+}
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
-  animations: [
-    trigger('hoverAnimation', [
-      state(
-        'hover',
-        style({
-          transform: 'scale(1.2)',
-          borderRadius: '25px',
-        })
-      ),
-      transition('void => hover, hover => void', [animate('0.75s ease')]),
-    ]),
-  ],
+  selector: 'app-teams-card',
+  templateUrl: './team-card.component.html',
+  styleUrls: ['./team-card.component.scss'],
+  animations: [CARDS_ANIMATIONS.hover],
 })
-export class CardComponent implements OnInit {
+export class TeamCardComponent implements OnInit {
   @Input() team!: Team;
-  @Input() options: {
-    allowAnimations: boolean;
-    isSelectable: boolean;
-    showDetails: boolean;
-  } = {
+  @Input() options: TeamCardOptions = {
     allowAnimations: false,
     isSelectable: false,
     showDetails: false,

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/navigation/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CardComponent } from './components/card/card.component';
+import { TeamCardComponent } from './components/teams/team-card.component';
 import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -47,7 +47,7 @@ import { NoDataComponent } from './components/shared/no-data/no-data.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    CardComponent,
+    TeamCardComponent,
     CardsContainerComponent,
     CardDetailComponent,
     CardFullComponent,
