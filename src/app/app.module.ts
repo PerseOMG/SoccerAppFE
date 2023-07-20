@@ -14,7 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TeamsEffects } from './state/teams/teams.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { CardFullComponent } from './components/card/card-full/card-full.component';
+import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { FooterComponent } from './components/shared/navigation/footer/footer.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -48,7 +48,7 @@ import { NoDataComponent } from './components/shared/no-data/no-data.component';
     HeaderComponent,
     TeamCardComponent,
     CardsContainerComponent,
-    CardFullComponent,
+    TeamDetailsComponent,
     FooterComponent,
     CreditsPageComponent,
     FiltersComponent,

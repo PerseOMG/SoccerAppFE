@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
-import { CardFullComponent } from './components/card/card-full/card-full.component';
+import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id',
-    component: CardFullComponent,
+    component: TeamDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -51,7 +51,11 @@ const routes: Routes = [
     component: PlayTournamentDashboardComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'details', component: CardFullComponent, canActivate: [AuthGuard] },
+  {
+    path: 'details',
+    component: TeamDetailsComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'create/:model',
     component: CreateFormComponent,

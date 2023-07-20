@@ -9,7 +9,7 @@ import {
 import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { Chart, registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
 import {
   GAMES_CHART_CONFIG,
@@ -22,11 +22,11 @@ import {
 } from 'src/assets/consts/charts-data/goals.chart.consts';
 
 @Component({
-  selector: 'app-card-full',
-  templateUrl: './card-full.component.html',
-  styleUrls: ['./card-full.component.scss'],
+  selector: 'app-team-details',
+  templateUrl: './team-details.component.html',
+  styleUrls: ['./team-details.component.scss'],
 })
-export class CardFullComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('totalGamesChart') gamesChart: QueryList<any>;
   @ViewChildren('totalGoalsChart') goalsChart: QueryList<any>;
   team$ = this.teamsFacade.getTeamSelected(
