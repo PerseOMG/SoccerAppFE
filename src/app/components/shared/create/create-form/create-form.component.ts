@@ -25,9 +25,12 @@ export class CreateFormComponent implements OnInit {
   dynamicForm: FormGroup;
   dragAndDropItems: Observable<any>;
   model: 'team' | 'tournament';
+  id: string;
   filterFields: IFormFields[];
   step = 1;
   tournaments$ = this.tournamentsFacade.selectAllTournaments();
+  teams$ = this.teamFacade.selectAllTeams();
+
   selectOptions: BehaviorSubject<{ label: string; value: string }[]> =
     new BehaviorSubject([]);
   constructor(
@@ -41,15 +44,18 @@ export class CreateFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
       this.model = params['model'];
       this.filterFields = FORMS_CONFIG[this.model] as IFormFields[];
-      this.titleService.setDocTitle(`Create ${this.model}`);
+      this.titleService.setDocTitle(
+        `${this.id ? 'Edit' : 'Create'} ${this.model}`
+      );
       if (this.filterFields) {
         this.dynamicForm = this.generateDynamicForm();
       }
       if (this.model === 'team') {
         this.tournaments$.subscribe((tournaments) => {
-          tournaments.tournaments.forEach((tournament) => {
+          tournaments?.tournaments?.forEach((tournament) => {
             this.selectOptions.next([
               ...this.selectOptions.value,
               {
@@ -145,11 +151,19 @@ export class CreateFormComponent implements OnInit {
 
   generateDynamicForm(): FormGroup {
     const baseForm = this.fb.group({});
-    this.filterFields.forEach((field) => {
-      baseForm.addControl(
-        field.key,
-        new FormControl('', this.getValidators(field.validators))
-      );
+    this.teams$.subscribe((teams) => {
+      teams.forEach((team) => {
+        if (team._id === this.id)
+          this.filterFields.forEach((field) => {
+            baseForm.addControl(
+              field.key,
+              new FormControl(
+                team[field.key],
+                this.getValidators(field.validators)
+              )
+            );
+          });
+      });
     });
     return baseForm;
   }

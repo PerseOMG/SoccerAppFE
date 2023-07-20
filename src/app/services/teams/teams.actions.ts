@@ -20,6 +20,8 @@ export enum ETeamsActions {
   UPDATE_TEAMS_STATISTICS = '[APP Soccer] UPDATE_TEAMS_STATISTICS',
   UPDATE_TEAMS_MODEL = '[APP Soccer] UPDATE_TEAMS_MODEL',
   UPDATE_TEAM_STATISTICS_DB = '[APP Soccer] UPDATE_TEAM_STATISTICS_DB',
+  FETCH_EDIT_TEAM = '[APP Soccer] FETCH_EDIT_TEAM',
+  EDIT_TEAM_FAIL = '[APP Soccer] EDIT_TEAM_FAIL',
 }
 
 export class GetTeams implements Action {
@@ -43,6 +45,16 @@ export class CreateTeam implements Action {
 
 export class CreateTeamFailure implements Action {
   public readonly type = ETeamsActions.CREATE_TEAM_FAILURE;
+  constructor(public payload: IAppError) {}
+}
+
+export class FetchEditTeam implements Action {
+  public readonly type = ETeamsActions.FETCH_EDIT_TEAM;
+  constructor(public payload: Team) {}
+}
+
+export class EditTeamFailure implements Action {
+  public readonly type = ETeamsActions.EDIT_TEAM_FAIL;
   constructor(public payload: IAppError) {}
 }
 

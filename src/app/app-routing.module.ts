@@ -57,6 +57,11 @@ const routes: Routes = [
     component: CreateFormComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'edit/:model/:id',
+    component: CreateFormComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'thanksTo', component: CreditsPageComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'statistics', component: StatisticsComponent },
