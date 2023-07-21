@@ -26,7 +26,6 @@ import { AuthEffects } from './state/auth/auth.effects';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateButtonComponent } from './components/shared/action-button/action-button.component';
 import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
@@ -57,7 +56,6 @@ import { NoDataComponent } from './components/shared/no-data/no-data.component';
     RegisterComponent,
     NotfoundComponent,
     TournamentsComponent,
-    ProfileComponent,
     StatisticsComponent,
     CreateButtonComponent,
     CreateFormComponent,
