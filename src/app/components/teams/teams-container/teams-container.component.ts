@@ -14,14 +14,14 @@ import { AppTitleService } from '../../../services/appTitle/app-title.service';
 export class TeamsCardsContainerComponent implements OnInit, OnDestroy {
   itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
   filter = this.paginationFacade.getFilter();
+  currentPage$ = this.paginationFacade.getCurrentPage();
+  itemsPerPage$ = this.paginationFacade.getItemsPerPage();
   config = CARDS_PAGINATION_CONTROLS;
   cardOptions = {
     allowAnimations: true,
     isSelectable: true,
     showDetails: true,
   };
-  currentPage$ = this.paginationFacade.getCurrentPage();
-  itemsPerPage$ = this.paginationFacade.getItemsPerPage();
 
   teams$: Observable<Team[]> = combineLatest([
     this.teamsFacade.selectAllTeams(),
