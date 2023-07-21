@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/navigation/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TeamCardComponent } from './components/teams/team-card.component';
-import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
+import { TeamsCardsContainerComponent } from './components/teams/teams-container/teams-container.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './state';
@@ -47,7 +47,7 @@ import { NoDataComponent } from './components/shared/no-data/no-data.component';
     AppComponent,
     HeaderComponent,
     TeamCardComponent,
-    CardsContainerComponent,
+    TeamsCardsContainerComponent,
     TeamDetailsComponent,
     FooterComponent,
     CreditsPageComponent,

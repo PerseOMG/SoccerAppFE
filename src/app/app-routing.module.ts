@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
+import { TeamsCardsContainerComponent } from './components/teams/teams-container/teams-container.component';
 import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'teams',
-    component: CardsContainerComponent,
+    component: TeamsCardsContainerComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -7,11 +7,22 @@ import { Team } from '../../../models/team.models';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
-  selector: 'app-cards-container',
-  templateUrl: './cards-container.component.html',
-  styleUrls: ['./cards-container.component.scss'],
+  selector: 'app-teams-container',
+  templateUrl: './teams-container.component.html',
+  styleUrls: ['./teams-container.component.scss'],
 })
-export class CardsContainerComponent implements OnInit, OnDestroy {
+export class TeamsCardsContainerComponent implements OnInit, OnDestroy {
+  itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
+  filter = this.paginationFacade.getFilter();
+  config = CARDS_PAGINATION_CONTROLS;
+  cardOptions = {
+    allowAnimations: true,
+    isSelectable: true,
+    showDetails: true,
+  };
+  currentPage$ = this.paginationFacade.getCurrentPage();
+  itemsPerPage$ = this.paginationFacade.getItemsPerPage();
+
   teams$: Observable<Team[]> = combineLatest([
     this.teamsFacade.selectAllTeams(),
     this.paginationFacade.getTournament(),
@@ -30,17 +41,6 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
       return filteredTeams;
     })
   );
-  itemsPerPageSelected = this.paginationFacade.getItemsPerPage();
-  filter = this.paginationFacade.getFilter();
-  config = CARDS_PAGINATION_CONTROLS;
-  cardOptions = {
-    allowAnimations: true,
-    isSelectable: true,
-    showDetails: true,
-  };
-
-  currentPage$ = this.paginationFacade.getCurrentPage();
-  itemsPerPage$ = this.paginationFacade.getItemsPerPage();
 
   constructor(
     private teamsFacade: TeamsFacade,
@@ -60,5 +60,6 @@ export class CardsContainerComponent implements OnInit, OnDestroy {
     this.paginationFacade.setFilter('');
     this.paginationFacade.setCurrentPage(0);
     this.paginationFacade.setItemsPerPage(10);
+    this.paginationFacade.setTournamentFilter('');
   }
 }
