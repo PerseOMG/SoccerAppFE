@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
+import { TournamentsFacade } from '../../state/tournaments/tournaments.facade';
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
 import { BehaviorSubject, combineLatest, filter, map, skip, take } from 'rxjs';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
-import { TeamsFacade } from '../../services/teams/teams.facade';
+import { TeamsFacade } from '../../state/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
 import { createCalendar } from '../../utils/createTournamentCalendar.util';
 import { createTeamStatisticsObj } from 'src/app/utils/updateTeamStatistics.util';

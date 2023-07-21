@@ -1,0 +1,14 @@
+<div class="main-container">
+    <div class="card-container" [@invalidFormAnimation]="this.states['invalidAnimationStart']" (@invalidFormAnimation.done)="this.states['invalidAnimationStart'] = 'invalidAnimationEnd'">
+        <h1>Welcome Back</h1>
+        <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+            <input formControlName="email" [ngStyle]="{'border-color': setControlInvalidStyle('email') ? 'red' : '' }" class="login-form-input" type="text" placeholder="Email">
+            <input formControlName="password" [ngStyle]="{'border-color': setControlInvalidStyle('password') ? 'red' : '' }" class=" login-form-input" type="password" placeholder="Password ">
+            <button class="login-form-button " [disabled]="loginForm.invalid">Login</button>
+        </form>
+
+        <small>Don't have an account yet? <a href="/signup ">signup</a></small>
+    </div>
+</div>

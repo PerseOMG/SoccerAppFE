@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TournamentsFacade } from '../../services/tournaments/tournaments.facade';
-import { PaginationFacade } from '../../services/pagination/pagination.facade';
+import { TournamentsFacade } from '../../state/tournaments/tournaments.facade';
+import { PaginationFacade } from '../../state/pagination/pagination.facade';
 import { CARDS_PAGINATION_CONTROLS } from '../../../assets/consts/configs/pagination-config';
 import { AppTitleService } from '../../services/appTitle/app-title.service';
 
@@ -31,8 +31,6 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.paginationFacade.setFilter('');
-    this.paginationFacade.setCurrentPage(0);
-    this.paginationFacade.setItemsPerPage(10);
+    this.paginationFacade.resetFilters();
   }
 }

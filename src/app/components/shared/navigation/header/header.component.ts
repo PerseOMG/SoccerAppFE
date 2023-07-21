@@ -12,7 +12,7 @@ import {
   HEADER_LINKS,
   APP_NAME,
 } from '../../../../../assets/consts/configs/header-config.const';
-import { AuthFacade } from 'src/app/services/auth/auth.facade';
+import { AuthFacade } from 'src/app/state/auth/auth.facade';
 
 @Component({
   selector: 'app-header',

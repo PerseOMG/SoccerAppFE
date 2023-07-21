@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { TeamsFacade } from './services/teams/teams.facade';
-import { TournamentsFacade } from './services/tournaments/tournaments.facade';
-import { AuthFacade } from './services/auth/auth.facade';
+import { TeamsFacade } from './state/teams/teams.facade';
+import { TournamentsFacade } from './state/tournaments/tournaments.facade';
+import { AuthFacade } from './state/auth/auth.facade';
 import { APP_SOCCER_JWT_KEY } from '../app.constants';
 
 @Component({
