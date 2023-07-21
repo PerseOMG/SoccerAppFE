@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TeamsCardsContainerComponent } from './components/teams/teams-container/teams-container.component';
 import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
-import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
+import { CreditsPageComponent } from './components/shared/credits-page/credits-page.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';

@@ -16,7 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { FooterComponent } from './components/shared/navigation/footer/footer.component';
-import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
+import { CreditsPageComponent } from './components/shared/credits-page/credits-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltersComponent } from './components/shared/filter/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
