@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { IFormFields } from '../../../../models/form-fields.model';
-import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { TeamsFacade } from '../../../../state/teams/teams.facade';
-import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
-import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
+import { Observable, BehaviorSubject, observable } from 'rxjs';
 import {
   FormGroup,
   FormBuilder,
   FormControl,
   Validators,
 } from '@angular/forms';
+import { IFormFields } from '../../../../models/form-fields.model';
+import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
+import { TeamsFacade } from '../../../../state/teams/teams.facade';
+import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
+import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
 import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
 import { ITournament } from '../../../../models/tournament.model';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
@@ -30,6 +30,11 @@ export class CreateFormComponent implements OnInit {
   tournaments$ = this.tournamentsFacade.selectAllTournaments();
   selectOptions: BehaviorSubject<{ label: string; value: string }[]> =
     new BehaviorSubject([]);
+
+  buttonLabel$ = new Observable((subscriber) => {
+    subscriber.next(this.model === 'tournament' ? 'Next' : 'Create');
+  });
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -195,13 +200,6 @@ export class CreateFormComponent implements OnInit {
     return this.dynamicForm.get(item.key).value.length === 0
       ? item.title
       : null;
-  }
-
-  getButtonLabel() {
-    if (this.model === 'tournament') {
-      return 'Next';
-    }
-    return 'Create';
   }
 
   onDragAndDropEvent(e: any) {
