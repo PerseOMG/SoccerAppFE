@@ -31,8 +31,6 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.paginationFacade.setFilter('');
-    this.paginationFacade.setCurrentPage(0);
-    this.paginationFacade.setItemsPerPage(10);
+    this.paginationFacade.resetFilters();
   }
 }

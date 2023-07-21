@@ -28,5 +28,11 @@ export class PaginationFacade {
   setTournamentFilter = (tournament: string) =>
     this.store.dispatch(new paginationActions.SetTournamentFilter(tournament));
 
+  resetFilters = () => {
+    this.setFilter('');
+    this.setCurrentPage(0);
+    this.setItemsPerPage(10);
+    this.setTournamentFilter('');
+  };
   constructor(private store: Store<AppState>) {}
 }
