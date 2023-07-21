@@ -6,20 +6,20 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { TeamsFacade } from '../../../state/teams/teams.facade';
-import { Chart, registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { Chart, registerables } from 'chart.js';
+import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
 import {
-  GAMES_CHART_CONFIG,
-  GAMES_CHART_DATA,
-} from 'src/assets/consts/charts-data/games.chart.consts';
-import {
-  GOALS_CHART_CONFIG,
-  GOALS_CHART_DATA,
   GOALS_CHART_OPTIONS,
-} from 'src/assets/consts/charts-data/goals.chart.consts';
+  GOALS_CHART_DATA,
+  GOALS_CHART_CONFIG,
+} from '../../../../assets/consts/charts-data/goals.chart.consts';
+import {
+  GAMES_CHART_DATA,
+  GAMES_CHART_CONFIG,
+} from '../../../../assets/consts/charts-data/games.chart.consts';
 
 @Component({
   selector: 'app-team-details',
