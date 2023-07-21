@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FORM_ANIMATIONS } from '../../../../../assets/consts/animations/login.animations.consts';
+import { AuthFacade } from '../../../../state/auth/auth.facade';
+import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthFacade } from '../../../state/auth/auth.facade';
-import { AppTitleService } from '../../../services/appTitle/app-title.service';
-import { FORM_ANIMATIONS } from 'src/assets/consts/animations/login.animations.consts';
 
 @Component({
   selector: 'app-register',

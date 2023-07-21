@@ -7,14 +7,14 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { IFormFields } from '../../../../models/form-fields.model';
-import { FORMS_CONFIG } from '../../../../../assets/consts/configs/forms-config.consts';
-import { TeamsFacade } from '../../../../state/teams/teams.facade';
-import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
-import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
+import { IFormFields } from '../../../models/form-fields.model';
+import { FORMS_CONFIG } from '../../../../assets/consts/configs/forms-config.consts';
+import { TeamsFacade } from '../../../state/teams/teams.facade';
+import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
+import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
-import { ITournament } from '../../../../models/tournament.model';
-import { AppTitleService } from '../../../../services/appTitle/app-title.service';
+import { ITournament } from '../../../models/tournament.model';
+import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
 @Component({
   selector: 'app-create-form',

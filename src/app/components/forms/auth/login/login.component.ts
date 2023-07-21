@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthFacade } from '../../../state/auth/auth.facade';
-import { AppTitleService } from '../../../services/appTitle/app-title.service';
-import { FORM_ANIMATIONS } from '../../../../assets/consts/animations/login.animations.consts';
+import { AuthFacade } from '../../../../state/auth/auth.facade';
+import { AppTitleService } from '../../../../services/appTitle/app-title.service';
+import { FORM_ANIMATIONS } from '../../../../../assets/consts/animations/login.animations.consts';
 
 @Component({
   selector: 'app-login',

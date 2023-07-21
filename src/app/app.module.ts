@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/navigation/header/header.component';
@@ -21,16 +20,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltersComponent } from './components/shared/filter/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StringFilterPipe } from './pipes/string-filter.pipe';
-import { LoginComponent } from './components/auth/login/login.component';
+import { LoginComponent } from './components/forms/auth/login/login.component';
 import { AuthEffects } from './state/auth/auth.effects';
-import { RegisterComponent } from './components/auth/register/register.component';
+import { RegisterComponent } from './components/forms/auth/register/register.component';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateButtonComponent } from './components/shared/action-button/action-button.component';
-import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
+import { CreateFormComponent } from './components/forms/create-form/create-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
+import { DragAndDropComponent } from './components/shared/drag-and-drop/drag-and-drop.component';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
 import { TournamentsEffects } from './state/tournaments/tournaments.effects';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';

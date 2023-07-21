@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { TeamsCardsContainerComponent } from './components/teams/teams-container/teams-container.component';
 import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { CreditsPageComponent } from './components/shared/credits-page/credits-page.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/forms/auth/login/login.component';
+import { RegisterComponent } from './components/forms/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotLoggedGuard } from './guards/not-logged.guard';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
+import { CreateFormComponent } from './components/forms/create-form/create-form.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
 
