@@ -24,9 +24,11 @@ export class TeamCardComponent implements OnInit {
     showDetails: false,
   };
 
+  // Animations
   isMouseIn = false;
   selectedCardId = 'NA';
   openMenu = false;
+
   constructor(private teamsFacade: TeamsFacade, private router: Router) {}
 
   ngOnInit(): void {}
