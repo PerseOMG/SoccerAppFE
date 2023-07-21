@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FOOTER_LINKS } from 'src/assets/consts/configs/footer-config.consts';
-import { DEVELOPER } from '../../../../../assets/consts/configs/footer-config.consts';
+import {
+  DEVELOPER,
+  FOOTER_LINKS,
+} from '../../../../../assets/consts/configs/footer-config.consts';
 import packageJson from '../../../../../../package.json';
 
 @Component({
