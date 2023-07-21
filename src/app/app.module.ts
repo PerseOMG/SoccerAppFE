@@ -17,7 +17,7 @@ import { TeamDetailsComponent } from './components/teams/team-details/team-detai
 import { FooterComponent } from './components/shared/navigation/footer/footer.component';
 import { CreditsPageComponent } from './components/shared/credits-page/credits-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FiltersComponent } from './components/shared/filter/filters/filters.component';
+import { FiltersComponent } from './components/shared/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StringFilterPipe } from './pipes/string-filter.pipe';
 import { LoginComponent } from './components/forms/auth/login/login.component';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PaginationFacade } from '../../../../state/pagination/pagination.facade';
-import { TItemsPerPageOptions } from '../../../../../assets/consts/configs/pagination-config';
+import { PaginationFacade } from '../../../state/pagination/pagination.facade';
+import { TItemsPerPageOptions } from '../../../../assets/consts/configs/pagination-config';
 import { TournamentsFacade } from 'src/app/state/tournaments/tournaments.facade';
 import { BehaviorSubject, filter, map } from 'rxjs';
 
