@@ -1,4 +1,3 @@
-import { UserModel } from '../../models/user.models';
 import { EAuthActions, authActions } from './auth.actions';
 import { IAppError } from '../../models/appError.models';
 
@@ -20,27 +19,42 @@ export const initAuthState: IAuthState = {
   status: null,
 };
 
+const loginSignupSuccessCb = (state, action) => {
+  return {
+    ...state,
+    name: action.payload.user.name,
+    email: action.payload.user.email,
+    photo: action.payload.user.photo,
+    role: action.payload.user.role,
+    status: 'success',
+    error: undefined,
+  };
+};
+
+const loginSignupFailureCb = (state, action) => {
+  return {
+    ...state,
+    status: 'error',
+    error: action.payload,
+  };
+};
+
 export function authReducer(
   state: IAuthState = initAuthState,
   action: authActions
 ): IAuthState {
   switch (action.type) {
-    case EAuthActions.LOGIN_SUCCESS || EAuthActions.SIGNUP_SUCCESS:
-      return {
-        ...state,
-        name: action.payload.user.name,
-        email: action.payload.user.email,
-        photo: action.payload.user.photo,
-        role: action.payload.user.role,
-        status: 'success',
-        error: undefined,
-      };
-    case EAuthActions.LOGIN_FAILURE || EAuthActions.SIGNUP_FAILURE:
-      return {
-        ...state,
-        status: 'error',
-        error: action.payload,
-      };
+    case EAuthActions.LOGIN_SUCCESS:
+      return loginSignupSuccessCb(state, action);
+
+    case EAuthActions.SIGNUP_SUCCESS:
+      return loginSignupSuccessCb(state, action);
+
+    case EAuthActions.LOGIN_FAILURE:
+      return loginSignupFailureCb(state, action);
+
+    case EAuthActions.SIGNUP_FAILURE:
+      return loginSignupFailureCb(state, action);
 
     default:
       return state;

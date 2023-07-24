@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import {
   EAuthActions,
   LoginFailure,
@@ -12,13 +15,9 @@ import {
   LogoutSuccess,
 } from './auth.actions';
 import { AuthService } from './auth.service';
-import { switchMap, map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
 import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
 import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
-import { AUTH_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
-import { title } from 'process';
+import { AUTH_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 
 @Injectable()
 export class AuthEffects {

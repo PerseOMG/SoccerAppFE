@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AppState } from '..';
 import { Store } from '@ngrx/store';
+import { AppState } from '../index';
 import * as authActions from './auth.actions';
-// import { teamsSelectors } from './teams.selectors';
 import { ILogin, ISignUp } from '../../models/auth.models';
 import { authSelectors } from './auth.selectors';
 
