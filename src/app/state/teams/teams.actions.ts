@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Team } from '../../models/team.models';
-import { IAppError } from '../../interfaces/appError.interface';
+import { IAppError } from '../../models/appError.models';
 import { ITeamStatistics } from '../../models/teamStatistics.model';
 
 export enum ETeamsActions {

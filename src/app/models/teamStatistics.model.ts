@@ -17,10 +17,10 @@ export interface ITeamStatistics {
     totalGamesPlayed?: number;
     totalGamesWon?: number;
     totalGamesLost?: number;
-    bestWin?: matchStatistics;
-    worstLose?: matchStatistics;
-    lastDefeat?: matchStatistics;
-    lastWin?: matchStatistics;
+    bestWin?: MatchStatistics;
+    worstLose?: MatchStatistics;
+    lastDefeat?: MatchStatistics;
+    lastWin?: MatchStatistics;
     bestWinningStreak?: number;
     bestLostStreak?: number;
     actualWinningStreak?: number;
@@ -52,7 +52,7 @@ export interface MatchesData {
   gamesTied: number;
 }
 
-interface matchStatistics {
+interface MatchStatistics {
   winner: {
     _id: string;
     name: string;

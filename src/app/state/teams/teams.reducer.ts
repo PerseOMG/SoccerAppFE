@@ -1,6 +1,6 @@
 import { Team } from '../../models/team.models';
 import { ETeamsActions, teamsActions } from './teams.actions';
-import { IAppError } from '../../interfaces/appError.interface';
+import { IAppError } from '../../models/appError.models';
 import { ITeamStatistics } from '../../models/teamStatistics.model';
 
 export interface ITeamsState {

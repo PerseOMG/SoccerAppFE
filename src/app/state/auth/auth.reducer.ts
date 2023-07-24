@@ -1,6 +1,6 @@
 import { UserModel } from '../../models/user.models';
 import { EAuthActions, authActions } from './auth.actions';
-import { IAppError } from '../../interfaces/appError.interface';
+import { IAppError } from '../../models/appError.models';
 
 export interface IAuthState {
   name: string;

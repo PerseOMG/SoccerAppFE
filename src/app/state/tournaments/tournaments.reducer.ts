@@ -1,4 +1,4 @@
-import { IAppError } from '../../interfaces/appError.interface';
+import { IAppError } from '../../models/appError.models';
 import {
   ITournament,
   ITournamentStatistics,

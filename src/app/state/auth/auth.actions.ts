@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IAppError } from '../../interfaces/appError.interface';
+import { IAppError } from '../../models/appError.models';
 import { ILogin, ISignUp } from '../../models/auth.models';
 import { UserModel } from '../../models/user.models';
 
