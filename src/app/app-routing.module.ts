@@ -9,7 +9,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotLoggedGuard } from './guards/not-logged.guard';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateFormComponent } from './components/forms/create-form/create-form.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
@@ -61,7 +60,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'thanksTo', component: CreditsPageComponent },
-  { path: 'statistics', component: StatisticsComponent },
   { path: 'notFound', component: NotfoundComponent },
   { path: 'logout', redirectTo: '/login' },
   { path: '**', pathMatch: 'full', redirectTo: '/notFound' },

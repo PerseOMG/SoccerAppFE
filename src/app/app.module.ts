@@ -20,7 +20,6 @@ import { TeamDetailsComponent } from './components/teams/team-details/team-detai
 import { FooterComponent } from './components/shared/navigation/footer/footer.component';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateButtonComponent } from './components/shared/action-button/action-button.component';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
@@ -57,7 +56,6 @@ import { TournamentsEffects } from './state/tournaments/tournaments.effects';
     RegisterComponent,
     NotfoundComponent,
     TournamentsComponent,
-    StatisticsComponent,
     CreateButtonComponent,
     CreateFormComponent,
     DragAndDropComponent,
