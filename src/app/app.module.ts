@@ -15,26 +15,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StringFilterPipe } from './pipes/string-filter.pipe';
 import { HeaderComponent } from './components/shared/navigation/header/header.component';
-import { CardComponent } from './components/card/card.component';
-import { CardsContainerComponent } from './components/card/cards-container/cards-container.component';
-import { reducers } from './services';
-import { TeamsEffects } from './services/teams/teams.effects';
 import { environment } from '../environments/environment';
-import { CardDetailComponent } from './components/card/card-detail/card-detail.component';
-import { CardFullComponent } from './components/card/card-full/card-full.component';
+import { TeamDetailsComponent } from './components/teams/team-details/team-details.component';
 import { FooterComponent } from './components/shared/navigation/footer/footer.component';
-import { CreditsPageComponent } from './components/common/credits-page/credits-page.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { AuthEffects } from './services/auth/auth.effects';
-import { RegisterComponent } from './components/auth/register/register.component';
 import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { CreateButtonComponent } from './components/shared/action-button/action-button.component';
-import { CreateFormComponent } from './components/shared/create/create-form/create-form.component';
-import { DragAndDropComponent } from './components/shared/create/drag-and-drop/drag-and-drop.component';
-import { TournamentsEffects } from './services/tournaments/tournaments.effects';
 import { TournamentsCardComponent } from './components/tournaments/tournaments-card/tournaments-card.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
@@ -43,15 +30,25 @@ import { PlayoffsComponent } from './components/play-tournament-dashboard/playof
 import { CalendarComponent } from './components/play-tournament-dashboard/calendar/calendar.component';
 import { NoDataComponent } from './components/shared/no-data/no-data.component';
 import { FiltersComponent } from './components/shared/filters/filters.component';
+import { TeamCardComponent } from './components/teams/team-card.component';
+import { TeamsCardsContainerComponent } from './components/teams/teams-container/teams-container.component';
+import { CreditsPageComponent } from './components/shared/credits-page/credits-page.component';
+import { LoginComponent } from './components/forms/auth/login/login.component';
+import { RegisterComponent } from './components/forms/auth/register/register.component';
+import { CreateFormComponent } from './components/forms/create-form/create-form.component';
+import { DragAndDropComponent } from './components/shared/drag-and-drop/drag-and-drop.component';
+import { reducers } from './state/index';
+import { TeamsEffects } from './state/teams/teams.effects';
+import { AuthEffects } from './state/auth/auth.effects';
+import { TournamentsEffects } from './state/tournaments/tournaments.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    CardComponent,
-    CardsContainerComponent,
-    CardDetailComponent,
-    CardFullComponent,
+    TeamCardComponent,
+    TeamsCardsContainerComponent,
+    TeamDetailsComponent,
     FooterComponent,
     CreditsPageComponent,
     FiltersComponent,
@@ -60,7 +57,6 @@ import { FiltersComponent } from './components/shared/filters/filters.component'
     RegisterComponent,
     NotfoundComponent,
     TournamentsComponent,
-    ProfileComponent,
     StatisticsComponent,
     CreateButtonComponent,
     CreateFormComponent,

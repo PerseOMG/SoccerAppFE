@@ -1,0 +1,8 @@
+<div class="wrapper" *ngIf="dragObjTemplate">
+    <div class="drag-containers" dragula="D&DITEMS" [(dragulaModel)]="dragObjTemplate">
+        <app-teams-card style="height: fit-content;" *ngFor="let item of dragObjTemplate " [team]="item"></app-teams-card>
+    </div>
+    <div class="drag-containers" dragula="D&DITEMS" [(dragulaModel)]="dragObjSelectedArray">
+        <app-teams-card style="height: fit-content;" *ngFor="let item of dragObjSelectedArray " [team]="item"></app-teams-card>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div *ngIf="!filterFields; else formTemplate" class="main-container">
+    <img src="../../../../../assets/icons/circle-loader.gif" alt="loading-animation" style="height: 50vh;">
+</div>
+
+<ng-template #formTemplate>
+    <div class="main-container">
+        <div class="card-container">
+            <div class="title-container">
+                <img *ngIf="step === 2" (click)="step = step-1 " src="../../../../../assets/icons/back-arrow.svg" alt="back" class="back-arrow">
+                <h1>Create {{model | titlecase}}</h1>
+            </div>
+            <form *ngIf="dynamicForm" [formGroup]="dynamicForm" class="dynamic-form" (ngSubmit)="onSubmit()">
+                <div>
+                    <ng-container *ngIf="step === 1; else stepTwoTemplate">
+                        <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : getFormDefaultImage()" alt="default-img">
+                        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields,formGroup:dynamicForm }">
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <ng-template #stepTwoTemplate>
+                    <h3 *ngIf="dynamicForm.get('winnerDefinition').value.includes('playoffs')">Please choose at least {{dynamicForm.get('playoffsQuantity').value[0] + 1}} players</h3>
+                    <app-drag-and-drop [dragObjTemplate]="(dragAndDropItems | async)" (dragObjSelected)="onDragAndDropEvent($event)"></app-drag-and-drop>
+                </ng-template>
+                <button class="dynamic-form-button" [disabled]="dynamicForm.invalid">{{ buttonLabel$ | async }}</button>
+            </form>
+            <ng-template #recursiveList let-filterFields let-formGroup="formGroup">
+
+                <ng-container *ngFor="let item of filterFields">
+                    <ng-container *ngIf="item.type !== 'dragAndDrop'">
+                        <ng-container *ngIf="item.type !== 'select'; else selectTemplate">
+                            <input [type]="item.type" [ngStyle]="{'border-color': setControlInvalidStyle(item.key) ? 'red' : '' }" [formControl]="formGroup.get(item.key)" [placeholder]="item.title" [name]="item.key" class="dynamic-form-input">
+                            <small *ngIf="item.errorMessage" style="color: red;">{{setControlInvalidStyle(item.key) ? item.errorMessage : null}}</small>
+                            <small *ngIf="item.span">{{item.span}}</small>
+
+                        </ng-container>
+                        <ng-template #selectTemplate>
+                            <div class="dynamic-form-input" *ngIf="!item.isDependable || getDependableVisibility(item)">
+                                <ng-select (change)="onSelectChange(item)" class="custom" [formControl]="formGroup.get(item.key)" [multiple]="true" bindLabel="label" bindValue="value" [items]=" item.options ?? (selectOptions | async)" [placeholder]="getMultiSelectPlaceholder(item)"
+                                    dropdownPosition="top" [maxSelectedItems]="item.maxSelected" [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true" appendTo="ng-select"></ng-select>
+                            </div>
+                            <small *ngIf="item.errorMessage" style="color: red;">{{onClose(item.key, item.errorMessage, item.maxSelected )}}</small>
+                        </ng-template>
+                    </ng-container>
+
+
+                </ng-container>
+
+            </ng-template>
+        </div>
+    </div>
+</ng-template>

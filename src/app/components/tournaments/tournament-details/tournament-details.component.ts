@@ -6,7 +6,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { combineLatest, map, take, tap } from 'rxjs';
-import { TournamentsFacade } from '../../../services/tournaments/tournaments.facade';
+import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { NO_TOURNAMENT_ALERT } from '../../../../assets/consts/configs/alerts-config.const';
