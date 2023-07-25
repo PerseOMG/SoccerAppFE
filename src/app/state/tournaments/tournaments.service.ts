@@ -11,15 +11,17 @@ import {
   providedIn: 'root',
 })
 export class TournamentsService {
+  headers = {
+    authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+  };
+
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<ITournamentResponse> {
     return this.http.get<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournaments`,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -29,9 +31,7 @@ export class TournamentsService {
       `${APP_SOCCER_SERVER_URL}/tournaments`,
       tournament,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -42,9 +42,7 @@ export class TournamentsService {
       `${APP_SOCCER_SERVER_URL}/tournaments/${tournament._id}`,
       tournament,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -53,9 +51,7 @@ export class TournamentsService {
     return this.http.get<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournament/statistics/historical/${tournamentId}`,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
