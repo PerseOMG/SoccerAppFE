@@ -1,5 +1,6 @@
-import { ITeamsState, teamsReducer } from './teams/teams.reducer';
 import { ActionReducerMap } from '@ngrx/store';
+
+import { ITeamsState, teamsReducer } from './teams/teams.reducer';
 import { IAuthState, authReducer } from './auth/auth.reducer';
 import {
   ITournamentsState,
