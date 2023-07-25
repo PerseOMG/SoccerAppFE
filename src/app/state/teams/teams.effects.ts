@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 import {
   CreateTeam,
   ETeamsActions,
@@ -9,24 +13,17 @@ import {
   NoAction,
   UpdateTeamModel,
   UpdateTeamsStatisticsDB,
-} from './teams.actions';
-import { TeamsService } from './teams.service';
-import { switchMap, map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import {
-  CreateTeamFailure,
-  DeleteTeam,
-  SetFavoriteTeam,
-} from './teams.actions';
-import { Router } from '@angular/router';
-import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
-import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
-import { Team, TotalChampionshipsData } from '../../models/team.models';
-import {
   GetTeamsStatistics,
   GetTeamsStatisticsSuccess,
   GetTeamsStatisticsFailure,
+  CreateTeamFailure,
+  SetFavoriteTeam,
+  DeleteTeam,
 } from './teams.actions';
+import { TeamsService } from './teams.service';
+import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
+import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
+import { Team, TotalChampionshipsData } from '../../models/team.models';
 
 @Injectable()
 export class TeamsEffects {
@@ -46,8 +43,6 @@ export class TeamsEffects {
             return new GetTeamsSuccess(response.data.teams);
           }),
           catchError((error: any) => {
-            console.log(error);
-
             return of(
               new GetTeamsFailure({
                 code: error.status,
@@ -70,8 +65,6 @@ export class TeamsEffects {
             return new GetTeamsStatisticsSuccess(response.data.teamsStatistics);
           }),
           catchError((error: any) => {
-            console.log(error);
-
             return of(
               new GetTeamsStatisticsFailure({
                 code: error.status,
@@ -90,7 +83,7 @@ export class TeamsEffects {
       ofType<CreateTeam>(ETeamsActions.CREATE_TEAM),
       switchMap((action) =>
         this.teamsService.createTeam(action.payload).pipe(
-          map((response) => {
+          map(() => {
             this.alertService.fireAlert(TEAMS_ALERTS['success']);
             this.router.navigate(['/']);
             return new GetTeams();
@@ -140,7 +133,7 @@ export class TeamsEffects {
       ofType<DeleteTeam>(ETeamsActions.DELETE_TEAM),
       switchMap((action) =>
         this.teamsService.deleteTeam(action.payload).pipe(
-          map((response) => {
+          map(() => {
             this.alertService.fireAlert(TEAMS_ALERTS['delete']);
             this.router.navigate(['/']);
             return new GetTeams();
