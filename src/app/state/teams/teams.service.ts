@@ -12,11 +12,13 @@ import { APP_SOCCER_SERVER_URL } from '../../../app.constants';
   providedIn: 'root',
 })
 export class TeamsService {
+  headers = {
+    authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+  };
+
   getAllTeams(): Observable<TeamsResponse> {
     return this.http.get<TeamsResponse>(`${APP_SOCCER_SERVER_URL}/teams`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-      },
+      headers: this.headers,
     });
   }
 
@@ -29,18 +31,14 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams`,
       newTeam,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
 
   deleteTeam(id: string) {
     return this.http.delete(`${APP_SOCCER_SERVER_URL}/teams/${id}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-      },
+      headers: this.headers,
     });
   }
 
@@ -50,9 +48,7 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       { isFavorite },
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -61,9 +57,7 @@ export class TeamsService {
     return this.http.get<ITeamStatisticsResponse>(
       `${APP_SOCCER_SERVER_URL}/team/statistics/${id}`,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -75,9 +69,7 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       team,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
@@ -87,9 +79,7 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/team/statistics/${teamData._id}`,
       teamData,
       {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
-        },
+        headers: this.headers,
       }
     );
   }
