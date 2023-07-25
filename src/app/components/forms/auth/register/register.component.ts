@@ -67,11 +67,8 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     if (this.registerForm.valid) {
-      console.log('Trying to register...');
       this.authFacade.signup(this.registerForm.value);
     } else {
-      console.log(this.registerForm.value);
-
       this.states['invalidAnimationStart'] =
         this.states['invalidAnimationStart'] === 'invalidAnimationStart'
           ? 'invalidAnimationEnd'

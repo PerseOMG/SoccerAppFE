@@ -37,7 +37,6 @@ export class TournamentsService {
   }
 
   saveTournamentData(tournament: ITournament) {
-    console.log(tournament.edition);
     return this.http.patch<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournaments/${tournament._id}`,
       tournament,
