@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APP_SOCCER_SERVER_URL } from 'src/assets/consts/app.constants';
 import { Observable } from 'rxjs';
 import {
   ITournamentResponse,
   ITournament,
 } from '../../models/tournament.model';
+import {
+  APP_SOCCER_JWT_KEY,
+  APP_SOCCER_SERVER_URL,
+} from '../../../assets/consts/app.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TournamentsService {
   headers = {
-    authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+    authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
   };
 
   constructor(private http: HttpClient) {}

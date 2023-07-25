@@ -6,14 +6,17 @@ import {
   ITeamStatistics,
   ITeamStatisticsResponse,
 } from '../../models/teamStatistics.model';
-import { APP_SOCCER_SERVER_URL } from '../../../assets/consts/app.constants';
+import {
+  APP_SOCCER_JWT_KEY,
+  APP_SOCCER_SERVER_URL,
+} from '../../../assets/consts/app.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TeamsService {
   headers = {
-    authorization: `Bearer ${localStorage.getItem('AppSoccerJWT')}`,
+    authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
   };
 
   getAllTeams(): Observable<TeamsResponse> {
