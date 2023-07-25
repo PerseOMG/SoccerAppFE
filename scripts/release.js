@@ -40,20 +40,6 @@ inquirer.prompt(questions).then((answers) => {
     version: newVersion,
   };
 
-  // Build version const for mtb
-  if (answers.library === "mtb") {
-    const constsPath = path.resolve(
-      __dirname,
-      "../projects/mtb/src/lib/constants"
-    );
-    const fileName = "mtb-library.consts.ts";
-    const value = `export default { version: "${newVersion}" }`;
-    fs.writeFileSync(
-      `${constsPath}/${fileName}`,
-      `${JSON.parse(JSON.stringify(value, null, 2))}`
-    );
-  }
-
   console.log("The following answers were provided:\n");
   console.log(JSON.stringify(answers, null, "  "));
   console.log(`Overwriting file at: ./projects/package.json`);
