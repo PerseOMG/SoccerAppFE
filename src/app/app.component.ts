@@ -17,7 +17,7 @@ export class AppComponent {
   ) {
     this.authFacade.selectUserData().subscribe((userData) => {
       if (userData.name || localStorage.getItem(APP_SOCCER_JWT_KEY)) {
-        this.teamsFacade.getAllTeams();
+        this.teamsFacade.fetchAllTeams();
         this.tournamentsFacade.getAllTournaments();
       }
     });

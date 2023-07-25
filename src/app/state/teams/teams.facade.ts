@@ -13,6 +13,7 @@ import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 export class TeamsFacade {
   // Selectors
   selectAllTeams = () => this.store.select(teamsSelectors.allTeams);
+
   getTeamSelected = (id: string) =>
     this.store.select(teamsSelectors.allTeams).pipe(
       map((teams) => {
@@ -23,8 +24,10 @@ export class TeamsFacade {
 
   selectTeamStatistics = () =>
     this.store.select(teamsSelectors.selectTeamStatistics);
+
   // Actions
-  getAllTeams = () => this.store.dispatch(new teamsActions.GetTeams());
+  fetchAllTeams = () => this.store.dispatch(new teamsActions.GetTeams());
+
   createTeam = (team: Team) =>
     this.store.dispatch(new teamsActions.CreateTeam(team));
 
