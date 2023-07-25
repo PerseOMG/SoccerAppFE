@@ -13,6 +13,7 @@ import {
   APP_NAME,
 } from '../../../../../assets/consts/configs/header-config.const';
 import { AuthFacade } from 'src/app/state/auth/auth.facade';
+import { APP_SOCCER_JWT_KEY } from '../../../../../assets/consts/app.constants';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit {
   appName = APP_NAME;
   isMouseIn = false;
   buttonObj = this.getButtonObjValue();
+  JWT = localStorage.getItem(APP_SOCCER_JWT_KEY);
 
   constructor(private location: Location, private authFacade: AuthFacade) {}
 
@@ -58,16 +60,14 @@ export class HeaderComponent implements OnInit {
   }
 
   getButtonObjValue() {
-    if (
-      this.location.path().toLowerCase().includes('login') ||
-      this.location.path().toLowerCase().includes('notfound')
-    ) {
+    if (this.location.path().toLowerCase().includes('login') && !this.JWT) {
       this.isLoggedIn = false;
       return HEADER_BUTTONS_OPTIONS['LOGIN'];
     }
     if (
-      this.location.path().toLowerCase().includes('signup') ||
-      this.location.path().toLowerCase().includes('notfound')
+      (this.location.path().toLowerCase().includes('signup') && !this.JWT) ||
+      (this.location.path().toLowerCase().includes('thanksto') && !this.JWT) ||
+      (this.location.path().toLowerCase().includes('notfound') && !this.JWT)
     ) {
       this.isLoggedIn = false;
       return HEADER_BUTTONS_OPTIONS['SIGNUP'];
