@@ -15,7 +15,7 @@ import {
   LogoutSuccess,
 } from './auth.actions';
 import { AuthService } from './auth.service';
-import { APP_SOCCER_JWT_KEY } from '../../../app.constants';
+import { APP_SOCCER_JWT_KEY } from '../../../assets/consts/app.constants';
 import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { AUTH_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 

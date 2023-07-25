@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APP_SOCCER_SERVER_URL } from 'src/app.constants';
+import { APP_SOCCER_SERVER_URL } from 'src/assets/consts/app.constants';
 import { Observable } from 'rxjs';
 import {
   ITournamentResponse,

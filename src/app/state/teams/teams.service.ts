@@ -6,7 +6,7 @@ import {
   ITeamStatistics,
   ITeamStatisticsResponse,
 } from '../../models/teamStatistics.model';
-import { APP_SOCCER_SERVER_URL } from '../../../app.constants';
+import { APP_SOCCER_SERVER_URL } from '../../../assets/consts/app.constants';
 
 @Injectable({
   providedIn: 'root',

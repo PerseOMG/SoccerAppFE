@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TeamsFacade } from './state/teams/teams.facade';
 import { TournamentsFacade } from './state/tournaments/tournaments.facade';
 import { AuthFacade } from './state/auth/auth.facade';
-import { APP_SOCCER_JWT_KEY } from '../app.constants';
+import { APP_SOCCER_JWT_KEY } from '../assets/consts/app.constants';
 
 @Component({
   selector: 'app-root',

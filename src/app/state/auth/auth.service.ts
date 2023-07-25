@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UserModel } from '../../models/user.models';
 import { IAuthResponse, ISignUp } from '../../models/auth.models';
-import { APP_SOCCER_SERVER_URL } from 'src/app.constants';
+import { APP_SOCCER_SERVER_URL } from 'src/assets/consts/app.constants';
 
 @Injectable({
   providedIn: 'root',

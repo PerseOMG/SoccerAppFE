@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { APP_SOCCER_JWT_KEY } from '../../app.constants';
+import { APP_SOCCER_JWT_KEY } from '../../assets/consts/app.constants';
 
 @Injectable({
   providedIn: 'root',
