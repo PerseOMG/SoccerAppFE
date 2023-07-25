@@ -65,7 +65,4 @@ inquirer.prompt(questions).then((answers) => {
     `${JSON.stringify(updatedPackageJson, null, 2)}\n`
   );
   console.log("Package.json updated.");
-  console.log(
-    "All files have been written. Devops process will no begin and the library will be published."
-  );
 });
