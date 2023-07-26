@@ -12,6 +12,7 @@ import { TournamentsComponent } from './components/tournaments/tournaments.compo
 import { CreateFormComponent } from './components/forms/create-form/create-form.component';
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
+import { EditComponent } from './components/forms/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: 'create/:model',
     component: CreateFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit/:model/:id',
+    component: EditComponent,
     canActivate: [AuthGuard],
   },
   { path: 'thanksTo', component: CreditsPageComponent },

@@ -63,5 +63,7 @@ export class TeamCardComponent implements OnInit {
     this.teamsFacade.deleteTeam(id);
   }
 
-  onEdit(id: string) {}
+  onEdit(id: string) {
+    this.router.navigate(['edit', 'team', id]);
+  }
 }
