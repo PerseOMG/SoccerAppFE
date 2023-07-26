@@ -1,1 +1,14 @@
-<p>edit works!</p>
+<div class="main-container">
+    <div class="card-container">
+        <h1>Edit {{ model$ | async | titlecase }}</h1>
+        <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
+
+        <form [formGroup]="" class="login-form">
+            <input formControlName="email" [ngStyle]="" class="login-form-input" type="text" placeholder="Email">
+            <input formControlName="password" [ngStyle]="" class=" login-form-input" type="password" placeholder="Password ">
+            <button class="login-form-button " [disabled]="">Login</button>
+        </form>
+
+
+    </div>
+</div>
