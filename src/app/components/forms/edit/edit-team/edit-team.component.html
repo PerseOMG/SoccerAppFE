@@ -1,0 +1,14 @@
+<div class="main-container" *ngIf="editTeamForm">
+    <div class="card-container">
+        <h1>Edit Team</h1>
+        <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
+
+        <form [formGroup]="editTeamForm" class="login-form">
+            <input [formControlName]="'logo'" formControlName="Logo" [ngStyle]="" class="login-form-input" type="text" placeholder="Logo">
+            <input [formControlName]="'name'" [ngStyle]="" class=" login-form-input" type="text" placeholder="Name">
+            <button class="login-form-button " [disabled]="">Login</button>
+        </form>
+
+
+    </div>
+</div>

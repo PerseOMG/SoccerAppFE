@@ -40,7 +40,7 @@ import { reducers } from './state/index';
 import { TeamsEffects } from './state/teams/teams.effects';
 import { AuthEffects } from './state/auth/auth.effects';
 import { TournamentsEffects } from './state/tournaments/tournaments.effects';
-import { EditComponent } from './components/forms/edit/edit.component';
+import { EditTeamComponent } from './components/forms/edit/edit-team/edit-team.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ import { EditComponent } from './components/forms/edit/edit.component';
     PlayoffsComponent,
     CalendarComponent,
     NoDataComponent,
-    EditComponent,
+    EditTeamComponent,
   ],
   imports: [
     NgSelectModule,
