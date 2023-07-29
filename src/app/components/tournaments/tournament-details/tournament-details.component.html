@@ -9,7 +9,7 @@
         </div>
 
         <div class="tournament-card tournament-card__small" *ngIf="(tournamentLastChampion$ | async) as champion" (click)="onClickTeam(champion._id)">
-            <h2 class="tournament-card__small-name">Actual Champion</h2>
+            <h2 class="tournament-card__small-name">Current Champion</h2>
             <img class="tournament-card__small-image" [src]="champion?.logo" [alt]="champion.name">
             <h4 class="tournament-card__small-name">{{champion?.name}}</h4>
         </div>
