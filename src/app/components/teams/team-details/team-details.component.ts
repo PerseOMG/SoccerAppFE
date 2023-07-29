@@ -114,11 +114,7 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    combineLatest([
-      this.gamesChart.changes,
-      this.goalsChart.changes,
-      this.teamStatistics$,
-    ]).subscribe(([games, goals, team]) => {
+    combineLatest([this.teamStatistics$]).subscribe(([team]) => {
       const GAMES = (<HTMLCanvasElement>(
         document.getElementById('totalGamesChart')
       ))?.getContext('2d');
