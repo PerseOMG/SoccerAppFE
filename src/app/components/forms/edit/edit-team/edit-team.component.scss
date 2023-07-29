@@ -67,3 +67,51 @@
     }
   }
 }
+
+.dynamic {
+  &-form {
+    &-input {
+      margin-top: 1rem;
+      border-radius: 20px;
+      height: 25px;
+      border: 1px solid $color-secondary;
+      color: $color-text-secondary;
+      font-family: $regular;
+      padding-left: 10px;
+      font-weight: bolder;
+      width: 100%;
+      text-align: center;
+      background-color: $color-secondary;
+    }
+  }
+}
+
+::ng-deep {
+  .ng-dropdown-panel-items.scroll-host {
+    background-color: $color-secondary;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 25px;
+    background-color: $color-primary;
+    max-height: 20%;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $color-secondary;
+    border-radius: 25px;
+  }
+  .ng-option {
+    padding: 0.5rem;
+  }
+  .ng-option:hover {
+    background-color: $color-primary;
+  }
+  .ng-value {
+    padding-left: 0.5rem;
+  }
+  .ng-placeholder {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,12 +1,16 @@
 <div class="main-container" *ngIf="editTeamForm">
     <div class="card-container">
         <h1>Edit Team</h1>
-        <img class="user-image" src="../../../../assets/icons/person.svg" alt="user-img">
+        <img class="user-image" [src]="editTeamForm.get('logo').value" alt="logo">
 
-        <form [formGroup]="editTeamForm" class="login-form">
+        <form (ngSubmit)="onSubmit()" [formGroup]="editTeamForm" class="login-form">
             <input [formControlName]="'logo'" formControlName="Logo" [ngStyle]="" class="login-form-input" type="text" placeholder="Logo">
             <input [formControlName]="'name'" [ngStyle]="" class=" login-form-input" type="text" placeholder="Name">
-            <button class="login-form-button " [disabled]="">Login</button>
+            <div class="dynamic-form-input">
+                <ng-select class="custom" [formControlName]="'tournaments'" [multiple]="true" bindLabel="name" bindValue="id" [items]="tournamentsOptions$ | async" [placeholder]="getMultipleInputLabel()" dropdownPosition="top" [maxSelectedItems]="5" [hideSelected]="true"
+                    [selectOnTab]="true" [virtualScroll]="true" appendTo="ng-select"></ng-select>
+            </div>
+            <button class="login-form-button " [disabled]="">Save!</button>
         </form>
 
 
