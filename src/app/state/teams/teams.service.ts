@@ -87,10 +87,14 @@ export class TeamsService {
     );
   }
 
-  editTeam(team: Team) {
-    return this.http.patch(`${APP_SOCCER_SERVER_URL}/teams/${team._id}`, team, {
-      headers: this.headers,
-    });
+  editTeam(team: Team): Observable<TeamsResponse> {
+    return this.http.patch<TeamsResponse>(
+      `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
+      team,
+      {
+        headers: this.headers,
+      }
+    );
   }
   constructor(private http: HttpClient) {}
 }

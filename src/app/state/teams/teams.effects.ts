@@ -234,9 +234,9 @@ export class TeamsEffects {
       ofType<FetchEditTeam>(ETeamsActions.FETCH_EDIT_TEAM),
       switchMap((action) => {
         return this.teamsService.editTeam(action.payload).pipe(
-          map(() => {
+          map((response) => {
             this.alertService.fireAlert(TEAMS_ALERTS['editSuccess'], () => {
-              this.router.navigate(['/']);
+              this.router.navigate(['/', 'teams', `${response.data.team._id}`]);
             });
             return new GetTeams();
           }),
