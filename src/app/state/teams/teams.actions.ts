@@ -20,6 +20,9 @@ export enum ETeamsActions {
   UPDATE_TEAMS_STATISTICS = '[APP Soccer] UPDATE_TEAMS_STATISTICS',
   UPDATE_TEAMS_MODEL = '[APP Soccer] UPDATE_TEAMS_MODEL',
   UPDATE_TEAM_STATISTICS_DB = '[APP Soccer] UPDATE_TEAM_STATISTICS_DB',
+  FETCH_EDIT_TEAM = '[APP Soccer] FETCH_EDIT_TEAM',
+  FETCH_EDIT_TEAM_SUCCESS = '[APP Soccer] FETCH_EDIT_TEAM_SUCCESS',
+  FETCH_EDIT_TEAM_FAILURE = '[APP Soccer] FETCH_EDIT_TEAM_FAILURE',
 }
 
 export class GetTeams implements Action {
@@ -88,6 +91,19 @@ export class UpdateTeamsStatisticsDB implements Action {
   constructor(public payload: ITeamStatistics) {}
 }
 
+export class FetchEditTeam implements Action {
+  public readonly type = ETeamsActions.FETCH_EDIT_TEAM;
+  constructor(public payload: Team) {}
+}
+
+export class FetchEditTeamsSuccess implements Action {
+  public readonly type = ETeamsActions.FETCH_EDIT_TEAM_SUCCESS;
+}
+
+export class FetchEditTeamsFailure implements Action {
+  public readonly type = ETeamsActions.FETCH_EDIT_TEAM_FAILURE;
+}
+
 export class NoAction implements Action {
   public readonly type = ETeamsActions.NO_ACTION;
 }
@@ -105,4 +121,7 @@ export type teamsActions =
   | GetTeamsStatisticsFailure
   | UpdateTeamsStatistics
   | UpdateTeamModel
-  | NoAction;
+  | NoAction
+  | FetchEditTeam
+  | FetchEditTeamsSuccess
+  | FetchEditTeamsFailure;

@@ -86,5 +86,11 @@ export class TeamsService {
       }
     );
   }
+
+  editTeam(team: Team) {
+    return this.http.patch(`${APP_SOCCER_SERVER_URL}/teams/${team._id}`, team, {
+      headers: this.headers,
+    });
+  }
   constructor(private http: HttpClient) {}
 }

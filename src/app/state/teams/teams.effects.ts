@@ -24,6 +24,7 @@ import { TeamsService } from './teams.service';
 import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Team, TotalChampionshipsData } from '../../models/team.models';
+import { FetchEditTeam } from './teams.actions';
 
 @Injectable()
 export class TeamsEffects {
@@ -205,13 +206,39 @@ export class TeamsEffects {
     )
   );
 
-  updateTeamsStatisticsDB = createEffect(() =>
+  updateTeamsStatisticsDB$ = createEffect(() =>
     this.actions$.pipe(
       ofType<UpdateTeamsStatisticsDB>(ETeamsActions.UPDATE_TEAM_STATISTICS_DB),
       switchMap((action) => {
         return this.teamsService.updateTeamStatistics(action.payload).pipe(
           map(() => {
             return new NoAction();
+          }),
+          catchError((error: any) => {
+            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            return of(
+              new CreateTeamFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
+              })
+            );
+          })
+        );
+      })
+    )
+  );
+
+  editTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<FetchEditTeam>(ETeamsActions.FETCH_EDIT_TEAM),
+      switchMap((action) => {
+        return this.teamsService.editTeam(action.payload).pipe(
+          map(() => {
+            this.alertService.fireAlert(TEAMS_ALERTS['editSuccess'], () => {
+              this.router.navigate(['/']);
+            });
+            return new GetTeams();
           }),
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);

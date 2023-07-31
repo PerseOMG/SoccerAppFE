@@ -58,5 +58,9 @@ export class TeamsFacade {
     this.store.dispatch(new teamsActions.UpdateTeamsStatisticsDB(teamsData));
   };
 
+  editTeam = (team: Team, _id: string) => {
+    this.store.dispatch(new teamsActions.FetchEditTeam({ ...team, _id }));
+  };
+
   constructor(private store: Store<AppState>) {}
 }

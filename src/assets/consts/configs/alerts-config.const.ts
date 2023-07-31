@@ -33,6 +33,11 @@ export const TEAMS_ALERTS: { [key: string]: IAlert } = {
     title: 'Team created successfully.',
     ...ALERT_STYLES,
   },
+  editSuccess: {
+    icon: 'success',
+    title: 'Team updated successfully.',
+    ...ALERT_STYLES,
+  },
   error: {
     icon: 'error',
     title: 'An error Ocurred',

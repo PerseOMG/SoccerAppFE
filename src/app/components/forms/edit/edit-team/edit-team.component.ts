@@ -55,7 +55,9 @@ export class EditTeamComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.editTeamForm.value);
+    this.id$.subscribe((id) => {
+      this.teamsFacade.editTeam(this.editTeamForm.value, id);
+    });
   }
 
   getMultipleInputLabel() {
