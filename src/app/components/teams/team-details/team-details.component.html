@@ -41,21 +41,21 @@
                         <h2> Averages </h2>
 
                         <!-- Average -->
-                        <h3>Goals Scored Average: {{statistics[0]?.teamHistoricalData?.goalsAverage?.toFixed(2) ?? 'NA' }}</h3>
-                        <h3>Goals Against Average: {{statistics[0]?.teamHistoricalData?.goalsAgainstAverage?.toFixed(2) ?? 'NA' }}</h3>
-                        <h3>Won Games Average: {{statistics[0]?.teamHistoricalData?.wonGamesAverage?.toFixed(2) ?? 'NA' }}</h3>
-                        <h3>Lost Games Average: {{statistics[0]?.teamHistoricalData?.LostGamesAverage?.toFixed(2) ?? 'NA' }}</h3>
-                        <h3>Win-Lose Ratio: {{statistics[0]?.teamHistoricalData?.wonLostRatio ?? 'NA' }}</h3>
+                        <h3>Goals Scored Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.goalsAverage, 1, 'green')">{{statistics[0]?.teamHistoricalData?.goalsAverage?.toFixed(2) ?? 'NA' }}</span></h3>
+                        <h3>Goals Against Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.goalsAgainstAverage, 1, 'green')">{{statistics[0]?.teamHistoricalData?.goalsAgainstAverage?.toFixed(2) ?? 'NA' }}</span></h3>
+                        <h3>Won Games Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.wonGamesAverage, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.wonGamesAverage?.toFixed(2) ?? 'NA' }}</span></h3>
+                        <h3>Lost Games Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.LostGamesAverage, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.LostGamesAverage?.toFixed(2) ?? 'NA' }}</span></h3>
+                        <h3>Win-Lose Ratio: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.wonLostRatio, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.wonLostRatio ?? 'NA' }}</span></h3>
 
                     </div>
                     <div>
                         <h2> Streaks </h2>
 
                         <!-- Streaks -->
-                        <h3>Actual Winning Streak: {{statistics[0]?.teamHistoricalData?.actualWinningStreak ?? 'NA' }}</h3>
-                        <h3>Best Winning Streak: {{statistics[0]?.teamHistoricalData?.bestWinningStreak ?? 'NA' }}</h3>
-                        <h3>Actual Losing Streak: {{statistics[0]?.teamHistoricalData?.actualLostStreak ?? 'NA' }}</h3>
-                        <h3>Best Losing Streak: {{statistics[0]?.teamHistoricalData?.bestLostStreak ?? 'NA' }}</h3>
+                        <h3>Actual Winning Streak: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.actualWinningStreak, 0, 'green')">{{statistics[0]?.teamHistoricalData?.actualWinningStreak ?? 'NA' }}</span></h3>
+                        <h3>Best Winning Streak: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.bestWinningStreak, 0, 'green')">{{statistics[0]?.teamHistoricalData?.bestWinningStreak ?? 'NA' }}</span></h3>
+                        <h3>Actual Losing Streak: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.actualLostStreak, 0, 'red')">{{statistics[0]?.teamHistoricalData?.actualLostStreak ?? 'NA' }}</span></h3>
+                        <h3>Best Losing Streak: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.bestLostStreak, 0, 'red')">{{statistics[0]?.teamHistoricalData?.bestLostStreak ?? 'NA' }}</span></h3>
                     </div>
 
                 </div>

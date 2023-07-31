@@ -173,6 +173,16 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     return Array.from({ length: stars });
   }
 
+  getStreaksAverageStyles(
+    value: number,
+    parameter: number,
+    colorPrimary: 'green' | 'red'
+  ) {
+    return value > parameter
+      ? { color: colorPrimary }
+      : { color: colorPrimary === 'green' ? 'red' : 'green' };
+  }
+
   ngOnDestroy() {
     this.onDestroy$.next('');
     this.onDestroy$.complete();
