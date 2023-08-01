@@ -17,12 +17,12 @@ import {
   GetTeamsStatisticsSuccess,
   SetFavoriteTeam,
   DeleteTeam,
+  FetchEditTeam,
 } from './teams.actions';
 import { TeamsService } from './teams.service';
 import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { TEAMS_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Team, TotalChampionshipsData } from '../../models/team.models';
-import { FetchEditTeam } from './teams.actions';
 
 @Injectable()
 export class TeamsEffects {
