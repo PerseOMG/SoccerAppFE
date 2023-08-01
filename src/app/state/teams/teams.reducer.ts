@@ -32,17 +32,11 @@ export function teamsReducer(
         status: 'success',
         error: undefined,
       };
-    case ETeamsActions.GET_TEAMS_FAILURE:
+    case ETeamsActions.TEAMS_FAILURE:
       return {
         ...state,
         status: 'error',
-        error: { ...action.payload, message: 'Error while getting the teams.' },
-      };
-    case ETeamsActions.CREATE_TEAM_FAILURE:
-      return {
-        ...state,
-        status: 'error',
-        error: { ...action.payload, message: 'Error while create the team.' },
+        error: action.payload,
       };
     case ETeamsActions.GET_TEAMS_STATISTICS_SUCCESS:
       return {
@@ -61,15 +55,6 @@ export function teamsReducer(
         teamsStatistics: newTeamsStatistics,
       };
     }
-    case ETeamsActions.GET_TEAMS_STATISTICS_FAILURE:
-      return {
-        ...state,
-        status: 'error',
-        error: {
-          ...action.payload,
-          message: 'Error while getting team´s statistics.',
-        },
-      };
     default:
       return state;
   }

@@ -8,15 +8,13 @@ import {
   CreateTeam,
   ETeamsActions,
   GetTeams,
-  GetTeamsFailure,
+  TeamsFailure,
   GetTeamsSuccess,
   NoAction,
   UpdateTeamModel,
   UpdateTeamsStatisticsDB,
   GetTeamsStatistics,
   GetTeamsStatisticsSuccess,
-  GetTeamsStatisticsFailure,
-  CreateTeamFailure,
   SetFavoriteTeam,
   DeleteTeam,
 } from './teams.actions';
@@ -45,7 +43,7 @@ export class TeamsEffects {
           }),
           catchError((error: any) => {
             return of(
-              new GetTeamsFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -67,7 +65,7 @@ export class TeamsEffects {
           }),
           catchError((error: any) => {
             return of(
-              new GetTeamsStatisticsFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -92,7 +90,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -117,7 +115,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -142,7 +140,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -194,7 +192,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -217,7 +215,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -243,7 +241,7 @@ export class TeamsEffects {
           catchError((error: any) => {
             this.alertService.fireAlert(TEAMS_ALERTS['error']);
             return of(
-              new CreateTeamFailure({
+              new TeamsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
