@@ -16,7 +16,6 @@ export class TournamentsCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  handleTournamentSelection(tournament) {}
   onEdit(id: string) {}
   onDelete(id: string) {}
 
