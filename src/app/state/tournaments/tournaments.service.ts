@@ -57,4 +57,13 @@ export class TournamentsService {
       }
     );
   }
+
+  deleteTournament(tournamentId: string) {
+    return this.http.delete(
+      `${APP_SOCCER_SERVER_URL}/tournaments/${tournamentId}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 }

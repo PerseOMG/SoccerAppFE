@@ -38,7 +38,7 @@ export function tournamentsReducer(
         status: 'success',
         error: undefined,
       };
-    case ETournamentsActions.GET_TOURNAMENTS_FAILURE:
+    case ETournamentsActions.TOURNAMENTS_FAILURE:
       return {
         ...state,
         status: 'error',

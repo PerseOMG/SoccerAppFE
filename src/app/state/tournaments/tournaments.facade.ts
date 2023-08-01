@@ -61,5 +61,8 @@ export class TournamentsFacade {
       new tournamentsActions.GetTournamentStatistics(tournamentId)
     );
 
+  deleteTournament = (tournamentId: string) =>
+    this.store.dispatch(new tournamentsActions.DeleteTournament(tournamentId));
+
   constructor(private store: Store<AppState>) {}
 }

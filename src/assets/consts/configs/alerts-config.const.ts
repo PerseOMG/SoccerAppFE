@@ -20,6 +20,11 @@ export const TOURNAMENT_ALERTS: { [key: string]: IAlert } = {
     title: 'Tournament created successfully.',
     ...ALERT_STYLES,
   },
+  editSuccess: {
+    icon: 'success',
+    title: 'Tournament updated successfully.',
+    ...ALERT_STYLES,
+  },
   error: {
     icon: 'error',
     title: 'An error Ocurred',

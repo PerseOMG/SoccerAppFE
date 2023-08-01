@@ -3,14 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   ETournamentsActions,
   GetTournaments,
-  GetTournamentsFailure,
   GetTournamentsSuccess,
   CreateTournament,
-  UpdateTournamentEdition,
   SaveTournamentData,
   SaveTournamentDataSuccess,
   GetTournamentStatistics,
   GetTournamentStatisticsSuccess,
+  DeleteTournament,
+  TournamentsFailure,
 } from './tournaments.actions';
 import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -47,7 +47,7 @@ export class TournamentsEffects {
             });
 
             return of(
-              new GetTournamentsFailure({
+              new TournamentsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.message,
@@ -69,7 +69,7 @@ export class TournamentsEffects {
           }),
           catchError((error: any) => {
             return of(
-              new GetTournamentsFailure({
+              new TournamentsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.error.message,
@@ -94,7 +94,7 @@ export class TournamentsEffects {
           }),
           catchError((error: any) => {
             return of(
-              new GetTournamentsFailure({
+              new TournamentsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.error.message,
@@ -118,10 +118,39 @@ export class TournamentsEffects {
           }),
           catchError((error: any) => {
             return of(
-              new GetTournamentsFailure({
+              new TournamentsFailure({
                 code: error.status,
                 status: error.type,
                 message: error.error.message,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  deleteTournament = createEffect(() =>
+    this.actions$.pipe(
+      ofType<DeleteTournament>(ETournamentsActions.DELETE_TOURNAMENT),
+      switchMap((action) =>
+        this.tournamentsService.deleteTournament(action.payload).pipe(
+          map(() => {
+            this.alertService.fireAlert(
+              TOURNAMENT_ALERTS['editSuccess'],
+              () => {
+                this.router.navigate(['/']);
+              }
+            );
+            return new GetTournaments();
+          }),
+          catchError((error) => {
+            this.alertService.fireAlert(TOURNAMENT_ALERTS['error']);
+            return of(
+              new TournamentsFailure({
+                code: error.status,
+                status: error.type,
+                message: error.message,
               })
             );
           })

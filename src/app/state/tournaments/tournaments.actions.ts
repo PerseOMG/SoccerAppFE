@@ -9,7 +9,7 @@ import {
 export enum ETournamentsActions {
   GET_TOURNAMENTS = '[APP Soccer] GET_TOURNAMENTS',
   GET_TOURNAMENTS_SUCCESS = '[APP Soccer] GET_TOURNAMENTS_SUCCESS',
-  GET_TOURNAMENTS_FAILURE = '[APP Soccer] GET_TOURNAMENTS_FAILURE',
+  TOURNAMENTS_FAILURE = '[APP Soccer] GET_TOURNAMENTS_FAILURE',
   IS_TOURNAMENT_SELECTED = '[APP Soccer] IS_TOURNAMENT_SELECTED',
   TOURNAMENT_SELECTED = '[APP Soccer] TOURNAMENT_SELECTED',
   CREATE_TOURNAMENT = '[APP Soccer] CREATE_TOURNAMENT',
@@ -20,6 +20,7 @@ export enum ETournamentsActions {
   SAVE_TOURNAMENT_DATA_SUCCESS = '[APP Soccer] SAVE_TOURNAMENT_DATA_SUCCESS',
   GET_TOURNAMENTS_STATISTICS = '[APP Soccer] GET_TOURNAMENTS_STATISTICS',
   GET_TOURNAMENTS_STATISTICS_SUCCESS = '[APP Soccer] GET_TOURNAMENTS_SUCCESS_STATISTICS',
+  DELETE_TOURNAMENT = '[APP Soccer] DELETE_TOURNAMENT',
 }
 
 export class GetTournaments implements Action {
@@ -31,8 +32,8 @@ export class GetTournamentsSuccess implements Action {
   constructor(public payload: ITournament[]) {}
 }
 
-export class GetTournamentsFailure implements Action {
-  public readonly type = ETournamentsActions.GET_TOURNAMENTS_FAILURE;
+export class TournamentsFailure implements Action {
+  public readonly type = ETournamentsActions.TOURNAMENTS_FAILURE;
   constructor(public payload: IAppError) {}
 }
 
@@ -84,9 +85,14 @@ export class GetTournamentStatisticsSuccess implements Action {
   constructor(public payload: ITournamentStatistics) {}
 }
 
+export class DeleteTournament implements Action {
+  public readonly type = ETournamentsActions.DELETE_TOURNAMENT;
+  constructor(public payload: string) {}
+}
+
 export type tournamentsActions =
   | GetTournaments
-  | GetTournamentsFailure
+  | TournamentsFailure
   | GetTournamentsSuccess
   | IsTournamentSelected
   | SetTournamentSelected
@@ -96,4 +102,5 @@ export type tournamentsActions =
   | SaveTournamentData
   | SaveTournamentDataSuccess
   | GetTournamentStatisticsSuccess
-  | GetTournamentStatistics;
+  | GetTournamentStatistics
+  | DeleteTournament;

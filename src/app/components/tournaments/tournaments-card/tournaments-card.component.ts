@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ITournamentCardData } from '../../../models/tournament.model';
 import { Router } from '@angular/router';
+import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 
 @Component({
   selector: 'app-tournaments-card',
@@ -12,12 +13,18 @@ export class TournamentsCardComponent implements OnInit {
   @Input() options!: { showActionButtons: boolean };
   openMenu = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tournamentsFacade: TournamentsFacade
+  ) {}
 
   ngOnInit(): void {}
 
   onEdit(id: string) {}
-  onDelete(id: string) {}
+
+  onDelete(id: string) {
+    this.tournamentsFacade.deleteTournament(id);
+  }
 
   onSelect(id: string) {
     this.router.navigate(['/tournamentDetails', id]);
