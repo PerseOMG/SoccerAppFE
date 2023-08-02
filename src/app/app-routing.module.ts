@@ -13,6 +13,7 @@ import { CreateFormComponent } from './components/forms/create-form/create-form.
 import { TournamentDetailsComponent } from './components/tournaments/tournament-details/tournament-details.component';
 import { PlayTournamentDashboardComponent } from './components/play-tournament-dashboard/play-tournament-dashboard.component';
 import { EditTeamComponent } from './components/forms/edit/edit-team/edit-team.component';
+import { EditTournamentComponent } from './components/forms/edit/edit-tournament/edit-tournament.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,11 @@ const routes: Routes = [
   {
     path: 'edit/team/:id',
     component: EditTeamComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit/tournament/:id',
+    component: EditTournamentComponent,
     canActivate: [AuthGuard],
   },
   { path: 'thanksTo', component: CreditsPageComponent },
