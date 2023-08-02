@@ -41,6 +41,7 @@ import { TeamsEffects } from './state/teams/teams.effects';
 import { AuthEffects } from './state/auth/auth.effects';
 import { TournamentsEffects } from './state/tournaments/tournaments.effects';
 import { EditTeamComponent } from './components/forms/edit/edit-team/edit-team.component';
+import { EditTournamentComponent } from './components/forms/edit/edit-tournament/edit-tournament.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { EditTeamComponent } from './components/forms/edit/edit-team/edit-team.c
     CalendarComponent,
     NoDataComponent,
     EditTeamComponent,
+    EditTournamentComponent,
   ],
   imports: [
     NgSelectModule,
