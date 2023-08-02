@@ -60,6 +60,11 @@ export const TEAMS_ALERTS: { [key: string]: IAlert } = {
     timer: 1500,
     ...ALERT_STYLES,
   },
+  notFound: {
+    icon: 'error',
+    title: 'No team found.',
+    ...ALERT_STYLES,
+  },
 };
 
 export const FORM_ALERTS: { [key: string]: IAlert } = {
