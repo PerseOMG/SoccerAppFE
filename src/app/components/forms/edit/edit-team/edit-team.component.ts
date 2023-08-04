@@ -38,7 +38,9 @@ export class EditTeamComponent implements OnInit {
     private tournamentsFacade: TournamentsFacade,
     private router: Router,
     private alertService: SweetAlertsService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.titleService.setDocTitle(`Edit Team`);
     this.teamValues$.subscribe((team) => {
       if (!team) {
@@ -60,8 +62,6 @@ export class EditTeamComponent implements OnInit {
       });
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.id$.subscribe((id) => {
