@@ -30,6 +30,11 @@ export const TOURNAMENT_ALERTS: { [key: string]: IAlert } = {
     title: 'An error Ocurred',
     ...ALERT_STYLES,
   },
+  notFound: {
+    icon: 'error',
+    title: 'No tournament found.',
+    ...ALERT_STYLES,
+  },
 };
 
 export const TEAMS_ALERTS: { [key: string]: IAlert } = {
