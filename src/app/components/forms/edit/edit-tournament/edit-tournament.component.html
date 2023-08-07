@@ -4,8 +4,18 @@
         <img class="user-image" [src]="editTournamentForm.get('logo').value" alt="logo">
 
         <form (ngSubmit)="onSubmit()" [formGroup]="editTournamentForm" class="login-form">
-            <input [formControlName]="'logo'" formControlName="Logo" [ngStyle]="" class="login-form-input" type="text" placeholder="Logo">
+            <input [formControlName]="'logo'" [ngStyle]="" class="login-form-input" type="text" placeholder="Logo">
             <input [formControlName]="'name'" [ngStyle]="" class=" login-form-input" type="text" placeholder="Name">
+            <ng-container formGroupName="options">
+                <div class="dynamic-form-input">
+                    <ng-select formControlName="winnerDefinition" [multiple]="true" [items]="winnerDefinitionOptions" [placeholder]="getWinnerDefinitionOptionsLabel()" dropdownPosition="top" [maxSelectedItems]="1" [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true"
+                        appendTo="ng-select"></ng-select>
+                </div>
+                <div class="dynamic-form-input">
+                    <ng-select formControlName="playoffsQuantity" [multiple]="true" [items]="playoffQuantityOptions" [placeholder]="getPlayoffsQuantityOptionsLabel()" dropdownPosition="top" [maxSelectedItems]="1" [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true"
+                        appendTo="ng-select"></ng-select>
+                </div>
+            </ng-container>
             <div class="dynamic-form-input">
                 <ng-select [formControlName]="'teams'" [multiple]="true" bindLabel="name" bindValue="id" [items]="teamsOptions$ | async" [placeholder]="getMultipleInputLabel()" dropdownPosition="top" [maxSelectedItems]="20" [hideSelected]="true" [selectOnTab]="true"
                     [virtualScroll]="true" appendTo="ng-select"></ng-select>

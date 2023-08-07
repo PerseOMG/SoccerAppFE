@@ -1,3 +1,10 @@
+export const TOURNAMENTS_DEFINITION_OPTIONS = [
+  'playoffs',
+  // 'points'
+];
+
+export const TOURNAMENTS_QUANTITY_OPTIONS = [2, 4, 8];
+
 export const FORMS_CONFIG = {
   team: [
     {
@@ -57,10 +64,7 @@ export const FORMS_CONFIG = {
       validators: ['required'],
       errorMessage: 'This field is required, please select only 1 option.',
       maxSelected: 1,
-      options: [
-        'playoffs',
-        // 'points'
-      ],
+      options: TOURNAMENTS_DEFINITION_OPTIONS,
       changes: 'playoffsQuantity',
     },
     {
@@ -70,7 +74,7 @@ export const FORMS_CONFIG = {
       validators: ['required'],
       errorMessage: 'This field is required.',
       maxSelected: 1,
-      options: [2, 4, 8],
+      options: TOURNAMENTS_QUANTITY_OPTIONS,
       isDependable: true,
       dependsOn: 'winnerDefinition',
       dependsOnValue: 'playoffs',
