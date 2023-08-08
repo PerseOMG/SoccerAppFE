@@ -21,6 +21,7 @@ export enum ETournamentsActions {
   GET_TOURNAMENTS_STATISTICS = '[APP Soccer] GET_TOURNAMENTS_STATISTICS',
   GET_TOURNAMENTS_STATISTICS_SUCCESS = '[APP Soccer] GET_TOURNAMENTS_SUCCESS_STATISTICS',
   DELETE_TOURNAMENT = '[APP Soccer] DELETE_TOURNAMENT',
+  EDIT_TOURNAMENT = '[APP Soccer] EDIT TOURNAMENT',
 }
 
 export class GetTournaments implements Action {
@@ -90,6 +91,13 @@ export class DeleteTournament implements Action {
   constructor(public payload: string) {}
 }
 
+export class EditTournament implements Action {
+  public readonly type = ETournamentsActions.EDIT_TOURNAMENT;
+  constructor(
+    public payload: { tournament: ITournament; tournamentId: string }
+  ) {}
+}
+
 export type tournamentsActions =
   | GetTournaments
   | TournamentsFailure
@@ -103,4 +111,5 @@ export type tournamentsActions =
   | SaveTournamentDataSuccess
   | GetTournamentStatisticsSuccess
   | GetTournamentStatistics
-  | DeleteTournament;
+  | DeleteTournament
+  | EditTournament;

@@ -5,8 +5,12 @@ import { combineLatest, map, switchMap } from 'rxjs';
 import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
-import { TOURNAMENT_ALERTS } from '../../../../../assets/consts/configs/alerts-config.const';
+import {
+  FORM_ALERTS,
+  TOURNAMENT_ALERTS,
+} from '../../../../../assets/consts/configs/alerts-config.const';
 import { TeamsFacade } from '../../../../state/teams/teams.facade';
+import { ITournament } from '../../../../models/tournament.model';
 import {
   TOURNAMENTS_DEFINITION_OPTIONS,
   TOURNAMENTS_QUANTITY_OPTIONS,
@@ -79,6 +83,32 @@ export class EditTournamentComponent implements OnInit {
 
   onSubmit() {
     console.log(this.editTournamentForm.value);
+
+    if (
+      this.editTournamentForm.get('teams').value.length >=
+        Number(this.editTournamentForm.get('options.playoffsQuantity').value) +
+          1 ||
+      this.editTournamentForm.get('options.winnerDefinition').value === 'points'
+    ) {
+      const tournament: ITournament = {
+        options: {
+          winnerDefinition: this.editTournamentForm.get(
+            'options.winnerDefinition'
+          ).value[0],
+          playoffsQuantity: this.editTournamentForm.get(
+            'options.playoffsQuantity'
+          )?.value[0],
+        },
+        name: this.editTournamentForm.get('name').value,
+        teams: this.editTournamentForm.get('teams').value,
+        logo: this.editTournamentForm.get('logo').value,
+      };
+      this.id$.subscribe((id) =>
+        this.tournamentsFacade.editTournament(tournament, id)
+      );
+    } else {
+      this.alertService.fireAlert(FORM_ALERTS['teamsAmountError']);
+    }
   }
 
   getMultipleInputLabel() {

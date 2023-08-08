@@ -11,6 +11,7 @@ import {
   GetTournamentStatisticsSuccess,
   DeleteTournament,
   TournamentsFailure,
+  EditTournament,
 } from './tournaments.actions';
 import { TournamentsService } from './tournaments.service';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -19,6 +20,7 @@ import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { TOURNAMENT_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Router } from '@angular/router';
 import { TournamentsFacade } from './tournaments.facade';
+import { GetTeams } from '../teams/teams.actions';
 
 @Injectable()
 export class TournamentsEffects {
@@ -155,6 +157,40 @@ export class TournamentsEffects {
             );
           })
         )
+      )
+    )
+  );
+
+  editTournament = createEffect(() =>
+    this.actions$.pipe(
+      ofType<EditTournament>(ETournamentsActions.EDIT_TOURNAMENT),
+      switchMap((action) =>
+        this.tournamentsService
+          .editTournament(
+            action.payload.tournament,
+            action.payload.tournamentId
+          )
+          .pipe(
+            map(() => {
+              this.alertService.fireAlert(
+                TOURNAMENT_ALERTS['editSuccess'],
+                () => {
+                  this.router.navigate(['/']);
+                }
+              );
+              return new GetTournaments();
+            }),
+            catchError((error) => {
+              this.alertService.fireAlert(TOURNAMENT_ALERTS['error']);
+              return of(
+                new TournamentsFailure({
+                  code: error.status,
+                  status: error.type,
+                  message: error.message,
+                })
+              );
+            })
+          )
       )
     )
   );

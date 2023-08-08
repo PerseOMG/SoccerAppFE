@@ -64,5 +64,10 @@ export class TournamentsFacade {
   deleteTournament = (tournamentId: string) =>
     this.store.dispatch(new tournamentsActions.DeleteTournament(tournamentId));
 
+  editTournament = (tournament: ITournament, tournamentId: string) =>
+    this.store.dispatch(
+      new tournamentsActions.EditTournament({ tournament, tournamentId })
+    );
+
   constructor(private store: Store<AppState>) {}
 }

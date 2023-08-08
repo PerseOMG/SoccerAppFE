@@ -66,4 +66,14 @@ export class TournamentsService {
       }
     );
   }
+
+  editTournament(tournament: ITournament, tournamentId: string) {
+    return this.http.patch(
+      `${APP_SOCCER_SERVER_URL}/tournaments/${tournamentId}`,
+      tournament,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 }
