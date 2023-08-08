@@ -82,8 +82,6 @@ export class EditTournamentComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editTournamentForm.value);
-
     if (
       this.editTournamentForm.get('teams').value.length >=
         Number(this.editTournamentForm.get('options.playoffsQuantity').value) +
