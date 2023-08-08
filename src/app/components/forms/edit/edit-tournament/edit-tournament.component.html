@@ -17,8 +17,8 @@
                 </div>
             </ng-container>
             <div class="dynamic-form-input">
-                <ng-select [formControlName]="'teams'" [multiple]="true" bindLabel="name" bindValue="id" [items]="teamsOptions$ | async" [placeholder]="getMultipleInputLabel()" dropdownPosition="top" [maxSelectedItems]="20" [hideSelected]="true" [selectOnTab]="true"
-                    [virtualScroll]="true" appendTo="ng-select"></ng-select>
+                <ng-select formControlName="teams" [multiple]="true" bindLabel="name" bindValue="id" [items]="teamsOptions$ | async" [placeholder]="getMultipleInputLabel()" dropdownPosition="top" [maxSelectedItems]="20" [hideSelected]="true" [selectOnTab]="true" [virtualScroll]="true"
+                    appendTo="ng-select"></ng-select>
             </div>
             <button class="login-form-button " [disabled]="">Save!</button>
         </form>

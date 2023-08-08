@@ -65,11 +65,11 @@ export class EditTournamentComponent implements OnInit {
         ),
         options: new FormGroup({
           winnerDefinition: new FormControl(
-            tournament?.options?.winnerDefinition,
+            [tournament?.options?.winnerDefinition],
             Validators.required
           ),
           playoffsQuantity: new FormControl(
-            tournament?.options?.playoffsQuantity,
+            [tournament?.options?.playoffsQuantity],
             Validators.required
           ),
         }),
