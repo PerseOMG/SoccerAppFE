@@ -39,33 +39,27 @@ export class PlayoffsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.PlayoffsCalendar$ = combineLatest([this.PlayoffsTeams$]).pipe(
-      map(([teams]) => {
+    this.PlayoffsCalendar$ = this.PlayoffsTeams$.pipe(
+      map((teams) => {
         const calendar = [];
-        const matches = [];
-        for (let i = 0; i < teams.length / 2; i++) {
-          matches.push({
-            local: teams[i],
-            visit: teams[teams.length - i - 1],
-            localScore: 0,
-            visitScore: 0,
-          });
-        }
-        calendar.push(matches);
-        let idx = 2;
-        while (teams.length / idx !== 1) {
-          idx = idx * 2;
+        const numTeams = teams.length;
+
+        for (let idx = numTeams; idx >= 2; idx /= 2) {
           const matches = [];
-          for (let i = 0; i < teams.length / idx; i++) {
+          for (let i = 0; i < numTeams / idx; i++) {
             matches.push({
-              local: { team: { name: 'NA' } },
-              visit: { team: { name: 'NA' } },
+              local: idx === numTeams ? teams[i] : { team: { name: 'NA' } },
+              visit:
+                idx === numTeams
+                  ? teams[numTeams - i - 1]
+                  : { team: { name: 'NA' } },
               localScore: 0,
               visitScore: 0,
             });
           }
           calendar.push(matches);
         }
+
         return calendar;
       })
     );
