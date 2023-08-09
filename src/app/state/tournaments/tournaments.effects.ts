@@ -20,7 +20,7 @@ import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { TOURNAMENT_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
 import { Router } from '@angular/router';
 import { TournamentsFacade } from './tournaments.facade';
-import { GetTeams } from '../teams/teams.actions';
+import { TeamsFacade } from '../teams/teams.facade';
 
 @Injectable()
 export class TournamentsEffects {
@@ -28,6 +28,7 @@ export class TournamentsEffects {
     private actions$: Actions,
     private tournamentsService: TournamentsService,
     private tournamentsFacade: TournamentsFacade,
+    private teamsFacade: TeamsFacade,
     private alertService: SweetAlertsService,
     private router: Router
   ) {}
@@ -178,6 +179,7 @@ export class TournamentsEffects {
                   this.router.navigate(['/']);
                 }
               );
+              this.teamsFacade.fetchAllTeams();
               return new GetTournaments();
             }),
             catchError((error) => {
