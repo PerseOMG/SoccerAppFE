@@ -53,11 +53,9 @@ export class PlayTournamentDashboardComponent
   ]).pipe(
     take(1),
     map(([tournamentData, totalTeams]) => {
-      const teams = tournamentData.teams.map((team) => team);
-      const calendar = createCalendar(
-        teams.sort(() => Math.random() - 0.5),
-        totalTeams
-      );
+      const teams = [...tournamentData.teams];
+      const shuffledTeams = teams.sort(() => Math.random() - 0.5);
+      const calendar = createCalendar(shuffledTeams, totalTeams);
       return calendar;
     })
   );
@@ -98,11 +96,7 @@ export class PlayTournamentDashboardComponent
 
   ngAfterViewInit(): void {
     this.tournament$.pipe(skip(1), take(1)).subscribe((tournament) => {
-      let teamsIds = '';
-      tournament.teams.forEach(
-        (team) =>
-          (teamsIds = teamsIds !== '' ? teamsIds + ',' + team._id : team._id)
-      );
+      const teamsIds = tournament.teams.map((team) => team._id).join(',');
       this.teamsFacade.getTeamStatistics(teamsIds);
     });
   }
