@@ -14,6 +14,73 @@ export const createTeamStatisticsObj = (
   },
   isFinal?: boolean
 ) => {
+  const {
+    totalGoalsScored,
+    totalGoalsAgainst,
+    totalGamesPlayed,
+    totalGamesWon,
+    totalGamesLost,
+    actualWinningStreak,
+    bestWinningStreak,
+    actualLostStreak,
+    bestLostStreak,
+    totalTiedGames,
+  } = actualHistoricalData;
+
+  const goalsScored = data.goalsScored;
+  const goalsAgainst = data.goalsAgainst;
+
+  const winningGame = goalsScored > goalsAgainst;
+  const losingGame = goalsScored < goalsAgainst;
+
+  const {
+    totalGoalsScored: newTotalGoalsScored,
+    totalGoalsAgainst: newTotalGoalsAgainst,
+    totalGamesPlayed: newTotalGamesPlayed,
+    totalGamesWon: newTotalGamesWon,
+    totalGamesLost: newTotalGamesLost,
+    actualWinningStreak: newActualWinningStreak,
+    bestWinningStreak: newBestWinningStreak,
+    actualLostStreak: newActualLostStreak,
+    bestLostStreak: newBestLostStreak,
+  } = {
+    totalGoalsScored: totalGoalsScored + goalsScored,
+    totalGoalsAgainst: totalGoalsAgainst + goalsAgainst,
+    totalGamesPlayed: totalGamesPlayed + 1,
+    totalGamesWon: totalGamesWon + (winningGame ? 1 : 0),
+    totalGamesLost: totalGamesLost + (losingGame ? 1 : 0),
+    actualWinningStreak: winningGame ? actualWinningStreak + 1 : 0,
+    bestWinningStreak:
+      winningGame && actualWinningStreak > bestWinningStreak
+        ? actualWinningStreak
+        : bestWinningStreak,
+    actualLostStreak: losingGame ? actualLostStreak + 1 : 0,
+    bestLostStreak:
+      losingGame && actualLostStreak > bestLostStreak
+        ? actualLostStreak
+        : bestLostStreak,
+  };
+
+  const gamesPlayedRatio = newTotalGamesPlayed + 1;
+
+  const teamHistoricalData = {
+    totalGoalsScored: newTotalGoalsScored,
+    totalGoalsAgainst: newTotalGoalsAgainst,
+    totalGamesPlayed: newTotalGamesPlayed,
+    totalGamesWon: newTotalGamesWon,
+    totalGamesLost: newTotalGamesLost,
+    actualWinningStreak: newActualWinningStreak,
+    bestWinningStreak: newBestWinningStreak,
+    actualLostStreak: newActualLostStreak,
+    bestLostStreak: newBestLostStreak,
+    totalTiedGames: totalTiedGames + (goalsScored === goalsAgainst ? 1 : 0),
+    goalsAverage: newTotalGoalsScored / gamesPlayedRatio,
+    goalsAgainstAverage: newTotalGoalsAgainst / gamesPlayedRatio,
+    wonGamesAverage: newTotalGamesWon / gamesPlayedRatio,
+    lostGamesAverage: newTotalGamesLost / gamesPlayedRatio,
+    wonLostRatio: newTotalGamesWon / newTotalGamesLost,
+  };
+
   return {
     ...actualTeamStatistics,
     matchesData: updateMatchesData(
@@ -24,81 +91,7 @@ export const createTeamStatisticsObj = (
     finalsData: isFinal
       ? updateFinalsData(actualTeamStatistics, teamAgainst, data)
       : actualTeamStatistics.finalsData,
-    teamHistoricalData: {
-      totalGoalsScored:
-        actualHistoricalData.totalGoalsScored + data.goalsScored,
-      totalGoalsAgainst:
-        actualHistoricalData.totalGoalsAgainst + data.goalsAgainst,
-      totalGamesPlayed: actualHistoricalData.totalGamesPlayed + 1,
-      totalGamesWon:
-        data.goalsScored > data.goalsAgainst
-          ? actualHistoricalData.totalGamesWon + 1
-          : actualHistoricalData.totalGamesWon,
-      actualWinningStreak:
-        data.goalsScored > data.goalsAgainst
-          ? actualHistoricalData.actualWinningStreak + 1
-          : 0,
-      bestWinningStreak:
-        data.goalsScored > data.goalsAgainst &&
-        actualHistoricalData.actualWinningStreak >
-          actualHistoricalData.bestWinningStreak
-          ? actualHistoricalData.actualWinningStreak
-          : actualHistoricalData.bestWinningStreak,
-      actualLostStreak:
-        data.goalsScored < data.goalsAgainst
-          ? actualHistoricalData.actualLostStreak + 1
-          : 0,
-      bestLostStreak:
-        data.goalsScored < data.goalsAgainst &&
-        actualHistoricalData.actualLostStreak >
-          actualHistoricalData.bestLostStreak
-          ? actualHistoricalData.actualLostStreak
-          : actualHistoricalData.bestLostStreak,
-
-      totalGamesLost:
-        data.goalsScored < data.goalsAgainst
-          ? actualHistoricalData.totalGamesLost + 1
-          : actualHistoricalData.totalGamesLost,
-      goalsDiff:
-        actualHistoricalData.totalGoalsScored +
-        data.goalsScored -
-        (actualHistoricalData.totalGoalsAgainst + data.goalsAgainst),
-
-      totalTiedGames:
-        data.goalsScored === data.goalsAgainst
-          ? actualHistoricalData.totalTiedGames + 1
-          : actualHistoricalData.totalTiedGames,
-
-      goalsAverage:
-        (actualHistoricalData.totalGoalsScored + data.goalsScored) /
-        (actualHistoricalData.totalGamesPlayed + 1),
-
-      goalsAgainstAverage:
-        (actualHistoricalData.totalGoalsAgainst + data.goalsAgainst) /
-        (actualHistoricalData.totalGamesPlayed + 1),
-
-      wonGamesAverage:
-        data.goalsScored > data.goalsAgainst
-          ? (actualHistoricalData.totalGamesWon + 1) /
-            (actualHistoricalData.totalGamesPlayed + 1)
-          : actualHistoricalData.totalGamesWon /
-            (actualHistoricalData.totalGamesPlayed + 1),
-
-      lostGamesAverage:
-        data.goalsScored < data.goalsAgainst
-          ? (actualHistoricalData.totalGamesLost + 1) /
-            (actualHistoricalData.totalGamesPlayed + 1)
-          : actualHistoricalData.totalGamesLost /
-            (actualHistoricalData.totalGamesPlayed + 1),
-
-      wonLostRatio:
-        (data.goalsScored > data.goalsAgainst
-          ? actualHistoricalData.totalGamesWon + 1
-          : actualHistoricalData.totalGamesWon) /
-        (data.goalsScored < data.goalsAgainst
-          ? actualHistoricalData.totalGamesLost + 1
-          : actualHistoricalData.totalGamesLost),
-    },
+    teamHistoricalData,
   };
 };
 
@@ -110,36 +103,29 @@ const updateFinalsData = (
     goalsAgainst: number;
   }
 ): FinalsData => {
-  if (actualTeamStatistics?.finalsData) {
-    const finalsData = { ...actualTeamStatistics.finalsData };
-    return {
-      finalsLost:
-        data.goalsScored < data.goalsAgainst
-          ? finalsData.finalsLost + 1
-          : finalsData.finalsLost,
-      finalsWon:
-        data.goalsScored >= data.goalsAgainst
-          ? finalsData.finalsWon + 1
-          : finalsData.finalsWon,
-      finalsWonAgainst:
-        data.goalsScored >= data.goalsAgainst
-          ? [...finalsData.finalsWonAgainst, teamAgainst]
-          : [...finalsData.finalsWonAgainst],
-      finalsLostAgainst:
-        data.goalsScored < data.goalsAgainst
-          ? [...finalsData.finalsLostAgainst, teamAgainst]
-          : [...finalsData.finalsLostAgainst],
-    };
-  } else {
-    return {
-      finalsLost: data.goalsScored < data.goalsAgainst ? 1 : 0,
-      finalsWon: data.goalsScored >= data.goalsAgainst ? 1 : 0,
-      finalsWonAgainst:
-        data.goalsScored >= data.goalsAgainst ? [teamAgainst] : [],
-      finalsLostAgainst:
-        data.goalsScored < data.goalsAgainst ? [teamAgainst] : [],
-    };
+  const finalsData = actualTeamStatistics?.finalsData
+    ? { ...actualTeamStatistics.finalsData }
+    : undefined;
+
+  const finalsLostIncrement = data.goalsScored < data.goalsAgainst ? 1 : 0;
+  const finalsWonIncrement = data.goalsScored >= data.goalsAgainst ? 1 : 0;
+
+  const newFinalsData = {
+    finalsLost: (finalsData?.finalsLost || 0) + finalsLostIncrement,
+    finalsWon: (finalsData?.finalsWon || 0) + finalsWonIncrement,
+    finalsWonAgainst: [...finalsData?.finalsWonAgainst] || [],
+    finalsLostAgainst: [...finalsData?.finalsLostAgainst] || [],
+  };
+
+  if (finalsWonIncrement > 0) {
+    newFinalsData.finalsWonAgainst.push(teamAgainst);
   }
+
+  if (finalsLostIncrement > 0) {
+    newFinalsData.finalsLostAgainst.push(teamAgainst);
+  }
+
+  return newFinalsData;
 };
 
 const updateMatchesData = (
@@ -150,49 +136,42 @@ const updateMatchesData = (
     goalsAgainst: number;
   }
 ): MatchesData[] => {
-  const matchDataExist = actualMatchesData.find(
+  const matchIndex = actualMatchesData.findIndex(
     (matchData) =>
       matchData.teamAgainst['_id'] === teamAgainst ||
       matchData.teamAgainst === teamAgainst
   );
-  if (matchDataExist) {
-    return actualMatchesData.map((matchData) => {
-      if (
-        matchData.teamAgainst['_id'] === teamAgainst ||
-        matchData.teamAgainst === teamAgainst
-      ) {
+
+  if (matchIndex !== -1) {
+    const updatedMatchesData = actualMatchesData.map((matchData, index) => {
+      if (index === matchIndex) {
+        const isWin = data.goalsScored > data.goalsAgainst;
+        const isTie = data.goalsScored === data.goalsAgainst;
+
         return {
           ...matchData,
           goalsInFavor: matchData.goalsInFavor + data.goalsScored,
           goalsAgainst: matchData.goalsAgainst + data.goalsAgainst,
-          gamesWon:
-            data.goalsScored > data.goalsAgainst
-              ? matchData.gamesWon + 1
-              : matchData.gamesWon,
-          gamesTied:
-            data.goalsScored === data.goalsAgainst
-              ? matchData.gamesTied + 1
-              : matchData.gamesTied,
+          gamesWon: isWin ? matchData.gamesWon + 1 : matchData.gamesWon,
+          gamesTied: isTie ? matchData.gamesTied + 1 : matchData.gamesTied,
           gamesLost:
-            data.goalsScored < data.goalsAgainst
-              ? matchData.gamesLost + 1
-              : matchData.gamesLost,
+            !isWin && !isTie ? matchData.gamesLost + 1 : matchData.gamesLost,
         };
       }
       return matchData;
     });
-  } else {
-    const updatedMatchesData = [
-      ...actualMatchesData,
-      {
-        teamAgainst,
-        goalsInFavor: data.goalsScored,
-        goalsAgainst: data.goalsAgainst,
-        gamesWon: data.goalsScored > data.goalsAgainst ? 1 : 0,
-        gamesTied: data.goalsScored === data.goalsAgainst ? 1 : 0,
-        gamesLost: data.goalsScored < data.goalsAgainst ? 1 : 0,
-      },
-    ];
+
     return updatedMatchesData;
+  } else {
+    const newMatchData = {
+      teamAgainst,
+      goalsInFavor: data.goalsScored,
+      goalsAgainst: data.goalsAgainst,
+      gamesWon: data.goalsScored > data.goalsAgainst ? 1 : 0,
+      gamesTied: data.goalsScored === data.goalsAgainst ? 1 : 0,
+      gamesLost: data.goalsScored < data.goalsAgainst ? 1 : 0,
+    };
+
+    return [...actualMatchesData, newMatchData];
   }
 };
