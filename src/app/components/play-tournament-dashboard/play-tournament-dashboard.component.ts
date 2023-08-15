@@ -219,11 +219,13 @@ export class PlayTournamentDashboardComponent
     matchResult: 'NA' | 'T' | 'W' | 'L',
     pointsForResult: 1 | 0 | 3
   ) {
-    teamOnPosition.points = teamOnPosition.points + pointsForResult;
-    const lastFiveScores = [...teamOnPosition.lastFiveScores];
-    lastFiveScores.pop();
-    lastFiveScores.unshift(matchResult);
-    teamOnPosition.lastFiveScores = lastFiveScores;
+    teamOnPosition.points += pointsForResult;
+
+    const updatedLastFiveScores = [
+      matchResult,
+      ...teamOnPosition.lastFiveScores.slice(0, 4),
+    ];
+    teamOnPosition.lastFiveScores = updatedLastFiveScores;
   }
 
   updateTeamsStatistics(data: {
