@@ -167,41 +167,51 @@ export class PlayTournamentDashboardComponent
     goalsAgainst: number,
     teamName: string
   ): IPositionTableData[] {
-    const teamPositionTableData = currentPositionTable.find(
+    const teamPositionIndex = currentPositionTable.findIndex(
       (data) => data.team.name === teamName
     );
 
-    const updatedTeamPositionTableData: IPositionTableData = {
-      ...teamPositionTableData,
-      goalsScored: teamPositionTableData.goalsScored + goalsScored,
-      goalsAgainst: teamPositionTableData.goalsAgainst + goalsAgainst,
-      gamesPlayed: teamPositionTableData.gamesPlayed + 1,
-    };
-    updatedTeamPositionTableData.goalsDiff =
-      updatedTeamPositionTableData.goalsScored -
-      updatedTeamPositionTableData.goalsAgainst;
+    if (teamPositionIndex !== -1) {
+      const updatedTeamPositionTableData = {
+        ...currentPositionTable[teamPositionIndex],
+        goalsScored:
+          currentPositionTable[teamPositionIndex].goalsScored + goalsScored,
+        goalsAgainst:
+          currentPositionTable[teamPositionIndex].goalsAgainst + goalsAgainst,
+        goalsDiff:
+          currentPositionTable[teamPositionIndex].goalsDiff +
+          goalsScored -
+          goalsAgainst,
+        gamesPlayed: currentPositionTable[teamPositionIndex].gamesPlayed + 1,
+        gamesTied: currentPositionTable[teamPositionIndex].gamesTied,
+        gamesWon: currentPositionTable[teamPositionIndex].gamesWon,
+        gamesLost: currentPositionTable[teamPositionIndex].gamesLost,
+      };
 
-    if (goalsScored === goalsAgainst) {
-      updatedTeamPositionTableData.gamesTied =
-        updatedTeamPositionTableData.gamesTied + 1;
-      this.setLastResult(updatedTeamPositionTableData, 'T', 1);
-    } else {
-      if (goalsScored > goalsAgainst) {
-        updatedTeamPositionTableData.gamesWon =
-          updatedTeamPositionTableData.gamesWon + 1;
-        this.setLastResult(updatedTeamPositionTableData, 'W', 3);
+      if (goalsScored === goalsAgainst) {
+        updatedTeamPositionTableData.gamesTied += 1;
+        this.setLastResult(updatedTeamPositionTableData, 'T', 1);
       } else {
-        updatedTeamPositionTableData.gamesLost =
-          updatedTeamPositionTableData.gamesLost + 1;
-        this.setLastResult(updatedTeamPositionTableData, 'L', 0);
+        const points = goalsScored > goalsAgainst ? 3 : 0;
+        const gamesWon = goalsScored > goalsAgainst ? 1 : 0;
+        const gamesLost = goalsScored < goalsAgainst ? 1 : 0;
+
+        updatedTeamPositionTableData.gamesWon += gamesWon;
+        updatedTeamPositionTableData.gamesLost += gamesLost;
+        this.setLastResult(
+          updatedTeamPositionTableData,
+          goalsScored > goalsAgainst ? 'W' : 'L',
+          points
+        );
       }
+
+      const updatedPositionTable = [...currentPositionTable];
+      updatedPositionTable[teamPositionIndex] = updatedTeamPositionTableData;
+
+      return updatedPositionTable;
     }
-    return currentPositionTable.map((data) => {
-      if (data.team.name === updatedTeamPositionTableData.team.name) {
-        return updatedTeamPositionTableData;
-      }
-      return data;
-    });
+
+    return currentPositionTable;
   }
 
   setLastResult(
