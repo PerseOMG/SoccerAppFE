@@ -78,52 +78,33 @@ export class PlayoffsComponent implements OnInit {
       scoreLocal === scoreVisit &&
       !calendar[this.currentPhase$.value + 1]
     ) {
-      const { scoreLocal: finalScoreLocal, scoreVisit: finalScoreVisit } =
-        getScore();
-      scoreLocal = finalScoreLocal;
-      scoreVisit = finalScoreVisit;
+      ({ scoreLocal, scoreVisit } = getScore());
     }
 
-    // Define who wins the match and insert it to next phase key
-    calendar[this.currentPhase$.value][
-      this.currentMatchIndex$.value
-    ].localScore = scoreLocal;
-    calendar[this.currentPhase$.value][
-      this.currentMatchIndex$.value
-    ].visitScore = scoreVisit;
+    const match =
+      calendar[this.currentPhase$.value][this.currentMatchIndex$.value];
+    match.localScore = scoreLocal;
+    match.visitScore = scoreVisit;
 
     if (calendar[this.currentPhase$.value + 1]) {
-      if (scoreLocal >= scoreVisit) {
-        calendar[this.currentPhase$.value + 1][
-          Math.floor(this.currentMatchIndex$.value / 2)
-        ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
-          calendar[this.currentPhase$.value][
-            this.currentMatchIndex$.value
-          ].local.team;
-      } else {
-        calendar[this.currentPhase$.value + 1][
-          Math.floor(this.currentMatchIndex$.value / 2)
-        ][this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'].team =
-          calendar[this.currentPhase$.value][
-            this.currentMatchIndex$.value
-          ].visit.team;
-      }
+      const nextPhaseMatches = calendar[this.currentPhase$.value + 1];
+      const nextMatchIndex = Math.floor(this.currentMatchIndex$.value / 2);
+      const nextMatch = nextPhaseMatches[nextMatchIndex];
+
+      const winningTeam = scoreLocal >= scoreVisit ? match.local : match.visit;
+      nextMatch[
+        this.currentMatchIndex$.value % 2 === 0 ? 'local' : 'visit'
+      ].team = winningTeam.team;
 
       this.updateTeamsStatistics({
-        local:
-          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-            .local.team._id,
+        local: match.local.team._id,
         localScore: scoreLocal,
-        visit:
-          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-            .visit.team._id,
+        visit: match.visit.team._id,
         visitScore: scoreVisit,
       });
 
-      // Target next match
       this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
 
-      // Next phase
       if (
         this.currentMatchIndex$.value ===
         calendar[this.currentPhase$.value].length
@@ -132,27 +113,18 @@ export class PlayoffsComponent implements OnInit {
         this.currentMatchIndex$.next(0);
       }
     } else {
+      const winningTeam = scoreLocal >= scoreVisit ? match.local : match.visit;
+
       this.updateTeamsStatistics({
-        local:
-          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-            .local.team._id,
+        local: match.local.team._id,
         localScore: scoreLocal,
-        visit:
-          calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-            .visit.team._id,
+        visit: match.visit.team._id,
         visitScore: scoreVisit,
         isFinal: true,
       });
 
-      const champion =
-        scoreLocal >= scoreVisit
-          ? calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-              .local
-          : calendar[this.currentPhase$.value][this.currentMatchIndex$.value]
-              .visit;
-
-      this.displayChampion(champion);
-      this.updateTeamsData(champion);
+      this.displayChampion(winningTeam);
+      this.updateTeamsData(winningTeam);
       this.tournamentsFacade.updateTournamentEdition(this.tournamentId);
     }
   }
