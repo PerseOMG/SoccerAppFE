@@ -2,7 +2,15 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../state/tournaments/tournaments.facade';
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
-import { BehaviorSubject, combineLatest, filter, map, skip, take } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  map,
+  skip,
+  switchMap,
+  take,
+} from 'rxjs';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../state/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
@@ -96,62 +104,61 @@ export class PlayTournamentDashboardComponent
     const { scoreLocal, scoreVisit } = getScore();
 
     combineLatest([this.currentMatchIndex$, this.positionTable$])
-      .pipe(take(1))
-      .subscribe(([currentMatchIndex, positionTable]) => {
-        // ---------------------------------------------
-        //Assign score result and update hasBeenPlayed property
-        matchesShuffle[
-          currentMatchIndex
-        ].score = `${scoreLocal} - ${scoreVisit}`;
-        matchesShuffle[currentMatchIndex].hasBeenPlayed = true;
+      .pipe(
+        take(1),
+        map(([currentMatchIndex, positionTable]) => {
+          matchesShuffle[
+            currentMatchIndex
+          ].score = `${scoreLocal} - ${scoreVisit}`;
+          matchesShuffle[currentMatchIndex].hasBeenPlayed = true;
 
-        // ---------------------------------------------
-        positionTable = this.updatePositionTable(
-          positionTable,
-          scoreLocal,
-          scoreVisit,
-          matchesShuffle[currentMatchIndex].local.name
-        );
+          let updatedPositionTable = this.updatePositionTable(
+            positionTable,
+            scoreLocal,
+            scoreVisit,
+            matchesShuffle[currentMatchIndex].local.name
+          );
+          updatedPositionTable = this.updatePositionTable(
+            updatedPositionTable,
+            scoreVisit,
+            scoreLocal,
+            matchesShuffle[currentMatchIndex].visit.name
+          );
 
-        positionTable = this.updatePositionTable(
-          positionTable,
-          scoreVisit,
-          scoreLocal,
-          matchesShuffle[currentMatchIndex].visit.name
-        );
+          const sortedPositionTable = updatedPositionTable.sort((a, b) =>
+            a.points !== b.points
+              ? b.points - a.points
+              : a.goalsDiff !== b.goalsDiff
+              ? b.goalsDiff - a.goalsDiff
+              : a.goalsAgainst - b.goalsAgainst
+          );
 
-        // order position table
-        positionTable = positionTable.sort((a, b) =>
-          a.points !== b.points
-            ? b.points - a.points
-            : a.goalsDiff !== b.goalsDiff
-            ? b.goalsDiff - a.goalsDiff
-            : a.goalsAgainst - b.goalsAgainst
-        );
+          this.tournamentsFacade.updateTournamentPositionTable(
+            this.route.params['_value']['id'],
+            sortedPositionTable
+          );
+          this.updateTeamsStatistics({
+            local: matchesShuffle[currentMatchIndex].local._id,
+            localScore: scoreLocal,
+            visit: matchesShuffle[currentMatchIndex].visit._id,
+            visitScore: scoreVisit,
+          });
+        })
+      )
+      .subscribe(() => {
+        const nextMatchIndex =
+          this.currentMatchIndex$.value < matchesShuffle.length - 1
+            ? this.currentMatchIndex$.value + 1
+            : 0;
 
-        this.tournamentsFacade.updateTournamentPositionTable(
-          this.route.params['_value']['id'],
-          positionTable
-        );
+        const nextEditionIndex =
+          this.currentMatchIndex$.value < matchesShuffle.length - 1
+            ? this.currentEditionIndex$.value
+            : this.currentEditionIndex$.value + 1;
 
-        // ---------------------------------------------
-
-        this.updateTeamsStatistics({
-          local: matchesShuffle[currentMatchIndex].local._id,
-          localScore: scoreLocal,
-          visit: matchesShuffle[currentMatchIndex].visit._id,
-          visitScore: scoreVisit,
-        });
-        // ---------------------------------------------
+        this.currentMatchIndex$.next(nextMatchIndex);
+        this.currentEditionIndex$.next(nextEditionIndex);
       });
-
-    // increment index for the next match
-    if (this.currentMatchIndex$.value < matchesShuffle.length - 1) {
-      this.currentMatchIndex$.next(this.currentMatchIndex$.value + 1);
-    } else {
-      this.currentMatchIndex$.next(0);
-      this.currentEditionIndex$.next(this.currentEditionIndex$.value + 1);
-    }
   }
 
   updatePositionTable(
