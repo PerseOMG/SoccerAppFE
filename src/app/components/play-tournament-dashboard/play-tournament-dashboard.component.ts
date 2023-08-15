@@ -83,15 +83,6 @@ export class PlayTournamentDashboardComponent
     );
   }
 
-  ngOnDestroy(): void {
-    this.tournament$
-      .pipe(take(1))
-      .subscribe((tournamentData) =>
-        this.tournamentsFacade.saveTournamentData(tournamentData)
-      );
-    this.tournamentsFacade.getAllTournaments();
-  }
-
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
@@ -99,10 +90,6 @@ export class PlayTournamentDashboardComponent
       const teamsIds = tournament.teams.map((team) => team._id).join(',');
       this.teamsFacade.getTeamStatistics(teamsIds);
     });
-  }
-
-  getCurrentMatch(matchesShuffle: any[]) {
-    return matchesShuffle[this.currentMatchIndex$.value];
   }
 
   playMatch(matchesShuffle: any[]) {
@@ -287,5 +274,14 @@ export class PlayTournamentDashboardComponent
         this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
         this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.tournament$
+      .pipe(take(1))
+      .subscribe((tournamentData) =>
+        this.tournamentsFacade.saveTournamentData(tournamentData)
+      );
+    this.tournamentsFacade.getAllTournaments();
   }
 }
