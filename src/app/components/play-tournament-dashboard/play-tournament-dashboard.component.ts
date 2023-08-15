@@ -237,7 +237,7 @@ export class PlayTournamentDashboardComponent
     this.teamsStatisticsData$
       .pipe(
         take(1),
-        filter((data) => !!data),
+        filter((teamsData) => !!teamsData),
         map((teamsData) =>
           teamsData.filter(
             (team) => team.team === data.local || team.team === data.visit
@@ -245,53 +245,40 @@ export class PlayTournamentDashboardComponent
         )
       )
       .subscribe((teamStatistics) => {
-        // local
-        const actualHistoricalData =
-          data.local === teamStatistics[0].team
-            ? {
-                ...teamStatistics[0].teamHistoricalData,
-              }
-            : {
-                ...teamStatistics[1].teamHistoricalData,
-              };
+        const localIndex = teamStatistics.findIndex(
+          (team) => team.team === data.local
+        );
+        const visitIndex = teamStatistics.findIndex(
+          (team) => team.team === data.visit
+        );
 
-        const localTeamStatistics: ITeamStatistics = {
-          ...createTeamStatisticsObj(
-            data.local === teamStatistics[0].team
-              ? teamStatistics[0]
-              : teamStatistics[1],
-            actualHistoricalData,
-            data.visit,
-            { goalsAgainst: data.visitScore, goalsScored: data.localScore }
-          ),
-        };
+        if (localIndex !== -1 && visitIndex !== -1) {
+          const actualHistoricalDataLocal =
+            teamStatistics[localIndex].teamHistoricalData;
+          const actualHistoricalDataVisit =
+            teamStatistics[visitIndex].teamHistoricalData;
 
-        //visit
-        const actualVisitHistoricalData =
-          data.visit === teamStatistics[1].team
-            ? {
-                ...teamStatistics[1].teamHistoricalData,
-              }
-            : {
-                ...teamStatistics[0].teamHistoricalData,
-              };
+          const localTeamStatistics: ITeamStatistics = {
+            ...createTeamStatisticsObj(
+              teamStatistics[localIndex],
+              actualHistoricalDataLocal,
+              data.visit,
+              { goalsAgainst: data.visitScore, goalsScored: data.localScore }
+            ),
+          };
 
-        const visitTeamStatistics: ITeamStatistics = {
-          ...createTeamStatisticsObj(
-            data.visit === teamStatistics[1].team
-              ? teamStatistics[1]
-              : teamStatistics[0],
-            actualVisitHistoricalData,
-            data.local,
-            {
-              goalsScored: data.visitScore,
-              goalsAgainst: data.localScore,
-            }
-          ),
-        };
+          const visitTeamStatistics: ITeamStatistics = {
+            ...createTeamStatisticsObj(
+              teamStatistics[visitIndex],
+              actualHistoricalDataVisit,
+              data.local,
+              { goalsScored: data.visitScore, goalsAgainst: data.localScore }
+            ),
+          };
 
-        this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
-        this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
+          this.teamsFacade.updateTeamsStatistics(localTeamStatistics);
+          this.teamsFacade.updateTeamsStatistics(visitTeamStatistics);
+        }
       });
   }
 
