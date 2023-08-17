@@ -37,17 +37,7 @@ export class TeamCardComponent implements OnInit {
     if (this.options.allowAnimations) this.isMouseIn = !this.isMouseIn;
   }
 
-  selectedCard(id: string) {
-    if (this.selectedCardId === 'NA') {
-      this.selectedCardId = id;
-      setTimeout(() => {
-        this.selectedCardId = 'NA';
-      }, 750);
-    }
-  }
-
   handleTeamSelection(team: Team) {
-    this.selectedCard(team._id);
     this.router.navigate(['teams', team._id]);
   }
 

@@ -32,13 +32,13 @@ export class TeamsCardsContainerComponent implements OnInit, OnDestroy {
         return teams;
       }
 
-      const filteredTeams = teams.filter((team) =>
+      const teamsInTournament = teams.filter((team) =>
         team.tournaments.some(
           (tournament) => tournament.name === tournamentFilter
         )
       );
 
-      return filteredTeams;
+      return teamsInTournament;
     })
   );
 

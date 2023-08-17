@@ -44,22 +44,19 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!teamStatistics) {
         return [];
       }
+
       const finalsWonAgainst =
         teamStatistics[0]?.finalsData?.finalsWonAgainst || [];
-      const filteredTeams = teams.filter((team) =>
-        finalsWonAgainst.includes(team._id)
-      );
 
-      const data = filteredTeams.map((team) => {
-        const count = finalsWonAgainst.filter(
-          (teamId) => teamId === team._id
-        ).length;
+      const data = finalsWonAgainst.map((teamId) => {
+        const team = teams.find((team) => team._id === teamId);
+        const count = finalsWonAgainst.filter((id) => id === teamId).length;
 
         return {
           team: {
-            name: team.name,
-            logo: team.logo,
-            tournament: team.tournaments[0].name,
+            name: team?.name || 'Unknown Team',
+            logo: team?.logo || '',
+            tournament: team?.tournaments[0]?.name || 'Unknown Tournament',
           },
           count,
         };
@@ -78,22 +75,19 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!teamStatistics) {
         return [];
       }
+
       const finalsLostAgainst =
         teamStatistics[0]?.finalsData?.finalsLostAgainst || [];
-      const filteredTeams = teams.filter((team) =>
-        finalsLostAgainst.includes(team._id)
-      );
 
-      const data = filteredTeams.map((team) => {
-        const count = finalsLostAgainst.filter(
-          (teamId) => teamId === team._id
-        ).length;
+      const data = finalsLostAgainst.map((teamId) => {
+        const team = teams.find((team) => team._id === teamId);
+        const count = finalsLostAgainst.filter((id) => id === teamId).length;
 
         return {
           team: {
-            name: team.name,
-            logo: team.logo,
-            tournament: team.tournaments[0].name,
+            name: team?.name || 'Unknown Team',
+            logo: team?.logo || '',
+            tournament: team?.tournaments[0]?.name || 'Unknown Tournament',
           },
           count,
         };
