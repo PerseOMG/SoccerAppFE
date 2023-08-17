@@ -20,9 +20,6 @@
     }
     .version {
       color: $color-text-primary;
-      @media (max-width: $mobile) {
-        display: none;
-      }
     }
     .logo {
       &__image {
@@ -58,5 +55,18 @@
         transform-origin: bottom left;
       }
     }
+  }
+}
+
+@media (max-width: $mobile) {
+  .main-nav {
+    &__container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .version,
+  .nav-links {
+    display: none;
   }
 }
