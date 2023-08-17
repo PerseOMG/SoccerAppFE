@@ -20,6 +20,9 @@
     }
     .version {
       color: $color-text-primary;
+      @media (max-width: $mobile) {
+        display: none;
+      }
     }
     .logo {
       &__image {
