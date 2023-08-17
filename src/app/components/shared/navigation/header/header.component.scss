@@ -1,64 +1,80 @@
 @import "../../../../../styles.scss";
 .main-nav {
-    &__container {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+    background-color: $color-primary;
+    align-items: center;
+    font-family: $regular;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    .brand-logo {
+      &__container {
         display: flex;
-        justify-content: space-between;
-        height: 75px;
-        background-color: $color-primary;
         align-items: center;
-        font-family: $regular;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-        .brand-logo {
-            &__container {
-                display: flex;
-                align-items: center;
-                font-size: 2rem;
-                color: $color-text-primary;
-                cursor: pointer;
-            }
-        }
-        .logo {
-            &__image {
-                height: 60px;
-                background-color: $color-secondary;
-                border-radius: 50%;
-                margin: 0 10px;
-            }
-        }
-        .nav-links {
-            padding-right: 40px;
-            a {
-                display: inline-block;
-                position: relative;
-                text-decoration: none;
-                color: $color-secondary;
-                margin: 0 15px;
-            }
-            a:after {
-                content: "";
-                position: absolute;
-                width: 100%;
-                transform: scaleX(0);
-                height: 2px;
-                bottom: 0;
-                left: 0;
-                background-color: $color-secondary;
-                transform-origin: bottom right;
-                transition: transform 0.25s ease-out;
-            }
-            a:hover:after {
-                transform: scaleX(1);
-                transform-origin: bottom left;
-            }
-            button {
-                border: 0;
-                height: 40px;
-                width: 100px;
-                border-radius: 10px;
-                background-color: $color-secondary;
-                color: $color-primary;
-                cursor: pointer;
-            }
-        }
+        font-size: 2rem;
+        color: $color-text-primary;
+        cursor: pointer;
+      }
     }
+    .logo {
+      &__image {
+        height: 60px;
+        background-color: $color-secondary;
+        border-radius: 50%;
+        margin: 0 10px;
+      }
+      &__label {
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        @media (max-width: $mobile) {
+          display: none;
+        }
+      }
+    }
+    .nav-links {
+      padding-right: 40px;
+      a {
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        color: $color-secondary;
+        margin: 0 15px;
+      }
+      a:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: $color-secondary;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+      a:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+      button {
+        border: 0;
+        height: 40px;
+        width: 100px;
+        border-radius: 10px;
+        background-color: $color-secondary;
+        color: $color-primary;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile) {
+  .logo__label,
+  .nav-links {
+    display: none;
+  }
 }
