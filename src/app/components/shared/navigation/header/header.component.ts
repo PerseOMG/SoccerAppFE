@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
   isMouseIn = false;
   buttonObj = this.getButtonObjValue();
   JWT = localStorage.getItem(APP_SOCCER_JWT_KEY);
-
+  showMenu = false;
   constructor(private location: Location, private authFacade: AuthFacade) {}
 
   ngOnInit(): void {
@@ -74,5 +74,9 @@ export class HeaderComponent implements OnInit {
     }
     this.isLoggedIn = true;
     return HEADER_BUTTONS_OPTIONS['LOGOUT'];
+  }
+
+  onHamburgerMenuClick() {
+    this.showMenu = !this.showMenu;
   }
 }

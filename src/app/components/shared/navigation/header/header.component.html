@@ -9,12 +9,16 @@
         </div>
     </div>
 
-    <div class="nav-links">
+    <ul class=" nav-links" [ngClass]="showMenu ? 'enter-from-left' : 'hide-to-left'">
         <ng-container *ngIf="isLoggedIn">
-            <ng-container *ngFor="let navLink of navLinks">
-                <a [routerLink]="navLink.link">{{navLink.label}}</a>
+            <ng-container *ngFor="let navLink of navLinks ">
+                <li> <a [routerLink]="navLink.link ">{{navLink.label}}</a></li>
             </ng-container>
         </ng-container>
-        <button [routerLink]="buttonObj.link" (click)="onClick()">{{buttonObj.label}}</button>
+        <li><button [routerLink]="buttonObj.link " (click)="onClick() ">{{buttonObj.label}}</button></li>
+        <img class="icon" (click)="onHamburgerMenuClick()" class="icon " src="../../../../../assets/icons/close.svg " alt="menu ">
+    </ul>
+    <div class="nav-links__mobile" (click)="onHamburgerMenuClick()">
+        <img class="icon" src="../../../../../assets/icons/menu.svg " alt="menu ">
     </div>
 </div>

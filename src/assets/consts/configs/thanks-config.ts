@@ -208,4 +208,10 @@ export const THANKS_LINKS: IThanksLink[] = [
     label_creator: 'IconScout',
     link_creator: 'https://iconscout.com',
   },
+  {
+    label_icon: 'Free Menu Icon',
+    link_icon: 'https://iconscout.com/icons/menu',
+    label_creator: 'Feather Icons',
+    link_creator: 'https://iconscout.com/contributors/feathericons',
+  },
 ];
