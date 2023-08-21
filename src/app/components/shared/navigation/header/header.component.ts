@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
     return HEADER_BUTTONS_OPTIONS['LOGOUT'];
   }
 
-  onHamburgerMenuClick() {
+  onMenuClick() {
     this.showMenu = !this.showMenu;
   }
 }
