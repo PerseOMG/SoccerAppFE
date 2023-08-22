@@ -72,3 +72,23 @@ input::placeholder {
     }
   }
 }
+
+@media (max-width: $mobile) {
+  .flex-container {
+    flex-direction: column;
+    :nth-child(n) {
+      margin-top: 0.5rem;
+    }
+    .form-control {
+      width: 100%;
+    }
+    .options {
+      &-container {
+        width: 100%;
+      }
+      &-button {
+        width: 20%;
+      }
+    }
+  }
+}
