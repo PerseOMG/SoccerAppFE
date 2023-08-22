@@ -96,3 +96,12 @@ canvas {
     }
   }
 }
+
+@media (max-width: $mobile) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    grid-gap: 0;
+  }
+}
