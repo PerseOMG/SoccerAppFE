@@ -6,11 +6,11 @@
             <h3>Round {{edition.edition}}</h3>
             <table class="table-container">
                 <tr class="table-row" *ngFor="let match of edition.matches">
-                    <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong> {{match.local.name}} </strong></td>
+                    <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong class="team_label"> {{match.local.name}} </strong></td>
                     <td>
                         <strong>{{match.score}}</strong>
                     </td>
-                    <td><strong> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
+                    <td><strong class="team_label"> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
                 </tr>
             </table>
         </div>

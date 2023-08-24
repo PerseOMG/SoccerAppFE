@@ -48,3 +48,15 @@
     }
   }
 }
+
+@media (max-width: $mobile) {
+  .team {
+    &_label {
+      display: none;
+    }
+    &_logo {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+}
