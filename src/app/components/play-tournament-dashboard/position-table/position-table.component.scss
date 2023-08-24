@@ -30,6 +30,9 @@
       border-right: $color-text-secondary 1px solid;
     }
   }
+  &-scroll {
+    overflow-x: scroll;
+  }
 }
 
 .data {
@@ -45,4 +48,21 @@
 
 .text-center {
   text-align: center;
+}
+
+@media (max-width: $mobile) {
+  .team {
+    &_label {
+      display: none;
+    }
+    &_logo {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+  .table {
+    &-cell {
+      padding: 3px;
+    }
+  }
 }
