@@ -64,6 +64,14 @@ canvas {
   }
 }
 
+@media (max-width: $mobile) {
+  .main-info {
+    img {
+      height: 50vw;
+    }
+  }
+}
+
 .tournaments-info {
   border-radius: 5%;
   margin: 1%;
