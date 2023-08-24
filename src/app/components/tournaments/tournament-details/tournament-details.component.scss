@@ -4,6 +4,7 @@
   margin-top: 10%;
   &-grid {
     display: grid;
+    justify-content: center;
     &__regular {
       grid-template-columns: repeat(2, 1fr);
     }
