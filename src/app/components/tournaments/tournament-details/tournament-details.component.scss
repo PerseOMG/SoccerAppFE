@@ -55,3 +55,9 @@
     padding: 50px;
   }
 }
+
+@media (max-width: $mobile) {
+  .tournament-canvas {
+    display: none;
+  }
+}
