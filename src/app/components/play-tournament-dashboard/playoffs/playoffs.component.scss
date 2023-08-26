@@ -256,3 +256,22 @@ h2 {
 .tournament-bracket__table {
   width: 100%;
 }
+
+@media (max-width: $mobile) {
+  .tournament {
+    &-bracket {
+      flex-direction: column;
+      &__item {
+        &::after {
+          display: none;
+        }
+      }
+      &__match {
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
