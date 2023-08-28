@@ -23,7 +23,7 @@ export class TournamentsFacade {
     this.store.select(tournamentsSelectors.tournamentSelected);
 
   // Actions
-  getAllTournaments = () =>
+  fetchAllTournaments = () =>
     this.store.dispatch(new tournamentsActions.GetTournaments());
 
   setIsTournamentsSelected = () =>

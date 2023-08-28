@@ -92,7 +92,7 @@ export class TournamentsEffects {
         delete tournament.positionTable;
         return this.tournamentsService.saveTournamentData(tournament).pipe(
           map((response) => {
-            this.tournamentsFacade.getAllTournaments();
+            this.tournamentsFacade.fetchAllTournaments();
             return new SaveTournamentDataSuccess();
           }),
           catchError((error: any) => {

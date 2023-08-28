@@ -288,6 +288,6 @@ export class PlayTournamentDashboardComponent
       .subscribe((tournamentData) =>
         this.tournamentsFacade.saveTournamentData(tournamentData)
       );
-    this.tournamentsFacade.getAllTournaments();
+    this.tournamentsFacade.fetchAllTournaments();
   }
 }
