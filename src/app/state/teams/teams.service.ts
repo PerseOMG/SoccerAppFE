@@ -15,13 +15,11 @@ import {
   providedIn: 'root',
 })
 export class TeamsService {
-  headers = {
-    authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
-  };
-
   getAllTeams(): Observable<TeamsResponse> {
     return this.http.get<TeamsResponse>(`${APP_SOCCER_SERVER_URL}/teams`, {
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+      },
     });
   }
 
@@ -34,14 +32,18 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams`,
       newTeam,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
 
   deleteTeam(id: string) {
     return this.http.delete(`${APP_SOCCER_SERVER_URL}/teams/${id}`, {
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+      },
     });
   }
 
@@ -51,7 +53,9 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       { isFavorite },
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -60,7 +64,9 @@ export class TeamsService {
     return this.http.get<ITeamStatisticsResponse>(
       `${APP_SOCCER_SERVER_URL}/team/statistics/${id}`,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -72,7 +78,9 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       team,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -82,7 +90,9 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/team/statistics/${teamData._id}`,
       teamData,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -92,7 +102,9 @@ export class TeamsService {
       `${APP_SOCCER_SERVER_URL}/teams/${team._id}`,
       team,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }

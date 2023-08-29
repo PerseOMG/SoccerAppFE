@@ -14,17 +14,15 @@ import {
   providedIn: 'root',
 })
 export class TournamentsService {
-  headers = {
-    authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
-  };
-
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<ITournamentResponse> {
     return this.http.get<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournaments`,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -34,7 +32,9 @@ export class TournamentsService {
       `${APP_SOCCER_SERVER_URL}/tournaments`,
       tournament,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -44,7 +44,9 @@ export class TournamentsService {
       `${APP_SOCCER_SERVER_URL}/tournaments/${tournament._id}`,
       tournament,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -53,7 +55,9 @@ export class TournamentsService {
     return this.http.get<ITournamentResponse>(
       `${APP_SOCCER_SERVER_URL}/tournament/statistics/historical/${tournamentId}`,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -62,7 +66,9 @@ export class TournamentsService {
     return this.http.delete(
       `${APP_SOCCER_SERVER_URL}/tournaments/${tournamentId}`,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
@@ -72,7 +78,9 @@ export class TournamentsService {
       `${APP_SOCCER_SERVER_URL}/tournaments/${tournamentId}`,
       tournament,
       {
-        headers: this.headers,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem(APP_SOCCER_JWT_KEY)}`,
+        },
       }
     );
   }
