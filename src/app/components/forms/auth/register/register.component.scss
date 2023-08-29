@@ -67,3 +67,9 @@
     }
   }
 }
+
+@media (max-width: $mobile) {
+  .card-container {
+    width: 100%;
+  }
+}

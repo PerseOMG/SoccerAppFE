@@ -114,3 +114,9 @@
     width: 40px;
   }
 }
+
+@media (max-width: $mobile) {
+  .card-container {
+    width: 100%;
+  }
+}
