@@ -134,7 +134,7 @@ export class TeamsEffects {
         this.teamsService.deleteTeam(action.payload).pipe(
           map(() => {
             this.alertService.fireAlert(TEAMS_ALERTS['delete']);
-            this.router.navigate(['/']);
+            this.router.navigate(['/teams']);
             return new GetTeams();
           }),
           catchError((error: any) => {
