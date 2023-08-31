@@ -109,7 +109,7 @@ export class TeamsEffects {
         this.teamsService.setTeamAsFavorite(action.payload).pipe(
           map((response) => {
             this.alertService.fireAlert(TEAMS_ALERTS['favorite']);
-            this.router.navigate(['/']);
+            this.router.navigate(['/teams']);
             return new GetTeams();
           }),
           catchError((error: any) => {
