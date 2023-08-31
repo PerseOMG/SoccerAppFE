@@ -1,6 +1,6 @@
 {
   "name": "soccer-app-fe",
-  "version": "2.2.14",
+  "version": "2.2.15",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
