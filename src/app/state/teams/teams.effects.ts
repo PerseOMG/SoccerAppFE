@@ -84,7 +84,7 @@ export class TeamsEffects {
         this.teamsService.createTeam(action.payload).pipe(
           map(() => {
             this.alertService.fireAlert(TEAMS_ALERTS['success']);
-            this.router.navigate(['/']);
+            this.router.navigate(['/teams']);
             return new GetTeams();
           }),
           catchError((error: any) => {
