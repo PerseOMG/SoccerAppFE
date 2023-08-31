@@ -21,7 +21,7 @@ export const FORMS_CONFIG = {
       type: 'text',
       validators: ['required', 'maxLength:20', 'minLength:4'],
       errorMessage:
-        'This field is required and must contain between 20 and 4 characters',
+        'This field is required and must contain between 4 and 20 characters',
     },
     {
       key: 'tournaments',
