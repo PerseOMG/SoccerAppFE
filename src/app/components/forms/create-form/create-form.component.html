@@ -10,13 +10,13 @@
                 <h1>Create {{model | titlecase}}</h1>
             </div>
             <form *ngIf="dynamicForm" [formGroup]="dynamicForm" class="dynamic-form" (ngSubmit)="onSubmit()">
-                <div>
-                    <ng-container *ngIf="step === 1; else stepTwoTemplate">
-                        <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : getFormDefaultImage()" alt="default-img">
-                        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields,formGroup:dynamicForm }">
-                        </ng-container>
+
+                <ng-container *ngIf="step === 1; else stepTwoTemplate">
+                    <img class="model-image" [src]="dynamicForm.get('logo').value ? dynamicForm.get('logo').value : getFormDefaultImage()" alt="default-img">
+                    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields,formGroup:dynamicForm }">
                     </ng-container>
-                </div>
+                </ng-container>
+
                 <ng-template #stepTwoTemplate>
                     <h3 *ngIf="dynamicForm.get('winnerDefinition').value.includes('playoffs')">Please choose at least {{dynamicForm.get('playoffsQuantity').value[0] + 1}} players</h3>
                     <app-drag-and-drop [dragObjTemplate]="(dragAndDropItems | async)" (dragObjSelected)="onDragAndDropEvent($event)"></app-drag-and-drop>
@@ -29,8 +29,10 @@
                     <ng-container *ngIf="item.type !== 'dragAndDrop'">
                         <ng-container *ngIf="item.type !== 'select'; else selectTemplate">
                             <input [type]="item.type" [ngStyle]="{'border-color': setControlInvalidStyle(item.key) ? 'red' : '' }" [formControl]="formGroup.get(item.key)" [placeholder]="item.title" [name]="item.key" class="dynamic-form-input">
-                            <small *ngIf="item.errorMessage" style="color: red;">{{setControlInvalidStyle(item.key) ? item.errorMessage : null}}</small>
-                            <small *ngIf="item.span">{{item.span}}</small>
+                            <div style="display: flex; flex-direction: column;">
+                                <small *ngIf="item.errorMessage" style="color: red;">{{setControlInvalidStyle(item.key) ? item.errorMessage : null}}</small>
+                                <small *ngIf="item.span">{{item.span}}</small>
+                            </div>
 
                         </ng-container>
                         <ng-template #selectTemplate>
