@@ -8,8 +8,8 @@ import {
   filter,
   map,
   skip,
-  switchMap,
   take,
+  tap,
 } from 'rxjs';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../state/teams/teams.facade';
@@ -137,6 +137,8 @@ export class PlayTournamentDashboardComponent
             this.route.params['_value']['id'],
             sortedPositionTable
           );
+          console.log('calling updateTeamsStatistics');
+
           this.updateTeamsStatistics({
             local: matchesShuffle[currentMatchIndex].local._id,
             localScore: scoreLocal,
@@ -234,8 +236,10 @@ export class PlayTournamentDashboardComponent
     visit: string;
     visitScore: number;
   }) {
+    console.log('Called updateTeamsStatistics');
     this.teamsStatisticsData$
       .pipe(
+        skip(1),
         take(1),
         filter((teamsData) => !!teamsData),
         map((teamsData) =>
@@ -251,7 +255,6 @@ export class PlayTournamentDashboardComponent
         const visitIndex = teamStatistics.findIndex(
           (team) => team.team === data.visit
         );
-
         if (localIndex !== -1 && visitIndex !== -1) {
           const actualHistoricalDataLocal =
             teamStatistics[localIndex].teamHistoricalData;
