@@ -236,7 +236,6 @@ export class PlayTournamentDashboardComponent
     visit: string;
     visitScore: number;
   }) {
-    console.log('Called updateTeamsStatistics');
     this.teamsStatisticsData$
       .pipe(
         skip(1),
