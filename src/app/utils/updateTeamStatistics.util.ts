@@ -105,7 +105,12 @@ const updateFinalsData = (
 ): FinalsData => {
   const finalsData = actualTeamStatistics?.finalsData
     ? { ...actualTeamStatistics.finalsData }
-    : undefined;
+    : {
+        finalsWon: 0,
+        finalsLost: 0,
+        finalsWonAgainst: [],
+        finalsLostAgainst: [],
+      };
 
   const finalsLostIncrement = data.goalsScored < data.goalsAgainst ? 1 : 0;
   const finalsWonIncrement = data.goalsScored >= data.goalsAgainst ? 1 : 0;
