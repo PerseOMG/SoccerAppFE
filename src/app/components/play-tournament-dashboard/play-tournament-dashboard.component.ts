@@ -2,15 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { TournamentsFacade } from '../../state/tournaments/tournaments.facade';
 import { ActivatedRoute } from '@angular/router';
 import { IPositionTableData } from '../../models/tournament.model';
-import {
-  BehaviorSubject,
-  combineLatest,
-  filter,
-  map,
-  skip,
-  take,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, take } from 'rxjs';
 import { ITeamStatistics } from 'src/app/models/teamStatistics.model';
 import { TeamsFacade } from '../../state/teams/teams.facade';
 import { getScore } from 'src/app/utils/getScore.util';
@@ -94,10 +86,15 @@ export class PlayTournamentDashboardComponent
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.tournament$.pipe(skip(1), take(1)).subscribe((tournament) => {
-      const teamsIds = tournament.teams.map((team) => team._id).join(',');
-      this.teamsFacade.getTeamStatistics(teamsIds);
-    });
+    this.tournament$
+      .pipe(
+        filter((tournament) => !!tournament),
+        take(1)
+      )
+      .subscribe((tournament) => {
+        const teamsIds = tournament.teams.map((team) => team._id).join(',');
+        this.teamsFacade.getTeamStatistics(teamsIds);
+      });
   }
 
   playMatch(matchesShuffle: any[]) {
@@ -137,8 +134,6 @@ export class PlayTournamentDashboardComponent
             this.route.params['_value']['id'],
             sortedPositionTable
           );
-          console.log('calling updateTeamsStatistics');
-
           this.updateTeamsStatistics({
             local: matchesShuffle[currentMatchIndex].local._id,
             localScore: scoreLocal,
@@ -238,11 +233,10 @@ export class PlayTournamentDashboardComponent
   }) {
     this.teamsStatisticsData$
       .pipe(
-        skip(1),
         take(1),
         filter((teamsData) => !!teamsData),
         map((teamsData) =>
-          teamsData.filter(
+          teamsData?.filter(
             (team) => team.team === data.local || team.team === data.visit
           )
         )
