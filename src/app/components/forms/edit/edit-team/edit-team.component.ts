@@ -56,7 +56,7 @@ export class EditTeamComponent implements OnInit {
           Validators.minLength(4),
         ]),
         tournaments: new FormControl(
-          team?.tournaments.map((tournament) => tournament._id),
+          team?.tournaments?.map((tournament) => tournament._id),
           Validators.required
         ),
       });
