@@ -105,7 +105,18 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       });
 
-      return data;
+      const uniqueTeams = {};
+      const cleanedData = [];
+
+      for (const obj of data) {
+        const teamName = obj.team.name;
+        if (!uniqueTeams[teamName]) {
+          uniqueTeams[teamName] = true;
+          cleanedData.push(obj);
+        }
+      }
+
+      return cleanedData;
     })
   );
 
