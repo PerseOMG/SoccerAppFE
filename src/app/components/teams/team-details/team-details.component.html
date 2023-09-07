@@ -45,7 +45,7 @@
                         <h3>Goals Against Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.goalsAgainstAverage, 1, 'green')">{{statistics[0]?.teamHistoricalData?.goalsAgainstAverage?.toFixed(2) ?? 'NA' }}</span></h3>
                         <h3>Won Matches Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.wonGamesAverage, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.wonGamesAverage?.toFixed(2) ?? 'NA' }}</span></h3>
                         <h3>Lost Matches Average: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.lostGamesAverage, 0.5, 'red')">{{statistics[0]?.teamHistoricalData?.lostGamesAverage?.toFixed(2) ?? 'NA' }}</span></h3>
-                        <h3>Win-Lose Ratio: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.wonLostRatio, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.wonLostRatio ?? 'NA' }}</span></h3>
+                        <h3>Win-Lose Ratio: <span [ngStyle]=" getStreaksAverageStyles(statistics[0]?.teamHistoricalData?.wonLostRatio, 0.5, 'green')">{{statistics[0]?.teamHistoricalData?.wonLostRatio.toFixed(2) ?? 'NA' }}</span></h3>
 
                     </div>
                     <div>
