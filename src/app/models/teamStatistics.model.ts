@@ -31,7 +31,7 @@ export interface ITeamStatistics {
     goalsAverage?: number;
     goalsAgainstAverage?: number;
     wonGamesAverage?: number;
-    LostGamesAverage?: number;
+    lostGamesAverage?: number;
     wonLostRatio?: number;
   };
 }
