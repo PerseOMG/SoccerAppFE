@@ -12,8 +12,10 @@
 }
 
 .calendar-container {
-  height: 30rem;
+  max-height: 30rem;
   overflow-y: auto;
+  display: flex;
+  align-items: center;
 }
 
 .round-container {
@@ -47,6 +49,25 @@
       border-right: $color-text-secondary 1px solid;
     }
   }
+}
+
+.navigation {
+  &-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-button {
+    cursor: pointer;
+  }
+}
+
+.left {
+  transform: rotate(180);
+}
+
+.right {
+  transform: rotate(90);
 }
 
 @media (max-width: $mobile) {

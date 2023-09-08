@@ -1,18 +1,19 @@
 <h1 class="heading">Calendar</h1>
+<div class="navigation-container">
+    <img src="../../../../assets/icons/arrow.svg" alt="previous" class="navigation-button left">
+    <h3>Round <input [(ngModel)]="selectedPhaseIdx" type="number" [max]="calendar.length" [min]="1" [value]="selectedPhaseIdx" (blur)="checkValue()" (keyup)="checkValue()"> of {{calendar.length}}</h3>
+    <img src="../../../../assets/icons/arrow.svg" alt="next" class="navigation-button right">
+</div>
 <div class="calendar-container">
-    <ng-container *ngFor="let edition of calendar">
-        <div class="round-container">
-
-            <h3>Round {{edition.edition}}</h3>
-            <table class="table-container">
-                <tr class="table-row" *ngFor="let match of edition.matches">
-                    <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong class="team_label"> {{match.local.name}} </strong></td>
-                    <td>
-                        <strong>{{match.score}}</strong>
-                    </td>
-                    <td><strong class="team_label"> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
-                </tr>
-            </table>
-        </div>
-    </ng-container>
+    <div class="round-container" *ngIf="selectedPhase$.value">
+        <table class="table-container">
+            <tr class="table-row" *ngFor="let match of selectedPhase$.value['matches']">
+                <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong class="team_label"> {{match.local.name}} </strong></td>
+                <td>
+                    <strong>{{match.score}}</strong>
+                </td>
+                <td><strong class="team_label"> {{match.visit.name}} </strong> <img class="team_logo " [src]="match.visit.logo " [alt]="match.visit.name "> </td>
+            </tr>
+        </table>
+    </div>
 </div>
