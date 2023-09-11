@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -8,6 +8,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CalendarComponent implements OnInit {
   @Input() calendar: any[];
+  @Input() set currentEdition(value: number) {
+    if (value < this.calendar.length) {
+      this.selectedPhaseIdx = value + 1;
+      this.checkValue();
+    }
+  }
   selectedPhaseIdx = 1;
   selectedPhase$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   constructor() {}
