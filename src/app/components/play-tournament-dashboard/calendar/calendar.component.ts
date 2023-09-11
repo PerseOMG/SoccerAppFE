@@ -27,4 +27,18 @@ export class CalendarComponent implements OnInit {
       this.selectedPhase$.next(this.calendar[0]);
     }
   }
+
+  nextPhase() {
+    if (this.selectedPhaseIdx < this.calendar.length) {
+      this.selectedPhaseIdx++;
+      this.checkValue();
+    }
+  }
+
+  previousPhase() {
+    if (this.selectedPhaseIdx > 1) {
+      this.selectedPhaseIdx--;
+      this.checkValue();
+    }
+  }
 }

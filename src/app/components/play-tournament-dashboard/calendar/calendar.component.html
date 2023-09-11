@@ -1,8 +1,8 @@
 <h1 class="heading">Calendar</h1>
 <div class="navigation-container">
-    <img src="../../../../assets/icons/arrow.svg" alt="previous" class="navigation-button left">
+    <img src="../../../../assets/icons/arrow.svg" alt="previous" class="navigation-button left" (click)="previousPhase()">
     <h3>Round <input [(ngModel)]="selectedPhaseIdx" type="number" [max]="calendar.length" [min]="1" [value]="selectedPhaseIdx" (blur)="checkValue()" (keyup)="checkValue()"> of {{calendar.length}}</h3>
-    <img src="../../../../assets/icons/arrow.svg" alt="next" class="navigation-button right">
+    <img src="../../../../assets/icons/arrow.svg" alt="next" class="navigation-button right" (click)="nextPhase()">
 </div>
 <div class="calendar-container">
     <div class="round-container" *ngIf="selectedPhase$.value">
