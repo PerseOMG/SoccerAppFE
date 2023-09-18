@@ -9,6 +9,7 @@ import { POSITION_TABLE_HEADINGS } from '../../../../assets/consts/configs/posit
 })
 export class PositionTableComponent implements OnInit {
   @Input() positionTable: IPositionTableData[];
+  @Input() playoffsQualified: number;
   headings = POSITION_TABLE_HEADINGS;
 
   constructor() {}

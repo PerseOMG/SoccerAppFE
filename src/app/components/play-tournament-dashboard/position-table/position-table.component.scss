@@ -1,68 +1,71 @@
 @import "../../../../styles.scss";
 .heading {
-  text-align: center;
+    text-align: center;
 }
 
 .team_logo {
-  height: 1.5rem;
-  width: 1.5rem;
-  mix-blend-mode: multiply;
-  object-fit: contain;
-  object-position: 50% 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    mix-blend-mode: multiply;
+    object-fit: contain;
+    object-position: 50% 50%;
 }
 
 .table {
-  &-container {
-    width: 100%;
-    border-top: 2px solid $color-text-secondary;
-    border-bottom: 2px solid $color-text-secondary;
-    border-collapse: collapse;
-    margin-bottom: 5%;
-  }
-  &-row {
-    height: 2.5rem;
-    border-bottom: 2px solid $color-text-secondary;
-  }
-  &-cell {
-    min-width: 2.5%;
-    padding: 10px;
-    &-border {
-      border-right: $color-text-secondary 1px solid;
+    &-team-classified {
+        border-left: 5px solid green;
     }
-  }
-  &-scroll {
-    overflow-x: auto;
-  }
+    &-container {
+        width: 100%;
+        border-top: 2px solid $color-text-secondary;
+        border-bottom: 2px solid $color-text-secondary;
+        border-collapse: collapse;
+        margin-bottom: 5%;
+    }
+    &-row {
+        height: 2.5rem;
+        border-bottom: 2px solid $color-text-secondary;
+    }
+    &-cell {
+        min-width: 2.5%;
+        padding: 10px;
+        &-border {
+            border-right: $color-text-secondary 1px solid;
+        }
+    }
+    &-scroll {
+        overflow-x: auto;
+    }
 }
 
 .data {
-  &-games {
-    &-lost {
-      color: red;
+    &-games {
+        &-lost {
+            color: red;
+        }
+        &-won {
+            color: green;
+        }
     }
-    &-won {
-      color: green;
-    }
-  }
 }
 
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 @media (max-width: $mobile) {
-  .team {
-    &_label {
-      display: none;
+    .team {
+        &_label {
+            display: none;
+        }
+        &_logo {
+            height: 3rem;
+            width: 3rem;
+        }
     }
-    &_logo {
-      height: 3rem;
-      width: 3rem;
+    .table {
+        &-cell {
+            padding: 3px;
+        }
     }
-  }
-  .table {
-    &-cell {
-      padding: 3px;
-    }
-  }
 }

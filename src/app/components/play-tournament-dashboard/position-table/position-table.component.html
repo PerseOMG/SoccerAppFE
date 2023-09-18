@@ -7,7 +7,7 @@
         </tr>
 
         <tr class="table-row " *ngFor="let team of positionTable; let idx=index ">
-            <td class="text-center ">{{idx + 1}}</td>
+            <td [ngClass]="{'table-team-classified' : idx < playoffsQualified }" class="text-center ">{{idx + 1}}</td>
             <td><img class="team_logo " [src]="team.team.logo " [alt]="team.team.name "> <strong class="team_label"> {{team.team.name}} </strong></td>
             <td class="table-cell text-center table-cell-border">{{team.gamesPlayed}}</td>
             <td class="table-cell text-center data-games-won">{{team.gamesWon}}</td>

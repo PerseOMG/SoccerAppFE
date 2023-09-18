@@ -72,6 +72,10 @@ export class PlayTournamentDashboardComponent
     })
   );
 
+  playoffsQualified$ = this.tournament$.pipe(
+    map((tournamentData) => tournamentData.options.playoffsQuantity)
+  );
+
   constructor(
     private teamsFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
