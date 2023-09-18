@@ -7,7 +7,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, combineLatest, filter, map, skip, takeUntil } from 'rxjs';
+import { Subject, combineLatest, filter, map, takeUntil } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
 import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
@@ -135,53 +135,55 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.teamStatistics$,
       this.gamesChart.changes,
       this.goalsChart.changes,
-    ]).subscribe(([team, _]) => {
-      const GAMES = (<HTMLCanvasElement>(
-        document.getElementById('totalGamesChart')
-      ))?.getContext('2d');
+    ])
+      .pipe(filter(([team, _]) => team.length === 1))
+      .subscribe(([team, _]) => {
+        const GAMES = (<HTMLCanvasElement>(
+          document.getElementById('totalGamesChart')
+        ))?.getContext('2d');
 
-      const GOALS = (<HTMLCanvasElement>(
-        document.getElementById('totalGoalsChart')
-      ))?.getContext('2d');
+        const GOALS = (<HTMLCanvasElement>(
+          document.getElementById('totalGoalsChart')
+        ))?.getContext('2d');
 
-      if (team) {
-        this.generateChart(GAMES, {
-          ...GAMES_CHART_CONFIG,
-          data: {
-            labels: [...GAMES_CHART_DATA.labels],
-            datasets: [
-              {
-                ...GAMES_CHART_DATA.datasets,
-                data: [
-                  team[0].teamHistoricalData?.totalGamesLost,
-                  team[0].teamHistoricalData?.totalGamesWon,
-                  team[0].teamHistoricalData?.totalTiedGames,
-                ],
-              },
-            ],
-          },
-        });
+        if (team) {
+          this.generateChart(GAMES, {
+            ...GAMES_CHART_CONFIG,
+            data: {
+              labels: [...GAMES_CHART_DATA.labels],
+              datasets: [
+                {
+                  ...GAMES_CHART_DATA.datasets,
+                  data: [
+                    team[0].teamHistoricalData?.totalGamesLost,
+                    team[0].teamHistoricalData?.totalGamesWon,
+                    team[0].teamHistoricalData?.totalTiedGames,
+                  ],
+                },
+              ],
+            },
+          });
 
-        this.generateChart(GOALS, {
-          ...GOALS_CHART_CONFIG,
-          data: {
-            labels: [...GOALS_CHART_DATA.labels],
-            datasets: [
-              {
-                ...GOALS_CHART_DATA.datasets,
-                borderWidth: 2,
-                borderRadius: 50,
-                data: [
-                  team[0].teamHistoricalData?.totalGoalsScored,
-                  team[0].teamHistoricalData?.totalGoalsAgainst,
-                ],
-              },
-            ],
-          },
-          options: { ...GOALS_CHART_OPTIONS },
-        });
-      }
-    });
+          this.generateChart(GOALS, {
+            ...GOALS_CHART_CONFIG,
+            data: {
+              labels: [...GOALS_CHART_DATA.labels],
+              datasets: [
+                {
+                  ...GOALS_CHART_DATA.datasets,
+                  borderWidth: 2,
+                  borderRadius: 50,
+                  data: [
+                    team[0].teamHistoricalData?.totalGoalsScored,
+                    team[0].teamHistoricalData?.totalGoalsAgainst,
+                  ],
+                },
+              ],
+            },
+            options: { ...GOALS_CHART_OPTIONS },
+          });
+        }
+      });
   }
 
   ngOnInit(): void {}
