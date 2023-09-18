@@ -1,90 +1,93 @@
 @import "../../../../styles.scss";
 .heading {
-  text-align: center;
+    text-align: center;
 }
 
 .team_logo {
-  height: 1.5rem;
-  width: 1.5rem;
-  mix-blend-mode: multiply;
-  object-fit: contain;
-  object-position: 50% 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    mix-blend-mode: multiply;
+    object-fit: contain;
+    object-position: 50% 50%;
 }
 
 .calendar-container {
-  max-height: 30rem;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
+    max-height: 30rem;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
 }
 
 .round-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  h3 {
-    color: $color-primary;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+        color: $color-primary;
+    }
 }
 
 .table {
-  &-container {
-    width: 75%;
-    border-top: 2px solid $color-text-secondary;
-    border-bottom: 2px solid $color-text-secondary;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
-  &-row {
-    height: 2.5rem;
-    border-bottom: 2px solid $color-text-secondary;
-    td {
-      text-align: center;
+    &-favorites {
+        background-color: #aba68f;
     }
-  }
-  &-cell {
-    min-width: 2.5%;
-    padding: 10px;
-    &-border {
-      border-right: $color-text-secondary 1px solid;
+    &-container {
+        width: 75%;
+        border-top: 2px solid $color-text-secondary;
+        border-bottom: 2px solid $color-text-secondary;
+        border-collapse: collapse;
+        table-layout: fixed;
     }
-  }
+    &-row {
+        height: 2.5rem;
+        border-bottom: 2px solid $color-text-secondary;
+        td {
+            text-align: center;
+        }
+    }
+    &-cell {
+        min-width: 2.5%;
+        padding: 10px;
+        &-border {
+            border-right: $color-text-secondary 1px solid;
+        }
+    }
 }
 
 .navigation {
-  &-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    input {
-      text-align: center;
-      color: $color-text-secondary;
-      font-weight: bold;
+    &-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        input {
+            text-align: center;
+            color: $color-text-secondary;
+            font-weight: bold;
+        }
     }
-  }
-  &-button {
-    cursor: pointer;
-  }
+    &-button {
+        cursor: pointer;
+    }
 }
 
 .left {
-  transform: rotate(90deg);
-  height: 50px;
+    transform: rotate(90deg);
+    height: 50px;
 }
 
 .right {
-  transform: rotate(270deg);
-  height: 50px;
+    transform: rotate(270deg);
+    height: 50px;
 }
 
 @media (max-width: $mobile) {
-  .team {
-    &_label {
-      display: none;
+    .team {
+        &_label {
+            display: none;
+        }
+        &_logo {
+            height: 3rem;
+            width: 3rem;
+        }
     }
-    &_logo {
-      height: 3rem;
-      width: 3rem;
-    }
-  }
 }

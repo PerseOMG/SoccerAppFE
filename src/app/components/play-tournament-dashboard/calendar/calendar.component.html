@@ -7,7 +7,7 @@
 <div class="calendar-container">
     <div class="round-container" *ngIf="selectedPhase$.value">
         <table class="table-container">
-            <tr class="table-row" *ngFor="let match of selectedPhase$.value['matches']">
+            <tr [ngClass]="{'table-favorites' : match.local.isFavorite || match.visit.isFavorite  }" class="table-row" *ngFor="let match of selectedPhase$.value['matches']">
                 <td><img class="team_logo " [src]="match.local.logo " [alt]="match.local.name "> <strong class="team_label"> {{match.local.name}} </strong></td>
                 <td>
                     <strong>{{match.score}}</strong>
