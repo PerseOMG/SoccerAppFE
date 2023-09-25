@@ -26,13 +26,7 @@ export class RegisterComponent implements OnInit {
     this.titleService.setDocTitle('Signup');
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(6)]],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
-        ],
-      ],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: [
         '',
