@@ -20,13 +20,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.titleService.setDocTitle('Login');
     this.loginForm = this.formBuilder.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
-        ],
-      ],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
