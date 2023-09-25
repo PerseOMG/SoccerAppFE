@@ -3,8 +3,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // All display height - header height - footer height
-  height: calc(100vh - 75px - 70px);
+  // All display height -  footer height
+  height: calc(100vh - 70px);
   font-family: $regular;
   text-align: center;
 }
