@@ -72,4 +72,7 @@
   .card-container {
     width: 100%;
   }
+  .main-container {
+    height: calc(100vh - 70px) !important;
+  }
 }
