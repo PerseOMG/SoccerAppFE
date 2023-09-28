@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, BehaviorSubject, observable } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable, BehaviorSubject, observable, take } from 'rxjs';
 import {
   FormGroup,
   FormBuilder,
@@ -12,7 +12,10 @@ import { FORMS_CONFIG } from '../../../../assets/consts/configs/forms-config.con
 import { TeamsFacade } from '../../../state/teams/teams.facade';
 import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
-import { FORM_ALERTS } from 'src/assets/consts/configs/alerts-config.const';
+import {
+  FORM_ALERTS,
+  TOURNAMENT_ALERTS,
+} from 'src/assets/consts/configs/alerts-config.const';
 import { ITournament } from '../../../models/tournament.model';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
 
@@ -41,7 +44,8 @@ export class CreateFormComponent implements OnInit {
     private teamFacade: TeamsFacade,
     private tournamentsFacade: TournamentsFacade,
     private sweetAlertService: SweetAlertsService,
-    private titleService: AppTitleService
+    private titleService: AppTitleService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +71,14 @@ export class CreateFormComponent implements OnInit {
       }
       if (this.model === 'tournament') {
         this.dragAndDropItems = this.teamFacade.selectAllTeams();
+        this.dragAndDropItems.pipe(take(1)).subscribe((teams) => {
+          if (teams.length < 3) {
+            this.sweetAlertService.fireAlert(
+              TOURNAMENT_ALERTS['noTeams'],
+              this.router.navigate(['/teams'])
+            );
+          }
+        });
       }
     });
   }

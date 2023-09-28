@@ -15,6 +15,16 @@ const ALERT_STYLES_SECONDARY = {
 };
 
 export const TOURNAMENT_ALERTS: { [key: string]: IAlert } = {
+  noTeams: {
+    icon: 'info',
+    title: "Seems like you don't have enough teams registered yet. ",
+    text: 'Please create at least 3 teams first. ',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    confirmButtonText: 'Create Teams',
+    ...ALERT_STYLES,
+  },
   success: {
     icon: 'success',
     title: 'Tournament created successfully.',
