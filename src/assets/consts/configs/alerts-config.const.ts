@@ -126,3 +126,11 @@ export const AUTH_ALERTS: { [key: string]: IAlert } = {
     ...ALERT_STYLES,
   },
 };
+
+export const SPINNER_ALERT: { [key: string]: IAlert } = {
+  loading: {
+    position: 'center',
+    showConfirmButton: false,
+    ...ALERT_STYLES,
+  },
+};

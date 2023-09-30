@@ -44,4 +44,5 @@ export interface IAlert {
   imageUrl?: string;
   imageWidth?: number;
   imageHeight?: number;
+  html?: string;
 }

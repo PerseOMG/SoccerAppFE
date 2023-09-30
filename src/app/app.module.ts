@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -42,6 +42,7 @@ import { AuthEffects } from './state/auth/auth.effects';
 import { TournamentsEffects } from './state/tournaments/tournaments.effects';
 import { EditTeamComponent } from './components/forms/edit/edit-team/edit-team.component';
 import { EditTournamentComponent } from './components/forms/edit/edit-tournament/edit-tournament.component';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,11 @@ import { EditTournamentComponent } from './components/forms/edit/edit-tournament
     }),
     EffectsModule.forRoot([TeamsEffects, AuthEffects, TournamentsEffects]),
   ],
-  providers: [DragulaService, Title],
+  providers: [
+    DragulaService,
+    Title,
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
