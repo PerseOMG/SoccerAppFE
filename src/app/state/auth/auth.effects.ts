@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { APP_SOCCER_JWT_KEY } from '../../../assets/consts/app.constants';
 import { SweetAlertsService } from '../../services/alerts/sweet-alerts.service';
 import { AUTH_ALERTS } from '../../../assets/consts/configs/alerts-config.const';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class AuthEffects {
@@ -38,6 +39,7 @@ export class AuthEffects {
       switchMap((action) =>
         this.authService.login(action.payload).pipe(
           map((response) => {
+            Swal.close();
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
             this.sweetAlertsService.fireAlert(
               {
@@ -73,6 +75,7 @@ export class AuthEffects {
       switchMap((action) =>
         this.authService.signup(action.payload).pipe(
           map((response) => {
+            Swal.close();
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
             this.sweetAlertsService.fireAlert(
               {

@@ -18,17 +18,17 @@ export class SpinnerInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    this.sweetAlertService.fireAlert({
-      html: '<img height="300rem" width="300rem" src="../../assets/icons/Circle Loader.gif" alt="loading">',
-      ...SPINNER_ALERT['loading'],
-    });
+    // this.sweetAlertService.fireAlert({
+    //   html: '<img height="300rem" width="300rem" src="../../assets/icons/Circle Loader.gif" alt="loading">',
+    //   ...SPINNER_ALERT['loading'],
+    // });
 
     return next.handle(request).pipe(
       finalize(() => {
-        Swal.close();
-        if (request.url.includes('login') || request.url.includes('signup')) {
-          this.router.navigate(['/']);
-        }
+        // Swal.close();
+        // if (request.url.includes('login') || request.url.includes('signup')) {
+        //   this.router.navigate(['/']);
+        // }
       })
     );
   }

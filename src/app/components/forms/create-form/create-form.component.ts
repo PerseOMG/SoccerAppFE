@@ -18,7 +18,6 @@ import {
 } from 'src/assets/consts/configs/alerts-config.const';
 import { ITournament } from '../../../models/tournament.model';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
-
 @Component({
   selector: 'app-create-form',
   templateUrl: './create-form.component.html',

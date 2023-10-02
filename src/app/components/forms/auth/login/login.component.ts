@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthFacade } from '../../../../state/auth/auth.facade';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import { FORM_ANIMATIONS } from '../../../../../assets/consts/animations/login.animations.consts';
+import { SPINNER_ALERT } from '../../../../../assets/consts/configs/alerts-config.const';
+import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authFacade: AuthFacade,
-    private titleService: AppTitleService
+    private titleService: AppTitleService,
+    private sweetAlertService: SweetAlertsService
   ) {
     this.titleService.setDocTitle('Login');
     this.loginForm = this.formBuilder.group({
@@ -36,6 +39,10 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.sweetAlertService.fireAlert({
+        html: '<img height="300rem" width="300rem" src="../../assets/icons/Circle Loader.gif" alt="loading">',
+        ...SPINNER_ALERT['loading'],
+      });
       this.authFacade.login(this.loginForm.value);
     } else {
       this.states['invalidAnimationStart'] =

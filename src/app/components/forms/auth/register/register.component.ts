@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FORM_ANIMATIONS } from '../../../../../assets/consts/animations/login.animations.consts';
 import { AuthFacade } from '../../../../state/auth/auth.facade';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
+import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
+import { SPINNER_ALERT } from '../../../../../assets/consts/configs/alerts-config.const';
 import {
   FormBuilder,
   FormControl,
@@ -21,7 +23,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authFacade: AuthFacade,
-    private titleService: AppTitleService
+    private titleService: AppTitleService,
+    private sweetAlertService: SweetAlertsService
   ) {
     this.titleService.setDocTitle('Signup');
     this.registerForm = this.formBuilder.group({
@@ -61,6 +64,10 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     if (this.registerForm.valid) {
+      this.sweetAlertService.fireAlert({
+        html: '<img height="300rem" width="300rem" src="../../assets/icons/Circle Loader.gif" alt="loading">',
+        ...SPINNER_ALERT['loading'],
+      });
       this.authFacade.signup(this.registerForm.value);
     } else {
       this.states['invalidAnimationStart'] =
