@@ -7,24 +7,27 @@ import {
 import { finalize } from 'rxjs';
 import { SweetAlertsService } from '../services/alerts/sweet-alerts.service';
 import { SPINNER_ALERT } from 'src/assets/consts/configs/alerts-config.const';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-  private totalRequests = 0;
-
-  constructor(private sweetAlertService: SweetAlertsService) {}
+  constructor(
+    private sweetAlertService: SweetAlertsService,
+    private router: Router
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    this.totalRequests++;
     this.sweetAlertService.fireAlert({
-      html: '<img class="icon" src="../../assets/icons/Circle Loader.gif" alt="loading">',
+      html: '<img height="300rem" width="300rem" src="../../assets/icons/Circle Loader.gif" alt="loading">',
       ...SPINNER_ALERT['loading'],
     });
 
     return next.handle(request).pipe(
       finalize(() => {
-        this.totalRequests--;
-        if (this.totalRequests === 0) {
+        Swal.close();
+        if (request.url.includes('login') || request.url.includes('signup')) {
+          this.router.navigate(['/']);
         }
       })
     );

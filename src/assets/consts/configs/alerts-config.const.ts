@@ -131,6 +131,7 @@ export const SPINNER_ALERT: { [key: string]: IAlert } = {
   loading: {
     position: 'center',
     showConfirmButton: false,
+    title: 'Please Wait...',
     ...ALERT_STYLES,
   },
 };
