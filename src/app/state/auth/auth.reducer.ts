@@ -1,5 +1,6 @@
 import { EAuthActions, authActions } from './auth.actions';
 import { IAppError } from '../../models/appError.models';
+import Swal from 'sweetalert2';
 
 export interface IAuthState {
   name: string;
@@ -20,6 +21,7 @@ export const initAuthState: IAuthState = {
 };
 
 const loginSignupSuccessCb = (state, action) => {
+  Swal.close();
   return {
     ...state,
     name: action.payload.user.name,

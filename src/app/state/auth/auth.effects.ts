@@ -41,14 +41,7 @@ export class AuthEffects {
           map((response) => {
             Swal.close();
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.sweetAlertsService.fireAlert(
-              {
-                ...AUTH_ALERTS['success'],
-                title: `Welcome Back ${response.user.name}!`,
-              },
-              this.redirectCb
-            );
-
+            this.redirectCb();
             return new LoginSuccess(response);
           }),
           catchError((error: any) => {
@@ -77,13 +70,8 @@ export class AuthEffects {
           map((response) => {
             Swal.close();
             localStorage.setItem(APP_SOCCER_JWT_KEY, response.token);
-            this.sweetAlertsService.fireAlert(
-              {
-                ...AUTH_ALERTS['success'],
-                title: `Welcome ${response.user.name}!`,
-              },
-              this.redirectCb
-            );
+            this.redirectCb();
+
             return new SignUpSuccess(response);
           }),
           catchError((error: any) => {
