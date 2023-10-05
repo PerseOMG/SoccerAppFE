@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { combineLatest, map, take, tap } from 'rxjs';
+import { combineLatest, map, skip, take, tap, withLatestFrom } from 'rxjs';
 import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
@@ -21,18 +21,10 @@ import { AppTitleService } from '../../../services/appTitle/app-title.service';
 })
 export class TournamentDetailsComponent implements OnInit, AfterViewInit {
   @ViewChildren('championshipsChart') championshipsChart: QueryList<any>;
-  tournament$ = this.tournamentsFacade
-    .selectTournamentById(this.route.params['_value']['id'])
-    .pipe(
-      tap((tournament) => {
-        if (!tournament) {
-          setTimeout(() => {
-            this.alertService.fireAlert(NO_TOURNAMENT_ALERT['error']);
-            this.router.navigate(['/']);
-          }, 1000);
-        }
-      })
-    );
+  tournament$ = this.tournamentsFacade.selectTournamentById(
+    this.route.params['_value']['id']
+  );
+
   tournamentLastChampion$ = this.tournament$.pipe(
     map(
       (tournament) =>
@@ -62,9 +54,9 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
     private alertService: SweetAlertsService,
     private titleService: AppTitleService
   ) {
-    this.tournament$.subscribe((tournament) =>
-      this.titleService.setDocTitle(tournament?.name)
-    );
+    this.tournament$.subscribe((tournament) => {
+      this.titleService.setDocTitle(tournament?.name);
+    });
     Chart.register(...registerables);
   }
 
@@ -78,27 +70,25 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
           document.getElementById('championshipsChart')
         ))?.getContext('2d');
 
-        if (tournament) {
-          this.generateChart(CHAMPIONSHIPS, {
-            ...CHAMPIONSHIPS_CHART_CONSTS,
-            data: {
-              labels: allChampions?.map((team) => `${team.name} 🏆`),
-              datasets: [
-                {
-                  backgroundColor: ['#607eaa'],
-                  borderWidth: 2,
-                  borderRadius: 50,
-                  label: `Total championships`,
-                  data: allChampions?.map(
-                    (team) => team.totalChampionships[0].value
-                  ),
-                },
-              ],
-            },
-          });
+        this.generateChart(CHAMPIONSHIPS, {
+          ...CHAMPIONSHIPS_CHART_CONSTS,
+          data: {
+            labels: allChampions?.map((team) => `${team.name} 🏆`),
+            datasets: [
+              {
+                backgroundColor: ['#607eaa'],
+                borderWidth: 2,
+                borderRadius: 50,
+                label: `Total championships`,
+                data: allChampions?.map(
+                  (team) => team.totalChampionships[0].value
+                ),
+              },
+            ],
+          },
+        });
 
-          this.tournamentsFacade.getTournamentStatistics(tournament._id);
-        }
+        this.tournamentsFacade.getTournamentStatistics(tournament._id);
       });
   }
 
