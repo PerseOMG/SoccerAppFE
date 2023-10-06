@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NoDataComponent implements OnInit {
   @Input() dataType: 'Teams' | 'Tournaments';
+  @Input() message: string;
+  @Input() title: string;
 
   constructor() {}
 

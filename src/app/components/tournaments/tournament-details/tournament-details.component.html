@@ -1,4 +1,4 @@
-<div class="tournament" *ngIf="(tournament$ |async) as tournament">
+<div class="tournament" *ngIf="(tournament$ |async) as tournament; else NoData">
     <div class="tournament-grid tournament-grid__regular">
         <div class="tournament-card tournament-card__small">
             <div class="tournament-card__small-header">
@@ -37,3 +37,8 @@
     </div>
     <app-action-button [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
 </div>
+<ng-template #NoData>
+    <div class="tournament">
+        <app-no-data [dataType]="'Tournaments'" [title]="'No Tournament Found.'" [message]="'Please Select Another Tournament'"></app-no-data>
+    </div>
+</ng-template>

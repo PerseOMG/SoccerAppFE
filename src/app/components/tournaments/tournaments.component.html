@@ -12,7 +12,7 @@
 </div>
 
 <ng-template #NoData>
-    <app-no-data [dataType]="'Tournaments'"></app-no-data>
+    <app-no-data [dataType]="'Tournaments'" [title]="'You Have No Tournaments Created Yet!'" [message]="'Please create your first tournament to start playing!'"></app-no-data>
 </ng-template>
 
 <app-action-button [redirectTo]="'tournament'" [action]="'create'"></app-action-button>

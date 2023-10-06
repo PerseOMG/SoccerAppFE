@@ -11,7 +11,7 @@
 </div>
 
 <ng-template #NoData>
-    <app-no-data [dataType]="'Teams'"></app-no-data>
+    <app-no-data [dataType]="'Teams'" [title]="'You Have No Teams Created Yet!'" [message]="'Please create your first team to start playing!'"></app-no-data>
 </ng-template>
 
 <app-action-button [redirectTo]="'team'" [action]="'create'"></app-action-button>
