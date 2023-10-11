@@ -4,7 +4,7 @@
         <div style="display: initial">
             <img class="card__action-buttons" style="margin-left: 50%;" src="../../../assets/icons/dots.svg" alt="actions" (click)="openMenu = !openMenu">
             <ul class="card__action-buttons-menu" [ngStyle]="{'display': openMenu ? 'block' : 'none' }" (mouseleave)="openMenu=! openMenu">
-                <li class="card__action-buttons-item" (click)="onEdit(tournament._id)">
+                <li class="card__action-buttons-item" (click)="onEdit(tournament.name)">
                     <span>
                   <img src="../../../assets/icons/edit.svg" alt="edit"> Edit
                 </span>
@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="card__info-container " (click)="onSelect(tournament._id)">
+    <div class="card__info-container " (click)="onSelect(tournament.name)">
         <img class="card__info-image " [src]="tournament.logo ?? '../../../../assets/icons/default-tournament-logo.svg' " [alt]="tournament.name ">
 
         <strong class="card__info-name ">{{tournament.name}}</strong>

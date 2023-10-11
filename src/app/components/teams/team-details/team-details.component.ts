@@ -126,8 +126,10 @@ export class TeamDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     private titleService: AppTitleService
   ) {
     Chart.register(...registerables);
-    this.team$.subscribe((team) => this.titleService.setDocTitle(team?.name));
-    this.teamsFacade.getTeamStatistics(this.route.snapshot.paramMap.get('id'));
+    this.team$.pipe(filter((data) => !!data)).subscribe((team) => {
+      this.titleService.setDocTitle(team?.name);
+      this.teamsFacade.getTeamStatistics(team?._id);
+    });
   }
 
   ngAfterViewInit() {

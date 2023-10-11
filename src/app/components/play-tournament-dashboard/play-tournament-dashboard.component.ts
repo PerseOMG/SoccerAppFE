@@ -20,7 +20,7 @@ export class PlayTournamentDashboardComponent
 {
   displayInfo$: BehaviorSubject<string> = new BehaviorSubject('calendar');
   teamsStatisticsData$ = this.teamsFacade.selectTeamStatistics();
-  tournament$ = this.tournamentsFacade.selectTournamentById(
+  tournament$ = this.tournamentsFacade.selectTournamentByName(
     this.route.params['_value']['id']
   );
 

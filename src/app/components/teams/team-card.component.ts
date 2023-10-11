@@ -38,7 +38,7 @@ export class TeamCardComponent implements OnInit {
   }
 
   handleTeamSelection(team: Team) {
-    this.router.navigate(['teams', team._id]);
+    this.router.navigate(['teams', team.name]);
   }
 
   onFavorite(team: Team) {
@@ -53,7 +53,7 @@ export class TeamCardComponent implements OnInit {
     this.teamsFacade.deleteTeam(id);
   }
 
-  onEdit(id: string) {
-    this.router.navigate(['edit', 'team', id]);
+  onEdit(name: string) {
+    this.router.navigate(['edit', 'team', name]);
   }
 }

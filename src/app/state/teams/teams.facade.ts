@@ -14,10 +14,12 @@ export class TeamsFacade {
   // Selectors
   selectAllTeams = () => this.store.select(teamsSelectors.allTeams);
 
-  getTeamSelected = (id: string) =>
+  getTeamSelected = (name: string) =>
     this.store.select(teamsSelectors.allTeams).pipe(
       map((teams) => {
-        const teamsFilter = teams.filter((team) => team._id === id);
+        const teamsFilter = teams.filter(
+          (team) => team.name.toLowerCase() === name.toLowerCase()
+        );
         return teamsFilter[0];
       })
     );

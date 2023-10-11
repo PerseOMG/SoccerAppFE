@@ -35,7 +35,7 @@ export class EditTournamentComponent implements OnInit {
   playoffQuantityOptions = TOURNAMENTS_QUANTITY_OPTIONS;
   winnerDefinitionOptions = TOURNAMENTS_DEFINITION_OPTIONS;
   tournamentValues$ = combineLatest([this.id$]).pipe(
-    switchMap(([id]) => this.tournamentsFacade.selectTournamentById(id)),
+    switchMap(([id]) => this.tournamentsFacade.selectTournamentByName(id)),
     map((tournament) => tournament)
   );
 

@@ -13,8 +13,10 @@ export class TournamentsFacade {
   selectAllTournaments = () =>
     this.store.select(tournamentsSelectors.allTournaments);
 
-  selectTournamentById = (tournamentId: string) =>
-    this.store.select(tournamentsSelectors.selectTournamentById(tournamentId));
+  selectTournamentByName = (tournamentId: string) =>
+    this.store.select(
+      tournamentsSelectors.selectTournamentByName(tournamentId)
+    );
 
   isTournamentSelected = () =>
     this.store.select(tournamentsSelectors.isTournamentSelected);

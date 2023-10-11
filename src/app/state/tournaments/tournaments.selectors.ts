@@ -18,10 +18,11 @@ export const tournamentSelected = createSelector(
   (state: AppState) => state.tournaments.tournamentSelected
 );
 
-export const selectTournamentById = (tournamentId: string) =>
+export const selectTournamentByName = (tournamentName: string) =>
   createSelector(selectStore, (state: AppState) =>
     state.tournaments?.tournaments?.find(
-      (tournament) => tournament._id === tournamentId
+      (tournament) =>
+        tournament.name.toLowerCase() === tournamentName.toLowerCase()
     )
   );
 
@@ -29,5 +30,5 @@ export const tournamentsSelectors = {
   allTournaments,
   isTournamentSelected,
   tournamentSelected,
-  selectTournamentById,
+  selectTournamentByName,
 };

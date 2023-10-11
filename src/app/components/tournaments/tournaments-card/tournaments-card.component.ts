@@ -20,15 +20,15 @@ export class TournamentsCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onEdit(id: string) {
-    this.router.navigate(['edit', 'tournament', id]);
+  onEdit(name: string) {
+    this.router.navigate(['edit', 'tournament', name]);
   }
 
   onDelete(id: string) {
     this.tournamentsFacade.deleteTournament(id);
   }
 
-  onSelect(id: string) {
-    this.router.navigate(['/tournamentDetails', id]);
+  onSelect(name: string) {
+    this.router.navigate(['/tournamentDetails', name]);
   }
 }

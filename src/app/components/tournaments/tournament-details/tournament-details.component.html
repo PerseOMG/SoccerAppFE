@@ -18,7 +18,7 @@
 
     <div class="tournament-flex tournament-carousel">
         <div *ngFor="let team of tournament.teams">
-            <div (click)="onClickTeam(team._id)" class="tournament-card tournament-card__small">
+            <div (click)="onClickTeam(team.name)" class="tournament-card tournament-card__small">
                 <img class="tournament-card__small-team-image" [src]="team.logo" [alt]="team.name">
                 <h3 class="tournament-card__small-name">{{team.name}}</h3>
                 <div *ngFor="let championship of team.totalChampionships">

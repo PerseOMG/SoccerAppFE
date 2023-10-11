@@ -21,7 +21,7 @@ import { AppTitleService } from '../../../services/appTitle/app-title.service';
 export class TournamentDetailsComponent implements OnInit, AfterViewInit {
   @ViewChildren('championshipsChart') championshipsChart: QueryList<any>;
   tournament$ = this.tournamentsFacade
-    .selectTournamentById(this.route.params['_value']['id'])
+    .selectTournamentByName(this.route.params['_value']['id'])
     .pipe(filter((data) => !!data));
 
   tournamentLastChampion$ = this.tournament$.pipe(
@@ -95,7 +95,7 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
     new Chart(chartElement, config);
   }
 
-  onClickTeam(id: string) {
-    this.router.navigate(['/', 'teams', id]);
+  onClickTeam(name: string) {
+    this.router.navigate(['/', 'teams', name]);
   }
 }
