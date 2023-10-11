@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
+import { Observable, combineLatest, map, of, switchMap, take } from 'rxjs';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import { TeamsFacade } from '../../../../state/teams/teams.facade';
 import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
@@ -64,8 +64,8 @@ export class EditTeamComponent implements OnInit {
   }
 
   onSubmit() {
-    this.id$.subscribe((id) => {
-      this.teamsFacade.editTeam(this.editTeamForm.value, id);
+    this.teamValues$.pipe(take(1)).subscribe((team) => {
+      this.teamsFacade.editTeam(this.editTeamForm.value, team._id);
     });
   }
 

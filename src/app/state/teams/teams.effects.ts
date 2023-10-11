@@ -83,12 +83,16 @@ export class TeamsEffects {
       switchMap((action) =>
         this.teamsService.createTeam(action.payload).pipe(
           map(() => {
-            this.alertService.fireAlert(TEAMS_ALERTS['success']);
-            this.router.navigate(['/teams']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['success']);
+              this.router.navigate(['/teams']);
+            }, 1000);
             return new GetTeams();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
@@ -108,12 +112,16 @@ export class TeamsEffects {
       switchMap((action) =>
         this.teamsService.setTeamAsFavorite(action.payload).pipe(
           map((response) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['favorite']);
-            this.router.navigate(['/teams']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['favorite']);
+              this.router.navigate(['/teams']);
+            }, 1000);
             return new GetTeams();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
@@ -133,12 +141,16 @@ export class TeamsEffects {
       switchMap((action) =>
         this.teamsService.deleteTeam(action.payload).pipe(
           map(() => {
-            this.alertService.fireAlert(TEAMS_ALERTS['delete']);
-            this.router.navigate(['/teams']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['delete']);
+              this.router.navigate(['/teams']);
+            }, 1000);
             return new GetTeams();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
@@ -186,11 +198,13 @@ export class TeamsEffects {
         };
 
         return this.teamsService.updateTeamModel(updatedTeam).pipe(
-          map((response) => {
+          map(() => {
             return new GetTeams();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
@@ -213,7 +227,9 @@ export class TeamsEffects {
             return new NoAction();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
@@ -233,13 +249,21 @@ export class TeamsEffects {
       switchMap((action) => {
         return this.teamsService.editTeam(action.payload).pipe(
           map((response) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['editSuccess'], () => {
-              this.router.navigate(['/', 'teams', `${response.data.team._id}`]);
-            });
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['editSuccess'], () => {
+                this.router.navigate([
+                  '/',
+                  'teams',
+                  `${response.data.team.name}`,
+                ]);
+              });
+            }, 1000);
             return new GetTeams();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+            }, 1000);
             return of(
               new TeamsFailure({
                 code: error.status,
