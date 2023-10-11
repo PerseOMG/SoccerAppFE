@@ -39,8 +39,10 @@ export class TournamentsEffects {
       switchMap((action) =>
         this.tournamentsService.createTournament(action.payload).pipe(
           map((response) => {
-            this.alertService.fireAlert(TOURNAMENT_ALERTS['success']);
-            this.router.navigate(['/']);
+            setTimeout(() => {
+              this.alertService.fireAlert(TOURNAMENT_ALERTS['success']);
+              this.router.navigate(['/']);
+            }, 1000);
             return new GetTournaments();
           }),
           catchError((error: any) => {
@@ -139,12 +141,14 @@ export class TournamentsEffects {
       switchMap((action) =>
         this.tournamentsService.deleteTournament(action.payload).pipe(
           map(() => {
-            this.alertService.fireAlert(
-              TOURNAMENT_ALERTS['editSuccess'],
-              () => {
-                this.router.navigate(['/']);
-              }
-            );
+            setTimeout(() => {
+              this.alertService.fireAlert(
+                TOURNAMENT_ALERTS['editSuccess'],
+                () => {
+                  this.router.navigate(['/']);
+                }
+              );
+            }, 1000);
             return new GetTournaments();
           }),
           catchError((error) => {
@@ -173,12 +177,14 @@ export class TournamentsEffects {
           )
           .pipe(
             map(() => {
-              this.alertService.fireAlert(
-                TOURNAMENT_ALERTS['editSuccess'],
-                () => {
-                  this.router.navigate(['/']);
-                }
-              );
+              setTimeout(() => {
+                this.alertService.fireAlert(
+                  TOURNAMENT_ALERTS['editSuccess'],
+                  () => {
+                    this.router.navigate(['/']);
+                  }
+                );
+              }, 1000);
               this.teamsFacade.fetchAllTeams();
               return new GetTournaments();
             }),

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, map, switchMap } from 'rxjs';
+import { combineLatest, map, switchMap, take } from 'rxjs';
 import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import { SweetAlertsService } from '../../../../services/alerts/sweet-alerts.service';
@@ -101,9 +101,14 @@ export class EditTournamentComponent implements OnInit {
         teams: this.editTournamentForm.get('teams').value,
         logo: this.editTournamentForm.get('logo').value,
       };
-      this.id$.subscribe((id) =>
-        this.tournamentsFacade.editTournament(tournament, id)
-      );
+      this.tournamentValues$
+        .pipe(take(1))
+        .subscribe((unEditedTournament) =>
+          this.tournamentsFacade.editTournament(
+            tournament,
+            unEditedTournament._id
+          )
+        );
     } else {
       this.alertService.fireAlert(FORM_ALERTS['teamsAmountError']);
     }

@@ -35,7 +35,7 @@
     <div class="tournament-card tournament-canvas">
         <canvas #championshipsChart id="championshipsChart"></canvas>
     </div>
-    <app-action-button [action]="'start'" [redirectTo]="tournament?._id"></app-action-button>
+    <app-action-button [action]="'start'" [redirectTo]="tournament?.name"></app-action-button>
 </div>
 <ng-template #NoData>
     <div class="tournament">
