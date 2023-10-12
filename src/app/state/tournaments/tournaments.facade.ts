@@ -37,12 +37,12 @@ export class TournamentsFacade {
     );
 
   updateTournamentPositionTable = (
-    tournamentId: string,
+    tournamentName: string,
     positionTable: IPositionTableData[]
   ) =>
     this.store.dispatch(
       new tournamentsActions.UpdateTournamentPositionTable({
-        tournamentId,
+        tournamentName,
         positionTable,
       })
     );

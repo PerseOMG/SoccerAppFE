@@ -56,7 +56,7 @@ export class UpdateTournamentPositionTable implements Action {
   public readonly type = ETournamentsActions.UPDATE_TOURNAMENT_POSITION_TABLE;
   constructor(
     public payload: {
-      tournamentId: string;
+      tournamentName: string;
       positionTable: IPositionTableData[];
     }
   ) {}

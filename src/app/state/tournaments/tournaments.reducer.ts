@@ -59,7 +59,7 @@ export function tournamentsReducer(
       return {
         ...state,
         tournaments: state.tournaments.map((tournament) => {
-          if (tournament._id === action.payload.tournamentId) {
+          if (tournament.name === action.payload.tournamentName) {
             return {
               ...tournament,
               positionTable: action.payload.positionTable,
