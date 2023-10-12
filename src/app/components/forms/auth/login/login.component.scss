@@ -73,3 +73,16 @@
     width: 100%;
   }
 }
+
+@media (max-height: $mobile) and (orientation: landscape) {
+  .main-container {
+    height: 50% !important;
+  }
+  .user-image {
+    display: none;
+  }
+  .card-container {
+    margin-top: 2%;
+    width: 100%;
+  }
+}

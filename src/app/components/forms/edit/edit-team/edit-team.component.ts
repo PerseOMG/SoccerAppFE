@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, combineLatest, map, of, switchMap, take } from 'rxjs';
+import { combineLatest, map, switchMap, take } from 'rxjs';
 import { AppTitleService } from '../../../../services/appTitle/app-title.service';
 import { TeamsFacade } from '../../../../state/teams/teams.facade';
 import { TournamentsFacade } from '../../../../state/tournaments/tournaments.facade';
