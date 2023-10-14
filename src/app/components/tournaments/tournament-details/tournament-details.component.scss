@@ -1,63 +1,63 @@
 @import "../../../../styles.scss";
 .tournament {
-  font-family: $regular;
-  margin-top: 10%;
-  &-grid {
-    display: grid;
-    justify-content: center;
-    &__regular {
-      grid-template-columns: repeat(2, 1fr);
+    font-family: $regular;
+    margin-top: 5%;
+    &-grid {
+        display: grid;
+        justify-content: center;
+        &__regular {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
-  }
-  &-flex {
-    display: flex;
-  }
-  &-carousel {
-    overflow-x: auto;
-    height: 300px;
-    width: 100%;
-    justify-content: space-between;
-  }
-  &-card {
-    text-align: center;
-    background-color: $color-secondary;
-    cursor: pointer;
-    &__small {
-      color: $color-text-secondary;
-      margin: 1rem;
-      padding: 0.5rem;
-      border-radius: 5%;
-      height: 80%;
-      &-team-image {
-        height: 100px;
-        width: 100px;
-        mix-blend-mode: multiply;
-        padding: 1rem;
-      }
-      &-image {
-        border-radius: 50%;
-        max-width: 150px;
-        max-height: 150px;
-      }
-      &-trophy {
-        height: 40px;
-        width: 40px;
-      }
-      &-name {
-        font-weight: bolder;
-        margin: 0;
-      }
+    &-flex {
+        display: flex;
     }
-  }
-  &-canvas {
-    margin: 3rem 0;
-    border-radius: 100px;
-    padding: 50px;
-  }
+    &-carousel {
+        overflow-x: auto;
+        height: 300px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    &-card {
+        text-align: center;
+        background-color: $color-secondary;
+        cursor: pointer;
+        &__small {
+            color: $color-text-secondary;
+            margin: 1rem;
+            padding: 0.5rem;
+            border-radius: 5%;
+            height: 80%;
+            &-team-image {
+                height: 100px;
+                width: 100px;
+                mix-blend-mode: multiply;
+                padding: 1rem;
+            }
+            &-image {
+                border-radius: 50%;
+                max-width: 150px;
+                max-height: 150px;
+            }
+            &-trophy {
+                height: 40px;
+                width: 40px;
+            }
+            &-name {
+                font-weight: bolder;
+                margin: 0;
+            }
+        }
+    }
+    &-canvas {
+        margin: 3rem 0;
+        border-radius: 100px;
+        padding: 50px;
+    }
 }
 
 @media (max-width: $mobile) {
-  .tournament-canvas {
-    display: none;
-  }
+    .tournament-canvas {
+        display: none;
+    }
 }
