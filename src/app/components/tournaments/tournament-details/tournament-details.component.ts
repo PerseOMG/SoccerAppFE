@@ -8,7 +8,6 @@ import {
 import { combineLatest, filter, map, take } from 'rxjs';
 import { TournamentsFacade } from '../../../state/tournaments/tournaments.facade';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SweetAlertsService } from '../../../services/alerts/sweet-alerts.service';
 import { registerables, Chart } from 'chart.js';
 import { CHAMPIONSHIPS_CHART_CONSTS } from 'src/assets/consts/charts-data/championships.chart.consts';
 import { AppTitleService } from '../../../services/appTitle/app-title.service';
@@ -50,7 +49,6 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
     private tournamentsFacade: TournamentsFacade,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: SweetAlertsService,
     private titleService: AppTitleService
   ) {
     this.tournament$.subscribe((tournament) => {
@@ -86,7 +84,6 @@ export class TournamentDetailsComponent implements OnInit, AfterViewInit {
             ],
           },
         });
-
         this.tournamentsFacade.getTournamentStatistics(tournament._id);
       });
   }

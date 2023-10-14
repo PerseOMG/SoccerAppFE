@@ -1,5 +1,10 @@
-<div class="tournament" *ngIf="(tournament$ |async) as tournament; else NoData">
-    <div class="tournament-grid tournament-grid__regular">
+<div class="tournament" *ngIf="!(tournament$ | async)">
+    <app-no-data [dataType]="'Tournaments'" [title]="'No Tournament Found.'" [message]="'Please Select Another Tournament'"></app-no-data>
+</div>
+
+
+<div class="tournament" [class.hidden]="!(tournament$ | async)">
+    <div class="tournament-grid tournament-grid__regular" *ngIf="(tournament$ |async) as tournament;">
         <div class="tournament-card tournament-card__small">
             <div class="tournament-card__small-header">
                 <h2 class="tournament-card__small-name">{{tournament.name}}</h2>
@@ -16,7 +21,7 @@
     </div>
 
 
-    <div class="tournament-flex tournament-carousel">
+    <div class="tournament-flex tournament-carousel" *ngIf="(tournament$ |async) as tournament;">
         <div *ngFor="let team of tournament.teams">
             <div (click)="onClickTeam(team.name)" class="tournament-card tournament-card__small">
                 <img class="tournament-card__small-team-image" [src]="team.logo" [alt]="team.name">
@@ -32,13 +37,8 @@
         </div>
 
     </div>
-    <div class="tournament-card tournament-canvas">
+    <div class="tournament-card tournament-canvas" [ngStyle]="{'display': (tournament$ |async) ? 'block' : 'none'}">
         <canvas #championshipsChart id="championshipsChart"></canvas>
     </div>
-    <app-action-button [action]="'start'" [redirectTo]="tournament?.name"></app-action-button>
+    <app-action-button [action]="'start'" [redirectTo]="(tournament$ |async)?.name"></app-action-button>
 </div>
-<ng-template #NoData>
-    <div class="tournament">
-        <app-no-data [dataType]="'Tournaments'" [title]="'No Tournament Found.'" [message]="'Please Select Another Tournament'"></app-no-data>
-    </div>
-</ng-template>
