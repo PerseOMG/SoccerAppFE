@@ -91,7 +91,10 @@ export class TeamsEffects {
           }),
           catchError((error: any) => {
             setTimeout(() => {
-              this.alertService.fireAlert(TEAMS_ALERTS['error']);
+              this.alertService.fireAlert({
+                ...TEAMS_ALERTS['error'],
+                title: error.error.message,
+              });
             }, 1000);
             return of(
               new TeamsFailure({

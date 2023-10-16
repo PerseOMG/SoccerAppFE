@@ -46,9 +46,11 @@ export class TournamentsEffects {
             return new GetTournaments();
           }),
           catchError((error: any) => {
-            this.alertService.fireAlert({
-              ...TOURNAMENT_ALERTS['error'],
-              text: error.error.message,
+            setTimeout(() => {
+              this.alertService.fireAlert({
+                ...TOURNAMENT_ALERTS['error'],
+                text: error.error.message,
+              });
             });
 
             return of(
