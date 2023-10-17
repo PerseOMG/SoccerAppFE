@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, BehaviorSubject, observable, take } from 'rxjs';
+import { Observable, BehaviorSubject, take, map, filter } from 'rxjs';
 import {
   FormGroup,
   FormBuilder,
@@ -29,7 +29,15 @@ export class CreateFormComponent implements OnInit {
   model: 'team' | 'tournament';
   filterFields: IFormFields[];
   step = 1;
-  tournaments$ = this.tournamentsFacade.selectAllTournaments();
+  tournaments$ = this.tournamentsFacade.selectAllTournaments().pipe(
+    map((tournament) =>
+      tournament?.tournaments?.map((tournament) =>
+        tournament?.teams?.length < 20 ? tournament : undefined
+      )
+    ),
+    filter((tournaments) => !!tournaments),
+    map((tournaments) => tournaments.filter((tournament) => !!tournament))
+  );
   selectOptions: BehaviorSubject<{ label: string; value: string }[]> =
     new BehaviorSubject([]);
 
@@ -57,7 +65,7 @@ export class CreateFormComponent implements OnInit {
       }
       if (this.model === 'team') {
         this.tournaments$.subscribe((tournaments) => {
-          tournaments.tournaments.forEach((tournament) => {
+          tournaments.forEach((tournament) => {
             this.selectOptions.next([
               ...this.selectOptions.value,
               {
