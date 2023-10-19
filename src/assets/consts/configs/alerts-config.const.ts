@@ -132,6 +132,9 @@ export const SPINNER_ALERT: { [key: string]: IAlert } = {
     position: 'center',
     showConfirmButton: false,
     title: 'Please Wait...',
+    allowOutsideClick: false,
+    allowEnterKey: false,
+    allowEscapeKey: false,
     ...ALERT_STYLES,
   },
 };
