@@ -18,7 +18,7 @@ export const TOURNAMENT_ALERTS: { [key: string]: IAlert } = {
   noTeams: {
     icon: 'info',
     title: "Seems like you don't have enough teams registered yet. ",
-    text: 'Please create at least 3 teams first. ',
+    text: 'Please create at least 3 teams first without tournaments assigned. ',
     allowOutsideClick: false,
     allowEscapeKey: false,
     allowEnterKey: false,

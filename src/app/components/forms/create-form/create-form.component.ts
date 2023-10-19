@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, BehaviorSubject, take, map, filter } from 'rxjs';
+import {
+  Observable,
+  BehaviorSubject,
+  take,
+  map,
+  filter,
+  pipe,
+  tap,
+} from 'rxjs';
 import {
   FormGroup,
   FormBuilder,
@@ -78,14 +86,23 @@ export class CreateFormComponent implements OnInit {
       }
       if (this.model === 'tournament') {
         this.dragAndDropItems = this.teamFacade.selectAllTeams();
-        this.dragAndDropItems.pipe(take(1)).subscribe((teams) => {
-          if (teams.length < 3) {
-            this.sweetAlertService.fireAlert(
-              TOURNAMENT_ALERTS['noTeams'],
-              this.router.navigate(['/teams'])
-            );
-          }
-        });
+        this.dragAndDropItems
+          .pipe(
+            take(1),
+            map((teams) =>
+              teams.filter((team) => {
+                team.tournaments.length > 0;
+              })
+            )
+          )
+          .subscribe((teams) => {
+            if (teams.length < 3) {
+              this.sweetAlertService.fireAlert(
+                TOURNAMENT_ALERTS['noTeams'],
+                this.router.navigate(['/teams'])
+              );
+            }
+          });
       }
     });
   }
