@@ -47,7 +47,10 @@ export class AuthEffects {
           catchError((error: any) => {
             this.sweetAlertsService.fireAlert({
               ...AUTH_ALERTS['error'],
-              title: `${error.error.message}`,
+              title: `${
+                error.error.message ??
+                'An Error Ocurred. Please Try Again Later.'
+              }`,
             });
             return of(
               new LoginFailure({
